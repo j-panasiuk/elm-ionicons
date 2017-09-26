@@ -19,22 +19,22 @@ main =
 
 viewIcon : (Int -> Color -> Html msg) -> Html msg
 viewIcon icon =
-    icon 32 (Color.hsl 1 1 1)
+    icon 48 (Color.hsl 1 1 1)
 
 
 viewAndroidIcon : (Int -> Color -> Html msg) -> Html msg
 viewAndroidIcon icon =
-    icon 32 (Color.hsl 33.3 0.7 0.8)
+    icon 48 (Color.hsl 33.3 0.7 0.8)
 
 
 viewIOSIcon : (Int -> Color -> Html msg) -> Html msg
 viewIOSIcon icon =
-    icon 32 (Color.hsl 66.7 0.7 0.8)
+    icon 48 (Color.hsl 66.7 0.7 0.8)
 
 
 viewSocialIcon : (Int -> Color -> Html msg) -> Html msg
 viewSocialIcon icon =
-    icon 32 (Color.hsl 0 0.7 0.8)
+    icon 48 (Color.hsl 0 0.7 0.8)
 
 
 ionicons : List (Int -> Color -> Html msg)
