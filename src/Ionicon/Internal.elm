@@ -1,122 +1,184 @@
-module Ionicon.Internal exposing (..)
+module Ionicon.Internal exposing (c3, e4, g, p, p1, pg, pg1, pgs, pl1, ps, r, r4)
 
 import Color exposing (Color)
 import Html exposing (Html)
-import Svg
+import Svg exposing (Svg)
 import Svg.Attributes as A
 
 
-group__ : List (Color -> Html msg) -> Int -> Color -> Html msg
-group__ elements size color =
+-- CONSTRUCT ICONS
+
+
+{-| Build icon from svg path shape
+-}
+p : String -> Int -> Color -> Html msg
+p d size color =
     svg size
-        [ Svg.g [] (List.map (\el -> el color) elements)
+        [ Svg.path
+            [ A.d d
+            , A.fill (fill color)
+            ]
+            []
         ]
 
 
-polygon__ : String -> Color -> Html msg
-polygon__ points color =
-    Svg.polygon
-        [ A.points points
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
-
-
-path__ : String -> Color -> Html msg
-path__ d color =
-    Svg.path
-        [ A.d d
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
-
-
-circle__ : String -> String -> String -> Color -> Html msg
-circle__ cx cy r color =
-    Svg.circle
-        [ A.cx cx
-        , A.cy cy
-        , A.r r
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
-
-
-ellipse__ : String -> String -> String -> String -> Color -> Html msg
-ellipse__ cx cy rx ry color =
-    Svg.ellipse
-        [ A.cx cx
-        , A.cy cy
-        , A.rx rx
-        , A.ry ry
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
-
-
-rect__ : String -> String -> String -> String -> Color -> Html msg
-rect__ x y width height color =
-    Svg.rect
-        [ A.x x
-        , A.y y
-        , A.width width
-        , A.height height
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
-
-
-polyline__ : String -> Color -> Html msg
-polyline__ points color =
-    Svg.polyline
-        [ A.points points
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
-
-
-path : String -> Int -> Color -> Html msg
-path shape size color =
+{-| Build icon from a bunch of path shapes
+-}
+ps : List String -> Int -> Color -> Html msg
+ps ds size color =
     svg size
-        [ svgPath shape color
+        [ Svg.g [] <|
+            List.map
+                (\d ->
+                    Svg.path
+                        [ A.d d
+                        , A.fill (fill color)
+                        ]
+                        []
+                )
+                ds
         ]
 
 
-paths : List String -> Int -> Color -> Html msg
-paths shapes size color =
+{-| Build icon from svg polygon points
+-}
+pg : String -> Int -> Color -> Html msg
+pg points size color =
     svg size
-        [ Svg.g [] (List.map (\shape -> svgPath shape color) shapes)
+        [ Svg.polygon
+            [ A.points points
+            , A.fill (fill color)
+            ]
+            []
         ]
 
 
-polygon : String -> Int -> Color -> Html msg
-polygon points size color =
+{-| Build icon from a bunch of polygon point groups
+-}
+pgs : List String -> Int -> Color -> Html msg
+pgs groupsOfPoints size color =
     svg size
-        [ svgPolygon points color
+        [ Svg.g [] <|
+            List.map
+                (\points ->
+                    Svg.polygon
+                        [ A.points points
+                        , A.fill (fill color)
+                        ]
+                        []
+                )
+                groupsOfPoints
         ]
 
 
-polygons : List String -> Int -> Color -> Html msg
-polygons group size color =
-    svg size
-        [ Svg.g [] (List.map (\points -> svgPolygon points color) group)
-        ]
-
-
-rect : String -> String -> String -> String -> Int -> Color -> Html msg
-rect x y width height size color =
+{-| Build icon from svg rectangle params
+-}
+r : String -> String -> String -> String -> Int -> Color -> Html msg
+r x y width height size color =
     svg size
         [ Svg.rect
             [ A.x x
             , A.y y
             , A.width width
             , A.height height
-            , A.fill (toRgbaString (Color.toRgb color))
+            , A.fill (fill color)
             ]
             []
         ]
 
 
+{-| Build icon from a bunch of separate parts
+-}
+g : List (Color -> Html msg) -> Int -> Color -> Html msg
+g elements size color =
+    svg size
+        [ Svg.g [] (List.map (\el -> el color) elements)
+        ]
+
+
+
+-- ICON PARTS
+
+
+{-| Icon part - path
+-}
+p1 : String -> Color -> Html msg
+p1 d color =
+    Svg.path
+        [ A.d d
+        , A.fill (fill color)
+        ]
+        []
+
+
+{-| Icon part - polygon
+-}
+pg1 : String -> Color -> Html msg
+pg1 points color =
+    Svg.polygon
+        [ A.points points
+        , A.fill (fill color)
+        ]
+        []
+
+
+{-| Icon part - polyline
+-}
+pl1 : String -> Color -> Html msg
+pl1 points color =
+    Svg.polyline
+        [ A.points points
+        , A.fill (fill color)
+        ]
+        []
+
+
+{-| Icon part - circle
+-}
+c3 : String -> String -> String -> Color -> Html msg
+c3 cx cy r color =
+    Svg.circle
+        [ A.cx cx
+        , A.cy cy
+        , A.r r
+        , A.fill (fill color)
+        ]
+        []
+
+
+{-| Icon part - ellipse
+-}
+e4 : String -> String -> String -> String -> Color -> Html msg
+e4 cx cy rx ry color =
+    Svg.ellipse
+        [ A.cx cx
+        , A.cy cy
+        , A.rx rx
+        , A.ry ry
+        , A.fill (fill color)
+        ]
+        []
+
+
+{-| Icon part - rect
+-}
+r4 : String -> String -> String -> String -> Color -> Html msg
+r4 x y width height color =
+    Svg.rect
+        [ A.x x
+        , A.y y
+        , A.width width
+        , A.height height
+        , A.fill (fill color)
+        ]
+        []
+
+
+
+-- HELPERS
+
+
+svg : Int -> List (Svg msg) -> Html msg
 svg size =
     Svg.svg
         [ A.version "1.1"
@@ -129,20 +191,9 @@ svg size =
         ]
 
 
-svgPath shape color =
-    Svg.path
-        [ A.d shape
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
-
-
-svgPolygon points color =
-    Svg.polygon
-        [ A.points points
-        , A.fill (toRgbaString (Color.toRgb color))
-        ]
-        []
+fill : Color -> String
+fill =
+    toRgbaString << Color.toRgb
 
 
 toRgbaString : { red : Int, green : Int, blue : Int, alpha : Float } -> String
