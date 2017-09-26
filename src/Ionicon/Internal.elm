@@ -1,4 +1,4 @@
-module Ionicon.Internal exposing (c3, e4, g, p, p1, pg, pg1, pgs, pl1, ps, r, r4)
+module Ionicon.Internal exposing (c3, e4, g, p, p1, pg, pg1, pgs, pl1, ps, pst, pt, r, r4, r4t)
 
 import Color exposing (Color)
 import Html exposing (Html)
@@ -97,6 +97,43 @@ g elements size color =
 
 
 
+-- COSTRUCT + TRANSFORM ICONS
+
+
+{-| Build icon from transformed path
+-}
+pt : String -> String -> Int -> Color -> Html msg
+pt d transform size color =
+    svg size
+        [ Svg.path
+            [ A.d d
+            , A.transform transform
+            , A.fill (fill color)
+            ]
+            []
+        ]
+
+
+{-| Build icon from a bunch of transformed paths
+-}
+pst : List String -> String -> Int -> Color -> Html msg
+pst ds transform size color =
+    svg size
+        [ Svg.g [] <|
+            List.map
+                (\d ->
+                    Svg.path
+                        [ A.d d
+                        , A.transform transform
+                        , A.fill (fill color)
+                        ]
+                        []
+                )
+                ds
+        ]
+
+
+
 -- ICON PARTS
 
 
@@ -169,6 +206,21 @@ r4 x y width height color =
         , A.y y
         , A.width width
         , A.height height
+        , A.fill (fill color)
+        ]
+        []
+
+
+{-| Icon part - rect with transform
+-}
+r4t : String -> String -> String -> String -> String -> Color -> Html msg
+r4t x y width height transform color =
+    Svg.rect
+        [ A.x x
+        , A.y y
+        , A.width width
+        , A.height height
+        , A.transform transform
         , A.fill (fill color)
         ]
         []
