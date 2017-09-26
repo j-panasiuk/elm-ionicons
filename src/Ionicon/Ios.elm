@@ -2,7 +2,7 @@ module Ionicon.Ios exposing (..)
 
 import Color exposing (Color)
 import Html exposing (Html)
-import Ionicon.Internal exposing (c3, e4, g, p, p1, pg, pg1, pgs, pl1, ps, pst, pt, r, r4, r4t)
+import Ionicon.Internal exposing (c3, g, p, p1, pg, pg1, pgs, pl1, ps, r4, r4t)
 
 
 alarmOutline : Int -> Color -> Html msg

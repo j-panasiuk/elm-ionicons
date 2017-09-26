@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Color exposing (Color)
 import Html exposing (Html)
