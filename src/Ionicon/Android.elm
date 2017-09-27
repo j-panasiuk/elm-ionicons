@@ -135,23 +135,134 @@ module Ionicon.Android
 
 # Icons
 
-@docs add, addCircle,
-alarmClock, alert, apps, archive, arrowBack, arrowDown, arrowDropdown,
-arrowDropdownCircle, arrowDropleft, arrowDropleftCircle, arrowDropright,
-arrowDroprightCircle, arrowDropup, arrowDropupCircle, arrowForward, arrowUp, attach,
-bar, bicycle, boat, bookmark, bulb, bus, calendar, call, camera, cancel, car, cart, chat,
-checkbox, checkboxBlank, checkboxOutline, checkboxOutlineBlank, checkmarkCircle,
-clipboard, close, cloud, cloudCircle, cloudDone, cloudOutline, colorPalette, compass,
-contact, contacts, contract, create, delete, desktop, document, done, doneAll, download,
-drafts, exit, expand, favorite, favoriteOutline, film, folder, folderOpen, funnel, globe,
-hand, hangout, happy, home, image, laptop, list, locate, lock, mail, map, menu, microphone,
-microphoneOff, moreHorizontal, moreVertical, navigate, notifications,
-notificationsNone, notificationsOff, open, options, people, person, personAdd,
-phoneLandscape, phonePortrait, pin, plane, playstore, print, radioButtonOff,
-radioButtonOn, refresh, remove, removeCircle, restaurant, sad, search, send, settings,
-share, shareAlt, star, starHalf, starOutline, stopwatch, subway, sunny, sync, textsms,
-time, train, unlock, upload, volumeDown, volumeMute, volumeOff, volumeUp, walk, warning,
-watch, wifi
+@docs add
+@docs addCircle
+@docs alarmClock
+@docs alert
+@docs apps
+@docs archive
+@docs arrowBack
+@docs arrowDown
+@docs arrowDropdown
+@docs arrowDropdownCircle
+@docs arrowDropleft
+@docs arrowDropleftCircle
+@docs arrowDropright
+@docs arrowDroprightCircle
+@docs arrowDropup
+@docs arrowDropupCircle
+@docs arrowForward
+@docs arrowUp
+@docs attach
+@docs bar
+@docs bicycle
+@docs boat
+@docs bookmark
+@docs bulb
+@docs bus
+@docs calendar
+@docs call
+@docs camera
+@docs cancel
+@docs car
+@docs cart
+@docs chat
+@docs checkbox
+@docs checkboxBlank
+@docs checkboxOutline
+@docs checkboxOutlineBlank
+@docs checkmarkCircle
+@docs clipboard
+@docs close
+@docs cloud
+@docs cloudCircle
+@docs cloudDone
+@docs cloudOutline
+@docs colorPalette
+@docs compass
+@docs contact
+@docs contacts
+@docs contract
+@docs create
+@docs delete
+@docs desktop
+@docs document
+@docs done
+@docs doneAll
+@docs download
+@docs drafts
+@docs exit
+@docs expand
+@docs favorite
+@docs favoriteOutline
+@docs film
+@docs folder
+@docs folderOpen
+@docs funnel
+@docs globe
+@docs hand
+@docs hangout
+@docs happy
+@docs home
+@docs image
+@docs laptop
+@docs list
+@docs locate
+@docs lock
+@docs mail
+@docs map
+@docs menu
+@docs microphone
+@docs microphoneOff
+@docs moreHorizontal
+@docs moreVertical
+@docs navigate
+@docs notifications
+@docs notificationsNone
+@docs notificationsOff
+@docs open
+@docs options
+@docs people
+@docs person
+@docs personAdd
+@docs phoneLandscape
+@docs phonePortrait
+@docs pin
+@docs plane
+@docs playstore
+@docs print
+@docs radioButtonOff
+@docs radioButtonOn
+@docs refresh
+@docs remove
+@docs removeCircle
+@docs restaurant
+@docs sad
+@docs search
+@docs send
+@docs settings
+@docs share
+@docs shareAlt
+@docs star
+@docs starHalf
+@docs starOutline
+@docs stopwatch
+@docs subway
+@docs sunny
+@docs sync
+@docs textsms
+@docs time
+@docs train
+@docs unlock
+@docs upload
+@docs volumeDown
+@docs volumeMute
+@docs volumeOff
+@docs volumeUp
+@docs walk
+@docs warning
+@docs watch
+@docs wifi
 
 -}
 

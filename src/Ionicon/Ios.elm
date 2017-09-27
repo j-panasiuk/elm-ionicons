@@ -276,48 +276,275 @@ module Ionicon.Ios
 
 # Icons
 
-@docs alarm,
-alarmOutline, albums, albumsOutline, americanfootball, americanfootballOutline,
-analytics, analyticsOutline, arrowBack, arrowDown, arrowForward, arrowLeft, arrowRight,
-arrowThinDown, arrowThinLeft, arrowThinRight, arrowThinUp, arrowUp, at, atOutline,
-barcode, barcodeOutline, baseball, baseballOutline, basketball, basketballOutline,
-bell, bellOutline, body, bodyOutline, bolt, boltOutline, book, bookOutline, bookmarks,
-bookmarksOutline, box, boxOutline, briefcase, briefcaseOutline, browsers,
-browsersOutline, calculator, calculatorOutline, calendar, calendarOutline, camera,
-cameraOutline, cart, cartOutline, chatboxes, chatboxesOutline, chatbubble,
-chatbubbleOutline, checkmark, checkmarkEmpty, checkmarkOutline, circleFilled,
-circleOutline, clock, clockOutline, close, closeEmpty, closeOutline, cloud,
-cloudDownload, cloudDownloadOutline, cloudOutline, cloudUpload, cloudUploadOutline,
-cloudy, cloudyNight, cloudyNightOutline, cloudyOutline, cog, cogOutline, colorFilter,
-colorFilterOutline, colorWand, colorWandOutline, compose, composeOutline, contact,
-contactOutline, copy, copyOutline, crop, cropStrong, download, downloadOutline, drag,
-email, emailOutline, eye, eyeOutline, fastforward, fastforwardOutline, filing,
-filingOutline, film, filmOutline, flag, flagOutline, flame, flameOutline, flask,
-flaskOutline, flower, flowerOutline, folder, folderOutline, football, footballOutline,
-gameControllerA, gameControllerAOutline, gameControllerB, gameControllerBOutline,
-gear, gearOutline, glasses, glassesOutline, gridView, gridViewOutline, heart,
-heartOutline, help, helpEmpty, helpOutline, home, homeOutline, infinite,
-infiniteOutline, information, informationEmpty, informationOutline, ionicOutline,
-keypad, keypadOutline, lightbulb, lightbulbOutline, list, listOutline, location,
-locationOutline, locked, lockedOutline, loop, loopStrong, medical, medicalOutline,
-medkit, medkitOutline, mic, micOff, micOutline, minus, minusEmpty, minusOutline, monitor,
-monitorOutline, moon, moonOutline, more, moreOutline, musicalNote, musicalNotes,
-navigate, navigateOutline, nutrition, nutritionOutline, paper, paperOutline,
-paperplane, paperplaneOutline, partlySunny, partlySunnyOutline, pause, pauseOutline,
-paw, pawOutline, people, peopleOutline, person, personOutline, personadd,
-personaddOutline, photos, photosOutline, pie, pieOutline, pint, pintOutline, play,
-playOutline, plus, plusEmpty, plusOutline, pricetag, pricetagOutline, pricetags,
-pricetagsOutline, printer, printerOutline, pulse, pulseStrong, rainy, rainyOutline,
-recording, recordingOutline, redo, redoOutline, refresh, refreshEmpty, refreshOutline,
-reload, reverseCamera, reverseCameraOutline, rewind, rewindOutline, rose, roseOutline,
-search, searchStrong, settings, settingsStrong, shuffle, shuffleStrong, skipbackward,
-skipbackwardOutline, skipforward, skipforwardOutline, snowy, speedometer,
-speedometerOutline, star, starHalf, starOutline, stopwatch, stopwatchOutline, sunny,
-sunnyOutline, telephone, telephoneOutline, tennisball, tennisballOutline,
-thunderstorm, thunderstormOutline, time, timeOutline, timer, timerOutline, toggle,
-toggleOutline, trash, trashOutline, undo, undoOutline, unlocked, unlockedOutline,
-upload, uploadOutline, videocam, videocamOutline, volumeHigh, volumeLow, wineglass,
-wineglassOutline, world, worldOutline
+@docs alarm
+@docs alarmOutline
+@docs albums
+@docs albumsOutline
+@docs americanfootball
+@docs americanfootballOutline
+@docs analytics
+@docs analyticsOutline
+@docs arrowBack
+@docs arrowDown
+@docs arrowForward
+@docs arrowLeft
+@docs arrowRight
+@docs arrowThinDown
+@docs arrowThinLeft
+@docs arrowThinRight
+@docs arrowThinUp
+@docs arrowUp
+@docs at
+@docs atOutline
+@docs barcode
+@docs barcodeOutline
+@docs baseball
+@docs baseballOutline
+@docs basketball
+@docs basketballOutline
+@docs bell
+@docs bellOutline
+@docs body
+@docs bodyOutline
+@docs bolt
+@docs boltOutline
+@docs book
+@docs bookOutline
+@docs bookmarks
+@docs bookmarksOutline
+@docs box
+@docs boxOutline
+@docs briefcase
+@docs briefcaseOutline
+@docs browsers
+@docs browsersOutline
+@docs calculator
+@docs calculatorOutline
+@docs calendar
+@docs calendarOutline
+@docs camera
+@docs cameraOutline
+@docs cart
+@docs cartOutline
+@docs chatboxes
+@docs chatboxesOutline
+@docs chatbubble
+@docs chatbubbleOutline
+@docs checkmark
+@docs checkmarkEmpty
+@docs checkmarkOutline
+@docs circleFilled
+@docs circleOutline
+@docs clock
+@docs clockOutline
+@docs close
+@docs closeEmpty
+@docs closeOutline
+@docs cloud
+@docs cloudDownload
+@docs cloudDownloadOutline
+@docs cloudOutline
+@docs cloudUpload
+@docs cloudUploadOutline
+@docs cloudy
+@docs cloudyNight
+@docs cloudyNightOutline
+@docs cloudyOutline
+@docs cog
+@docs cogOutline
+@docs colorFilter
+@docs colorFilterOutline
+@docs colorWand
+@docs colorWandOutline
+@docs compose
+@docs composeOutline
+@docs contact
+@docs contactOutline
+@docs copy
+@docs copyOutline
+@docs crop
+@docs cropStrong
+@docs download
+@docs downloadOutline
+@docs drag
+@docs email
+@docs emailOutline
+@docs eye
+@docs eyeOutline
+@docs fastforward
+@docs fastforwardOutline
+@docs filing
+@docs filingOutline
+@docs film
+@docs filmOutline
+@docs flag
+@docs flagOutline
+@docs flame
+@docs flameOutline
+@docs flask
+@docs flaskOutline
+@docs flower
+@docs flowerOutline
+@docs folder
+@docs folderOutline
+@docs football
+@docs footballOutline
+@docs gameControllerA
+@docs gameControllerAOutline
+@docs gameControllerB
+@docs gameControllerBOutline
+@docs gear
+@docs gearOutline
+@docs glasses
+@docs glassesOutline
+@docs gridView
+@docs gridViewOutline
+@docs heart
+@docs heartOutline
+@docs help
+@docs helpEmpty
+@docs helpOutline
+@docs home
+@docs homeOutline
+@docs infinite
+@docs infiniteOutline
+@docs information
+@docs informationEmpty
+@docs informationOutline
+@docs ionicOutline
+@docs keypad
+@docs keypadOutline
+@docs lightbulb
+@docs lightbulbOutline
+@docs list
+@docs listOutline
+@docs location
+@docs locationOutline
+@docs locked
+@docs lockedOutline
+@docs loop
+@docs loopStrong
+@docs medical
+@docs medicalOutline
+@docs medkit
+@docs medkitOutline
+@docs mic
+@docs micOff
+@docs micOutline
+@docs minus
+@docs minusEmpty
+@docs minusOutline
+@docs monitor
+@docs monitorOutline
+@docs moon
+@docs moonOutline
+@docs more
+@docs moreOutline
+@docs musicalNote
+@docs musicalNotes
+@docs navigate
+@docs navigateOutline
+@docs nutrition
+@docs nutritionOutline
+@docs paper
+@docs paperOutline
+@docs paperplane
+@docs paperplaneOutline
+@docs partlySunny
+@docs partlySunnyOutline
+@docs pause
+@docs pauseOutline
+@docs paw
+@docs pawOutline
+@docs people
+@docs peopleOutline
+@docs person
+@docs personOutline
+@docs personadd
+@docs personaddOutline
+@docs photos
+@docs photosOutline
+@docs pie
+@docs pieOutline
+@docs pint
+@docs pintOutline
+@docs play
+@docs playOutline
+@docs plus
+@docs plusEmpty
+@docs plusOutline
+@docs pricetag
+@docs pricetagOutline
+@docs pricetags
+@docs pricetagsOutline
+@docs printer
+@docs printerOutline
+@docs pulse
+@docs pulseStrong
+@docs rainy
+@docs rainyOutline
+@docs recording
+@docs recordingOutline
+@docs redo
+@docs redoOutline
+@docs refresh
+@docs refreshEmpty
+@docs refreshOutline
+@docs reload
+@docs reverseCamera
+@docs reverseCameraOutline
+@docs rewind
+@docs rewindOutline
+@docs rose
+@docs roseOutline
+@docs search
+@docs searchStrong
+@docs settings
+@docs settingsStrong
+@docs shuffle
+@docs shuffleStrong
+@docs skipbackward
+@docs skipbackwardOutline
+@docs skipforward
+@docs skipforwardOutline
+@docs snowy
+@docs speedometer
+@docs speedometerOutline
+@docs star
+@docs starHalf
+@docs starOutline
+@docs stopwatch
+@docs stopwatchOutline
+@docs sunny
+@docs sunnyOutline
+@docs telephone
+@docs telephoneOutline
+@docs tennisball
+@docs tennisballOutline
+@docs thunderstorm
+@docs thunderstormOutline
+@docs time
+@docs timeOutline
+@docs timer
+@docs timerOutline
+@docs toggle
+@docs toggleOutline
+@docs trash
+@docs trashOutline
+@docs undo
+@docs undoOutline
+@docs unlocked
+@docs unlockedOutline
+@docs upload
+@docs uploadOutline
+@docs videocam
+@docs videocamOutline
+@docs volumeHigh
+@docs volumeLow
+@docs wineglass
+@docs wineglassOutline
+@docs world
+@docs worldOutline
 
 -}
 
@@ -331,7 +558,7 @@ alarmOutline : Int -> Color -> Html msg
 alarmOutline =
     g
         [ p1 "M438.4,192.4c12.2-14.2,19.6-32.3,19.6-52.2c0.1-43.8-35.5-79.6-80.4-82.1c-1.6-0.1-3.1-0.1-4.8-0.1 c-20.4-0.1-39.1,6.8-53.8,18.1l53.8,52.4l-10.5,10.4c-25.7-19.4-57-32-91-34.9v-0.1c0-8.5-7-15.5-15.5-15.5 c-8.5,0-15.5,7-15.5,15.5v0.1c-33.9,2.9-65.1,15.5-90.7,34.9l-10.4-10.4l53.8-52.4c-14.7-11.4-33.4-18.2-53.7-18.1 c-1.6,0-3.2,0.1-4.8,0.1c-45,2.5-80.6,38.3-80.4,82.1c0,19.8,7.4,38,19.6,52.2l54-52.6l9.5,9.5c-35.1,31.9-57.1,78-57.1,129.2 c0,43.9,16.2,84,43,114.7l-36.4,44.6L99,448l35.2-42.9c31.6,30.2,74.4,48.9,121.6,48.9h0.1c0,0,0.2,0,0.3,0 c47.2,0,90.2-18.7,121.8-48.9l35.2,43l12.3-10.1L389,393.3c26.8-30.8,43-70.9,43-114.7c0-51.1-22-97.3-57.2-129.3l9.5-9.5 L438.4,192.4z M76.2,167.8c-4.2-8.6-6.4-18.4-6.5-28c-0.1-35.1,28.4-64.6,65.5-66.8c12.7-0.7,23.1,1.4,32.1,6.1L76.2,167.8z M415.9,276.5c0,87.7-72,157.1-160.1,157.1C167.8,433.6,96,364.2,96,276.5c0-87.7,71.8-158.7,159.9-158.7 C344,117.8,415.9,188.7,415.9,276.5z M344.7,79.2c8.8-4.8,19.3-6.8,32.1-6.1c37.2,2,65.6,31.5,65.5,66.8c0,9.6-2.3,19.4-6.5,28.1 L344.7,79.2z"
-        , pg1 "256,160 256,288 160,288 160,304 272,304 272,160"
+        , "256,160 256,288 160,288 160,304 272,304 272,160"
         ]
 
 
@@ -346,8 +573,8 @@ albumsOutline : Int -> Color -> Html msg
 albumsOutline =
     g
         [ p1 "M464,144v288H48V144H464 M480,128H32v320h448V128L480,128z"
-        , r4 "72" "96" "368" "16"
-        , r4 "104" "64" "304" "16"
+        , "72" "96" "368" "16"
+        , "104" "64" "304" "16"
         ]
 
 
@@ -356,8 +583,8 @@ albums : Int -> Color -> Html msg
 albums =
     g
         [ p1 "M480,128H32v320h448V128L480,128z"
-        , r4 "72" "96" "368" "16"
-        , r4 "104" "64" "304" "16"
+        , "72" "96" "368" "16"
+        , "104" "64" "304" "16"
         ]
 
 

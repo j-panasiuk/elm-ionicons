@@ -260,37 +260,259 @@ module Ionicon
 
 # Icons
 
-@docs alert,
-alertCircled, aperture, archive, arrowDownA, arrowDownB, arrowDownC, arrowExpand,
-arrowGraphDownLeft, arrowGraphDownRight, arrowGraphUpLeft, arrowGraphUpRight,
-arrowLeftA, arrowLeftB, arrowLeftC, arrowMove, arrowResize, arrowReturnLeft,
-arrowReturnRight, arrowRightA, arrowRightB, arrowRightC, arrowShrink, arrowSwap,
-arrowUpA, arrowUpB, arrowUpC, asterisk, at, backspace, backspaceOutline, bag,
-batteryCharging, batteryEmpty, batteryFull, batteryHalf, batteryLow, beaker, beer,
-bluetooth, bonfire, bookmark, bowtie, briefcase, bug, calculator, calendar, camera, card,
-cash, chatbox, chatboxWorking, chatboxes, chatbubble, chatbubbleWorking, chatbubbles,
-checkmark, checkmarkCircled, checkmarkRound, chevronDown, chevronLeft, chevronRight,
-chevronUp, clipboard, clock, close, closeCircled, closeRound, closedCaptioning, cloud,
-code, codeDownload, codeWorking, coffee, compass, compose, connectionBars, contrast,
-crop, cube, disc, document, documentText, drag, earth, easel, edit, egg, eject, email,
-emailUnread, erlenmeyerFlask, erlenmeyerFlaskBubbles, eye, eyeDisabled, female, filing,
-filmMarker, fireball, flag, flame, flash, flashOff, folder, fork, forkRepo, forward,
-funnel, gearA, gearB, grid, hammer, happy, happyOutline, headphone, heart, heartBroken,
-help, helpBuoy, helpCircled, home, icecream, image, images, information,
-informationCircled, ionic, ipad, iphone, ipod, jet, key, knife, laptop, leaf, levels,
-lightbulb, link, loadA, loadB, loadC, loadD, location, lockCombination, locked, logIn,
-logOut, loop, magnet, male, man, map, medkit, merge, micA, micB, micC, minus, minusCircled,
-minusRound, modelS, monitor, more, mouse, musicNote, navicon, naviconRound, navigate,
-network, noSmoking, nuclear, outlet, paintbrush, paintbucket, paperAirplane, paperclip,
-pause, person, personAdd, personStalker, pieGraph, pin, pinpoint, pizza, plane, planet,
-play, playstation, plus, plusCircled, plusRound, podium, pound, power, pricetag,
-pricetags, printer, pullRequest, qrScanner, quote, radioWaves, record, refresh, reply,
-replyAll, ribbonA, ribbonB, sad, sadOutline, scissors, search, settings, share, shuffle,
-skipBackward, skipForward, soupCan, soupCanOutline, speakerphone, speedometer, spoon,
-star, starBars, steam, stop, thermometer, thumbsdown, thumbsup, toggle, toggleFilled,
-transgender, trashA, trashB, trophy, tshirt, tshirtOutline, umbrella, university,
-unlocked, upload, usb, videocamera, volumeHigh, volumeLow, volumeMedium, volumeMute,
-wand, waterdrop, wifi, wineglass, woman, wrench, xbox
+@docs alert
+@docs alertCircled
+@docs aperture
+@docs archive
+@docs arrowDownA
+@docs arrowDownB
+@docs arrowDownC
+@docs arrowExpand
+@docs arrowGraphDownLeft
+@docs arrowGraphDownRight
+@docs arrowGraphUpLeft
+@docs arrowGraphUpRight
+@docs arrowLeftA
+@docs arrowLeftB
+@docs arrowLeftC
+@docs arrowMove
+@docs arrowResize
+@docs arrowReturnLeft
+@docs arrowReturnRight
+@docs arrowRightA
+@docs arrowRightB
+@docs arrowRightC
+@docs arrowShrink
+@docs arrowSwap
+@docs arrowUpA
+@docs arrowUpB
+@docs arrowUpC
+@docs asterisk
+@docs at
+@docs backspace
+@docs backspaceOutline
+@docs bag
+@docs batteryCharging
+@docs batteryEmpty
+@docs batteryFull
+@docs batteryHalf
+@docs batteryLow
+@docs beaker
+@docs beer
+@docs bluetooth
+@docs bonfire
+@docs bookmark
+@docs bowtie
+@docs briefcase
+@docs bug
+@docs calculator
+@docs calendar
+@docs camera
+@docs card
+@docs cash
+@docs chatbox
+@docs chatboxWorking
+@docs chatboxes
+@docs chatbubble
+@docs chatbubbleWorking
+@docs chatbubbles
+@docs checkmark
+@docs checkmarkCircled
+@docs checkmarkRound
+@docs chevronDown
+@docs chevronLeft
+@docs chevronRight
+@docs chevronUp
+@docs clipboard
+@docs clock
+@docs close
+@docs closeCircled
+@docs closeRound
+@docs closedCaptioning
+@docs cloud
+@docs code
+@docs codeDownload
+@docs codeWorking
+@docs coffee
+@docs compass
+@docs compose
+@docs connectionBars
+@docs contrast
+@docs crop
+@docs cube
+@docs disc
+@docs document
+@docs documentText
+@docs drag
+@docs earth
+@docs easel
+@docs edit
+@docs egg
+@docs eject
+@docs email
+@docs emailUnread
+@docs erlenmeyerFlask
+@docs erlenmeyerFlaskBubbles
+@docs eye
+@docs eyeDisabled
+@docs female
+@docs filing
+@docs filmMarker
+@docs fireball
+@docs flag
+@docs flame
+@docs flash
+@docs flashOff
+@docs folder
+@docs fork
+@docs forkRepo
+@docs forward
+@docs funnel
+@docs gearA
+@docs gearB
+@docs grid
+@docs hammer
+@docs happy
+@docs happyOutline
+@docs headphone
+@docs heart
+@docs heartBroken
+@docs help
+@docs helpBuoy
+@docs helpCircled
+@docs home
+@docs icecream
+@docs image
+@docs images
+@docs information
+@docs informationCircled
+@docs ionic
+@docs ipad
+@docs iphone
+@docs ipod
+@docs jet
+@docs key
+@docs knife
+@docs laptop
+@docs leaf
+@docs levels
+@docs lightbulb
+@docs link
+@docs loadA
+@docs loadB
+@docs loadC
+@docs loadD
+@docs location
+@docs lockCombination
+@docs locked
+@docs logIn
+@docs logOut
+@docs loop
+@docs magnet
+@docs male
+@docs man
+@docs map
+@docs medkit
+@docs merge
+@docs micA
+@docs micB
+@docs micC
+@docs minus
+@docs minusCircled
+@docs minusRound
+@docs modelS
+@docs monitor
+@docs more
+@docs mouse
+@docs musicNote
+@docs navicon
+@docs naviconRound
+@docs navigate
+@docs network
+@docs noSmoking
+@docs nuclear
+@docs outlet
+@docs paintbrush
+@docs paintbucket
+@docs paperAirplane
+@docs paperclip
+@docs pause
+@docs person
+@docs personAdd
+@docs personStalker
+@docs pieGraph
+@docs pin
+@docs pinpoint
+@docs pizza
+@docs plane
+@docs planet
+@docs play
+@docs playstation
+@docs plus
+@docs plusCircled
+@docs plusRound
+@docs podium
+@docs pound
+@docs power
+@docs pricetag
+@docs pricetags
+@docs printer
+@docs pullRequest
+@docs qrScanner
+@docs quote
+@docs radioWaves
+@docs record
+@docs refresh
+@docs reply
+@docs replyAll
+@docs ribbonA
+@docs ribbonB
+@docs sad
+@docs sadOutline
+@docs scissors
+@docs search
+@docs settings
+@docs share
+@docs shuffle
+@docs skipBackward
+@docs skipForward
+@docs soupCan
+@docs soupCanOutline
+@docs speakerphone
+@docs speedometer
+@docs spoon
+@docs star
+@docs starBars
+@docs steam
+@docs stop
+@docs thermometer
+@docs thumbsdown
+@docs thumbsup
+@docs toggle
+@docs toggleFilled
+@docs transgender
+@docs trashA
+@docs trashB
+@docs trophy
+@docs tshirt
+@docs tshirtOutline
+@docs umbrella
+@docs university
+@docs unlocked
+@docs upload
+@docs usb
+@docs videocamera
+@docs volumeHigh
+@docs volumeLow
+@docs volumeMedium
+@docs volumeMute
+@docs wand
+@docs waterdrop
+@docs wifi
+@docs wineglass
+@docs woman
+@docs wrench
+@docs xbox
 
 -}
 

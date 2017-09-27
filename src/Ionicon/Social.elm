@@ -90,19 +90,89 @@ module Ionicon.Social
 
 # Icons
 
-@docs android,
-androidOutline, angular, angularOutline, apple, appleOutline, bitcoin, bitcoinOutline,
-buffer, bufferOutline, chrome, chromeOutline, codepen, codepenOutline, css3,
-css3Outline, designernews, designernewsOutline, dribbble, dribbbleOutline, dropbox,
-dropboxOutline, euro, euroOutline, facebook, facebookOutline, foursquare,
-foursquareOutline, freebsdDevil, github, githubOutline, google, googleOutline,
-googleplus, googleplusOutline, hackernews, hackernewsOutline, html5, html5Outline,
-instagram, instagramOutline, javascript, javascriptOutline, linkedin, linkedinOutline,
-markdown, nodejs, octocat, pinterest, pinterestOutline, python, reddit, redditOutline,
-rss, rssOutline, sass, skype, skypeOutline, snapchat, snapchatOutline, tumblr,
-tumblrOutline, tux, twitch, twitchOutline, twitter, twitterOutline, usd, usdOutline,
-vimeo, vimeoOutline, whatsapp, whatsappOutline, windows, windowsOutline, wordpress,
-wordpressOutline, yahoo, yahooOutline, yen, yenOutline, youtube, youtubeOutline,
+@docs android
+@docs androidOutline
+@docs angular
+@docs angularOutline
+@docs apple
+@docs appleOutline
+@docs bitcoin
+@docs bitcoinOutline
+@docs buffer
+@docs bufferOutline
+@docs chrome
+@docs chromeOutline
+@docs codepen
+@docs codepenOutline
+@docs css3
+@docs css3Outline
+@docs designernews
+@docs designernewsOutline
+@docs dribbble
+@docs dribbbleOutline
+@docs dropbox
+@docs dropboxOutline
+@docs euro
+@docs euroOutline
+@docs facebook
+@docs facebookOutline
+@docs foursquare
+@docs foursquareOutline
+@docs freebsdDevil
+@docs github
+@docs githubOutline
+@docs google
+@docs googleOutline
+@docs googleplus
+@docs googleplusOutline
+@docs hackernews
+@docs hackernewsOutline
+@docs html5
+@docs html5Outline
+@docs instagram
+@docs instagramOutline
+@docs javascript
+@docs javascriptOutline
+@docs linkedin
+@docs linkedinOutline
+@docs markdown
+@docs nodejs
+@docs octocat
+@docs pinterest
+@docs pinterestOutline
+@docs python
+@docs reddit
+@docs redditOutline
+@docs rss
+@docs rssOutline
+@docs sass
+@docs skype
+@docs skypeOutline
+@docs snapchat
+@docs snapchatOutline
+@docs tumblr
+@docs tumblrOutline
+@docs tux
+@docs twitch
+@docs twitchOutline
+@docs twitter
+@docs twitterOutline
+@docs usd
+@docs usdOutline
+@docs vimeo
+@docs vimeoOutline
+@docs whatsapp
+@docs whatsappOutline
+@docs windows
+@docs windowsOutline
+@docs wordpress
+@docs wordpressOutline
+@docs yahoo
+@docs yahooOutline
+@docs yen
+@docs yenOutline
+@docs youtube
+@docs youtubeOutline
 
 -}
 
