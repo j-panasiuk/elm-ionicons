@@ -22,7 +22,7 @@ main =
 
 viewIcon : (Int -> Color -> Html msg) -> Html msg
 viewIcon icon =
-    icon 48 (Color.hsl 1 1 1)
+    icon 48 (Color.hsla 1 1 1 0.8)
 
 
 viewAndroidIcon : (Int -> Color -> Html msg) -> Html msg

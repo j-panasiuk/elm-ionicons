@@ -249,5 +249,12 @@ fill =
 
 
 toRgbaString : { red : Int, green : Int, blue : Int, alpha : Float } -> String
-toRgbaString { red, green, blue } =
-    "rgb(" ++ String.join "," (List.map toString [ red, green, blue ]) ++ ")"
+toRgbaString { red, green, blue, alpha } =
+    let
+        ( rgba, values ) =
+            if alpha < 1 then
+                ( "rgba", [ toString red, toString green, toString blue, String.left 5 (toString alpha) ] )
+            else
+                ( "rgb", [ toString red, toString green, toString blue ] )
+    in
+    rgba ++ "(" ++ String.join "," values ++ ")"
