@@ -255,7 +255,44 @@ module Ionicon
         , xbox
         )
 
-{-| -}
+{-| Generic icons
+
+
+# Icons
+
+@docs alert,
+alertCircled, aperture, archive, arrowDownA, arrowDownB, arrowDownC, arrowExpand,
+arrowGraphDownLeft, arrowGraphDownRight, arrowGraphUpLeft, arrowGraphUpRight,
+arrowLeftA, arrowLeftB, arrowLeftC, arrowMove, arrowResize, arrowReturnLeft,
+arrowReturnRight, arrowRightA, arrowRightB, arrowRightC, arrowShrink, arrowSwap,
+arrowUpA, arrowUpB, arrowUpC, asterisk, at, backspace, backspaceOutline, bag,
+batteryCharging, batteryEmpty, batteryFull, batteryHalf, batteryLow, beaker, beer,
+bluetooth, bonfire, bookmark, bowtie, briefcase, bug, calculator, calendar, camera, card,
+cash, chatbox, chatboxWorking, chatboxes, chatbubble, chatbubbleWorking, chatbubbles,
+checkmark, checkmarkCircled, checkmarkRound, chevronDown, chevronLeft, chevronRight,
+chevronUp, clipboard, clock, close, closeCircled, closeRound, closedCaptioning, cloud,
+code, codeDownload, codeWorking, coffee, compass, compose, connectionBars, contrast,
+crop, cube, disc, document, documentText, drag, earth, easel, edit, egg, eject, email,
+emailUnread, erlenmeyerFlask, erlenmeyerFlaskBubbles, eye, eyeDisabled, female, filing,
+filmMarker, fireball, flag, flame, flash, flashOff, folder, fork, forkRepo, forward,
+funnel, gearA, gearB, grid, hammer, happy, happyOutline, headphone, heart, heartBroken,
+help, helpBuoy, helpCircled, home, icecream, image, images, information,
+informationCircled, ionic, ipad, iphone, ipod, jet, key, knife, laptop, leaf, levels,
+lightbulb, link, loadA, loadB, loadC, loadD, location, lockCombination, locked, logIn,
+logOut, loop, magnet, male, man, map, medkit, merge, micA, micB, micC, minus, minusCircled,
+minusRound, modelS, monitor, more, mouse, musicNote, navicon, naviconRound, navigate,
+network, noSmoking, nuclear, outlet, paintbrush, paintbucket, paperAirplane, paperclip,
+pause, person, personAdd, personStalker, pieGraph, pin, pinpoint, pizza, plane, planet,
+play, playstation, plus, plusCircled, plusRound, podium, pound, power, pricetag,
+pricetags, printer, pullRequest, qrScanner, quote, radioWaves, record, refresh, reply,
+replyAll, ribbonA, ribbonB, sad, sadOutline, scissors, search, settings, share, shuffle,
+skipBackward, skipForward, soupCan, soupCanOutline, speakerphone, speedometer, spoon,
+star, starBars, steam, stop, thermometer, thumbsdown, thumbsup, toggle, toggleFilled,
+transgender, trashA, trashB, trophy, tshirt, tshirtOutline, umbrella, university,
+unlocked, upload, usb, videocamera, volumeHigh, volumeLow, volumeMedium, volumeMute,
+wand, waterdrop, wifi, wineglass, woman, wrench, xbox
+
+-}
 
 import Color exposing (Color)
 import Html exposing (Html)

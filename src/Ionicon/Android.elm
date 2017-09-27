@@ -130,7 +130,30 @@ module Ionicon.Android
         , wifi
         )
 
-{-| -}
+{-| Android icons
+
+
+# Icons
+
+@docs add, addCircle,
+alarmClock, alert, apps, archive, arrowBack, arrowDown, arrowDropdown,
+arrowDropdownCircle, arrowDropleft, arrowDropleftCircle, arrowDropright,
+arrowDroprightCircle, arrowDropup, arrowDropupCircle, arrowForward, arrowUp, attach,
+bar, bicycle, boat, bookmark, bulb, bus, calendar, call, camera, cancel, car, cart, chat,
+checkbox, checkboxBlank, checkboxOutline, checkboxOutlineBlank, checkmarkCircle,
+clipboard, close, cloud, cloudCircle, cloudDone, cloudOutline, colorPalette, compass,
+contact, contacts, contract, create, delete, desktop, document, done, doneAll, download,
+drafts, exit, expand, favorite, favoriteOutline, film, folder, folderOpen, funnel, globe,
+hand, hangout, happy, home, image, laptop, list, locate, lock, mail, map, menu, microphone,
+microphoneOff, moreHorizontal, moreVertical, navigate, notifications,
+notificationsNone, notificationsOff, open, options, people, person, personAdd,
+phoneLandscape, phonePortrait, pin, plane, playstore, print, radioButtonOff,
+radioButtonOn, refresh, remove, removeCircle, restaurant, sad, search, send, settings,
+share, shareAlt, star, starHalf, starOutline, stopwatch, subway, sunny, sync, textsms,
+time, train, unlock, upload, volumeDown, volumeMute, volumeOff, volumeUp, walk, warning,
+watch, wifi
+
+-}
 
 import Color exposing (Color)
 import Html exposing (Html)

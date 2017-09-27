@@ -85,7 +85,26 @@ module Ionicon.Social
         , youtubeOutline
         )
 
-{-| -}
+{-| Social icons
+
+
+# Icons
+
+@docs android,
+androidOutline, angular, angularOutline, apple, appleOutline, bitcoin, bitcoinOutline,
+buffer, bufferOutline, chrome, chromeOutline, codepen, codepenOutline, css3,
+css3Outline, designernews, designernewsOutline, dribbble, dribbbleOutline, dropbox,
+dropboxOutline, euro, euroOutline, facebook, facebookOutline, foursquare,
+foursquareOutline, freebsdDevil, github, githubOutline, google, googleOutline,
+googleplus, googleplusOutline, hackernews, hackernewsOutline, html5, html5Outline,
+instagram, instagramOutline, javascript, javascriptOutline, linkedin, linkedinOutline,
+markdown, nodejs, octocat, pinterest, pinterestOutline, python, reddit, redditOutline,
+rss, rssOutline, sass, skype, skypeOutline, snapchat, snapchatOutline, tumblr,
+tumblrOutline, tux, twitch, twitchOutline, twitter, twitterOutline, usd, usdOutline,
+vimeo, vimeoOutline, whatsapp, whatsappOutline, windows, windowsOutline, wordpress,
+wordpressOutline, yahoo, yahooOutline, yen, yenOutline, youtube, youtubeOutline,
+
+-}
 
 import Color exposing (Color)
 import Html exposing (Html)

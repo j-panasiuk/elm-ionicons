@@ -271,7 +271,55 @@ module Ionicon.Ios
         , worldOutline
         )
 
-{-| -}
+{-| iOS icons
+
+
+# Icons
+
+@docs alarm,
+alarmOutline, albums, albumsOutline, americanfootball, americanfootballOutline,
+analytics, analyticsOutline, arrowBack, arrowDown, arrowForward, arrowLeft, arrowRight,
+arrowThinDown, arrowThinLeft, arrowThinRight, arrowThinUp, arrowUp, at, atOutline,
+barcode, barcodeOutline, baseball, baseballOutline, basketball, basketballOutline,
+bell, bellOutline, body, bodyOutline, bolt, boltOutline, book, bookOutline, bookmarks,
+bookmarksOutline, box, boxOutline, briefcase, briefcaseOutline, browsers,
+browsersOutline, calculator, calculatorOutline, calendar, calendarOutline, camera,
+cameraOutline, cart, cartOutline, chatboxes, chatboxesOutline, chatbubble,
+chatbubbleOutline, checkmark, checkmarkEmpty, checkmarkOutline, circleFilled,
+circleOutline, clock, clockOutline, close, closeEmpty, closeOutline, cloud,
+cloudDownload, cloudDownloadOutline, cloudOutline, cloudUpload, cloudUploadOutline,
+cloudy, cloudyNight, cloudyNightOutline, cloudyOutline, cog, cogOutline, colorFilter,
+colorFilterOutline, colorWand, colorWandOutline, compose, composeOutline, contact,
+contactOutline, copy, copyOutline, crop, cropStrong, download, downloadOutline, drag,
+email, emailOutline, eye, eyeOutline, fastforward, fastforwardOutline, filing,
+filingOutline, film, filmOutline, flag, flagOutline, flame, flameOutline, flask,
+flaskOutline, flower, flowerOutline, folder, folderOutline, football, footballOutline,
+gameControllerA, gameControllerAOutline, gameControllerB, gameControllerBOutline,
+gear, gearOutline, glasses, glassesOutline, gridView, gridViewOutline, heart,
+heartOutline, help, helpEmpty, helpOutline, home, homeOutline, infinite,
+infiniteOutline, information, informationEmpty, informationOutline, ionicOutline,
+keypad, keypadOutline, lightbulb, lightbulbOutline, list, listOutline, location,
+locationOutline, locked, lockedOutline, loop, loopStrong, medical, medicalOutline,
+medkit, medkitOutline, mic, micOff, micOutline, minus, minusEmpty, minusOutline, monitor,
+monitorOutline, moon, moonOutline, more, moreOutline, musicalNote, musicalNotes,
+navigate, navigateOutline, nutrition, nutritionOutline, paper, paperOutline,
+paperplane, paperplaneOutline, partlySunny, partlySunnyOutline, pause, pauseOutline,
+paw, pawOutline, people, peopleOutline, person, personOutline, personadd,
+personaddOutline, photos, photosOutline, pie, pieOutline, pint, pintOutline, play,
+playOutline, plus, plusEmpty, plusOutline, pricetag, pricetagOutline, pricetags,
+pricetagsOutline, printer, printerOutline, pulse, pulseStrong, rainy, rainyOutline,
+recording, recordingOutline, redo, redoOutline, refresh, refreshEmpty, refreshOutline,
+reload, reverseCamera, reverseCameraOutline, rewind, rewindOutline, rose, roseOutline,
+search, searchStrong, settings, settingsStrong, shuffle, shuffleStrong, skipbackward,
+skipbackwardOutline, skipforward, skipforwardOutline, snowy, speedometer,
+speedometerOutline, star, starHalf, starOutline, stopwatch, stopwatchOutline, sunny,
+sunnyOutline, telephone, telephoneOutline, tennisball, tennisballOutline,
+thunderstorm, thunderstormOutline, time, timeOutline, timer, timerOutline, toggle,
+toggleOutline, trash, trashOutline, undo, undoOutline, unlocked, unlockedOutline,
+upload, uploadOutline, videocam, videocamOutline, volumeHigh, volumeLow, wineglass,
+wineglassOutline, world, worldOutline
+
+-}
 
 import Color exposing (Color)
 import Html exposing (Html)
