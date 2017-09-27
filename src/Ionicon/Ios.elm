@@ -271,6 +271,8 @@ module Ionicon.Ios
         , worldOutline
         )
 
+{-| -}
+
 import Color exposing (Color)
 import Html exposing (Html)
 import Ionicon.Internal exposing (c3, g, p, p1, pg, pg1, pgs, pl1, ps, r4, r4t)

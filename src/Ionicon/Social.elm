@@ -85,6 +85,8 @@ module Ionicon.Social
         , youtubeOutline
         )
 
+{-| -}
+
 import Color exposing (Color)
 import Html exposing (Html)
 import Ionicon.Internal exposing (c3, e4, g, p, p1, pg1, pgs, ps, pst, pt, r4)

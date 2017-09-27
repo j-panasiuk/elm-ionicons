@@ -130,6 +130,8 @@ module Ionicon.Android
         , wifi
         )
 
+{-| -}
+
 import Color exposing (Color)
 import Html exposing (Html)
 import Ionicon.Internal exposing (g, p, p1, pg, pg1, pgs, ps, r, r4)
