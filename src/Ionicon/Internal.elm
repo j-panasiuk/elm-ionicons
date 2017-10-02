@@ -1,4 +1,4 @@
-module Ionicon.Internal exposing (c3, e4, g, p, p1, pg, pg1, pgs, pl1, ps, pst, pt, r, r4, r4t)
+module Ionicon.Internal exposing (c3, e4, g, p, p1, pg, pg1, pgs, pl1, ps, pst, pt, r, r4, r4t, fill)
 
 import Color exposing (Color)
 import Html exposing (Html)

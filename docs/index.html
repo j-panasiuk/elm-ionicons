@@ -28301,6 +28301,98 @@ var _mdgriffith$style_elements$Element_Input$select = F3(
 				{max: input.max, menu: input.menu, label: input.label, options: input.options, onUpdate: _p134.onUpdate, isOpen: _p134.isOpen, selected: _p134.selected});
 		}
 	});
+var _mdgriffith$style_elements$Style_Border$roundBottomLeft = function (x) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-bottom-left-radius',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(x),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$roundBottomRight = function (x) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-bottom-right-radius',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(x),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$roundTopRight = function (x) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-top-right-radius',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(x),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$roundTopLeft = function (x) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-top-left-radius',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(x),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$rounded = function (box) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-radius',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(box),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$dotted = A2(_mdgriffith$style_elements$Style_Internal_Model$Exact, 'border-style', 'dotted');
+var _mdgriffith$style_elements$Style_Border$dashed = A2(_mdgriffith$style_elements$Style_Internal_Model$Exact, 'border-style', 'dashed');
+var _mdgriffith$style_elements$Style_Border$solid = A2(_mdgriffith$style_elements$Style_Internal_Model$Exact, 'border-style', 'solid');
+var _mdgriffith$style_elements$Style_Border$none = A2(_mdgriffith$style_elements$Style_Internal_Model$Exact, 'border-width', '0');
+var _mdgriffith$style_elements$Style_Border$bottom = function (l) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-bottom-width',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(l),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$top = function (l) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-top-width',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(l),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$right = function (l) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-right-width',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(l),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$left = function (l) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-left-width',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(l),
+			'px'));
+};
+var _mdgriffith$style_elements$Style_Border$all = function (v) {
+	return A2(
+		_mdgriffith$style_elements$Style_Internal_Model$Exact,
+		'border-width',
+		_mdgriffith$style_elements$Style_Internal_Render_Value$box(
+			{ctor: '_Tuple4', _0: v, _1: v, _2: v, _3: v}));
+};
 var _mdgriffith$style_elements$Style_Color$placeholder = function (clr) {
 	return A2(
 		_mdgriffith$style_elements$Style_Internal_Model$PseudoElement,
@@ -28408,74 +28500,199 @@ var _mdgriffith$style_elements$Style_Font$serif = _mdgriffith$style_elements$Sty
 var _mdgriffith$style_elements$Style_Font$typeface = function (families) {
 	return _mdgriffith$style_elements$Style_Internal_Model$FontFamily(families);
 };
-var _j_panasiuk$elm_ionicons$Main$viewIcon = F3(
-	function (size, color, _p0) {
-		var _p1 = _p0;
-		return _mdgriffith$style_elements$Element$html(
-			A2(
-				_elm_lang$html$Html$span,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$title(_p1._0),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: A2(_p1._1, size, color),
-					_1: {ctor: '[]'}
-				}));
+var _mdgriffith$style_elements$Style_Shadow$drop = function (_p0) {
+	var _p1 = _p0;
+	return _mdgriffith$style_elements$Style_Internal_Model$Filters(
+		{
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Style_Internal_Model$DropShadow(
+				{offset: _p1.offset, size: 0, blur: _p1.blur, color: _p1.color}),
+			_1: {ctor: '[]'}
+		});
+};
+var _mdgriffith$style_elements$Style_Shadow$text = function (_p2) {
+	var _p3 = _p2;
+	return _mdgriffith$style_elements$Style_Internal_Model$Shadows(
+		{
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Style_Internal_Model$ShadowModel(
+				{kind: 'text', offset: _p3.offset, size: 0, blur: _p3.blur, color: _p3.color}),
+			_1: {ctor: '[]'}
+		});
+};
+var _mdgriffith$style_elements$Style_Shadow$inset = function (_p4) {
+	var _p5 = _p4;
+	return _mdgriffith$style_elements$Style_Internal_Model$Shadows(
+		{
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Style_Internal_Model$ShadowModel(
+				{kind: 'inset', offset: _p5.offset, size: _p5.size, blur: _p5.blur, color: _p5.color}),
+			_1: {ctor: '[]'}
+		});
+};
+var _mdgriffith$style_elements$Style_Shadow$boxHelper = function (_p6) {
+	var _p7 = _p6;
+	return _mdgriffith$style_elements$Style_Internal_Model$ShadowModel(
+		{kind: 'box', offset: _p7.offset, size: _p7.size, blur: _p7.blur, color: _p7.color});
+};
+var _mdgriffith$style_elements$Style_Shadow$box = function (shadow) {
+	return _mdgriffith$style_elements$Style_Internal_Model$Shadows(
+		{
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Style_Shadow$boxHelper(shadow),
+			_1: {ctor: '[]'}
+		});
+};
+var _mdgriffith$style_elements$Style_Shadow$deep = _mdgriffith$style_elements$Style_Shadow$box(
+	{
+		color: A4(_elm_lang$core$Color$rgba, 0, 0, 0, 0.2),
+		offset: {ctor: '_Tuple2', _0: 0, _1: 14},
+		blur: 20,
+		size: -12
 	});
-var _j_panasiuk$elm_ionicons$Main$viewIonicon = A2(
-	_j_panasiuk$elm_ionicons$Main$viewIcon,
-	36,
-	A4(_elm_lang$core$Color$hsla, 1, 1, 1, 0.8));
-var _j_panasiuk$elm_ionicons$Main$viewAndroidIcon = A2(
-	_j_panasiuk$elm_ionicons$Main$viewIcon,
-	36,
-	A3(_elm_lang$core$Color$hsl, 33.3, 0.7, 0.8));
-var _j_panasiuk$elm_ionicons$Main$viewIOSIcon = A2(
-	_j_panasiuk$elm_ionicons$Main$viewIcon,
-	36,
-	A3(_elm_lang$core$Color$hsl, 66.7, 0.7, 0.8));
-var _j_panasiuk$elm_ionicons$Main$viewSocialIcon = A2(
-	_j_panasiuk$elm_ionicons$Main$viewIcon,
-	36,
-	A3(_elm_lang$core$Color$hsl, 0, 0.7, 0.8));
+var _mdgriffith$style_elements$Style_Shadow$simple = _mdgriffith$style_elements$Style_Internal_Model$Shadows(
+	{
+		ctor: '::',
+		_0: _mdgriffith$style_elements$Style_Shadow$boxHelper(
+			{
+				color: A4(_elm_lang$core$Color$rgba, 0, 0, 0, 0.5),
+				offset: {ctor: '_Tuple2', _0: 0, _1: 29},
+				blur: 32,
+				size: -20
+			}),
+		_1: {
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Style_Shadow$boxHelper(
+				{
+					color: A4(_elm_lang$core$Color$rgba, 0, 0, 0, 0.25),
+					offset: {ctor: '_Tuple2', _0: 0, _1: 4},
+					blur: 11,
+					size: -3
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _mdgriffith$style_elements$Style_Shadow$textGlow = F2(
+	function (color, size) {
+		return _mdgriffith$style_elements$Style_Internal_Model$Shadows(
+			{
+				ctor: '::',
+				_0: _mdgriffith$style_elements$Style_Internal_Model$ShadowModel(
+					{
+						kind: 'text',
+						offset: {ctor: '_Tuple2', _0: 0, _1: 0},
+						size: size,
+						blur: size * 2,
+						color: color
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _mdgriffith$style_elements$Style_Shadow$innerGlow = F2(
+	function (color, size) {
+		return _mdgriffith$style_elements$Style_Internal_Model$Shadows(
+			{
+				ctor: '::',
+				_0: _mdgriffith$style_elements$Style_Internal_Model$ShadowModel(
+					{
+						kind: 'inset',
+						offset: {ctor: '_Tuple2', _0: 0, _1: 0},
+						size: size,
+						blur: size * 2,
+						color: color
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _mdgriffith$style_elements$Style_Shadow$glow = F2(
+	function (color, size) {
+		return _mdgriffith$style_elements$Style_Internal_Model$Shadows(
+			{
+				ctor: '::',
+				_0: _mdgriffith$style_elements$Style_Internal_Model$ShadowModel(
+					{
+						kind: 'box',
+						offset: {ctor: '_Tuple2', _0: 0, _1: 0},
+						size: size,
+						blur: size * 2,
+						color: color
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _j_panasiuk$elm_ionicons$Main$socialColor = A3(
+	_elm_lang$core$Color$hsl,
+	_elm_lang$core$Basics$degrees(-30),
+	0.35,
+	0.45);
+var _j_panasiuk$elm_ionicons$Main$iosColor = A3(
+	_elm_lang$core$Color$hsl,
+	_elm_lang$core$Basics$degrees(265),
+	0.35,
+	0.45);
+var _j_panasiuk$elm_ionicons$Main$androidColor = A3(
+	_elm_lang$core$Color$hsl,
+	_elm_lang$core$Basics$degrees(162),
+	0.35,
+	0.45);
+var _j_panasiuk$elm_ionicons$Main$iconColor = A4(
+	_elm_lang$core$Color$hsla,
+	_elm_lang$core$Basics$degrees(0),
+	0,
+	0,
+	0.6);
+var _j_panasiuk$elm_ionicons$Main$viewControlIcon = F2(
+	function (color, icon) {
+		return _mdgriffith$style_elements$Element$html(
+			A2(icon, 24, color));
+	});
 var _j_panasiuk$elm_ionicons$Main$hasTag = F2(
-	function (search, _p2) {
-		var _p3 = _p2;
+	function (search, _p0) {
+		var _p1 = _p0;
 		return A2(
 			_elm_lang$core$String$contains,
 			_elm_lang$core$String$toLower(search),
-			_elm_lang$core$String$toLower(_p3._0));
+			_elm_lang$core$String$toLower(_p1._0));
 	});
 var _j_panasiuk$elm_ionicons$Main$update = F2(
 	function (msg, model) {
-		var _p4 = msg;
-		switch (_p4.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'SearchIcons':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{search: _p4._0});
+					{search: _p2._0});
 			case 'IncludeIonicon':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{includeIonicon: _p4._0});
+					{includeIonicon: _p2._0});
 			case 'IncludeAndroid':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{includeAndroid: _p4._0});
+					{includeAndroid: _p2._0});
 			case 'IncludeIos':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{includeIos: _p4._0});
-			default:
+					{includeIos: _p2._0});
+			case 'IncludeSocial':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{includeSocial: _p4._0});
+					{includeSocial: _p2._0});
+			default:
+				var size = A3(
+					_elm_lang$core$Basics$clamp,
+					1,
+					1000,
+					A2(
+						_elm_lang$core$Result$withDefault,
+						model.size,
+						_elm_lang$core$String$toInt(_p2._0)));
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{size: size});
 		}
 	});
-var _j_panasiuk$elm_ionicons$Main$initialModel = {search: '', includeIonicon: true, includeAndroid: true, includeIos: true, includeSocial: true};
+var _j_panasiuk$elm_ionicons$Main$initialModel = {search: '', includeIonicon: true, includeAndroid: true, includeIos: true, includeSocial: true, size: 32};
 var _j_panasiuk$elm_ionicons$Main_ops = _j_panasiuk$elm_ionicons$Main_ops || {};
 _j_panasiuk$elm_ionicons$Main_ops['=>'] = F2(
 	function (v0, v1) {
@@ -29005,239 +29222,243 @@ var _j_panasiuk$elm_ionicons$Main$ionicons = {
 																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'paintbucket', _j_panasiuk$elm_ionicons$Ionicon$paintbucket),
 																																																																																																																																																																														_1: {
 																																																																																																																																																																															ctor: '::',
-																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'paperclip', _j_panasiuk$elm_ionicons$Ionicon$paperclip),
+																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'paperAirplane', _j_panasiuk$elm_ionicons$Ionicon$paperAirplane),
 																																																																																																																																																																															_1: {
 																																																																																																																																																																																ctor: '::',
-																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pause', _j_panasiuk$elm_ionicons$Ionicon$pause),
+																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'paperclip', _j_panasiuk$elm_ionicons$Ionicon$paperclip),
 																																																																																																																																																																																_1: {
 																																																																																																																																																																																	ctor: '::',
-																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'personAdd', _j_panasiuk$elm_ionicons$Ionicon$personAdd),
+																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pause', _j_panasiuk$elm_ionicons$Ionicon$pause),
 																																																																																																																																																																																	_1: {
 																																																																																																																																																																																		ctor: '::',
-																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'personStalker', _j_panasiuk$elm_ionicons$Ionicon$personStalker),
+																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'personAdd', _j_panasiuk$elm_ionicons$Ionicon$personAdd),
 																																																																																																																																																																																		_1: {
 																																																																																																																																																																																			ctor: '::',
-																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'person', _j_panasiuk$elm_ionicons$Ionicon$person),
+																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'personStalker', _j_panasiuk$elm_ionicons$Ionicon$personStalker),
 																																																																																																																																																																																			_1: {
 																																																																																																																																																																																				ctor: '::',
-																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pieGraph', _j_panasiuk$elm_ionicons$Ionicon$pieGraph),
+																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'person', _j_panasiuk$elm_ionicons$Ionicon$person),
 																																																																																																																																																																																				_1: {
 																																																																																																																																																																																					ctor: '::',
-																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pin', _j_panasiuk$elm_ionicons$Ionicon$pin),
+																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pieGraph', _j_panasiuk$elm_ionicons$Ionicon$pieGraph),
 																																																																																																																																																																																					_1: {
 																																																																																																																																																																																						ctor: '::',
-																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pinpoint', _j_panasiuk$elm_ionicons$Ionicon$pinpoint),
+																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pin', _j_panasiuk$elm_ionicons$Ionicon$pin),
 																																																																																																																																																																																						_1: {
 																																																																																																																																																																																							ctor: '::',
-																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pizza', _j_panasiuk$elm_ionicons$Ionicon$pizza),
+																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pinpoint', _j_panasiuk$elm_ionicons$Ionicon$pinpoint),
 																																																																																																																																																																																							_1: {
 																																																																																																																																																																																								ctor: '::',
-																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plane', _j_panasiuk$elm_ionicons$Ionicon$plane),
+																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pizza', _j_panasiuk$elm_ionicons$Ionicon$pizza),
 																																																																																																																																																																																								_1: {
 																																																																																																																																																																																									ctor: '::',
-																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'planet', _j_panasiuk$elm_ionicons$Ionicon$planet),
+																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plane', _j_panasiuk$elm_ionicons$Ionicon$plane),
 																																																																																																																																																																																									_1: {
 																																																																																																																																																																																										ctor: '::',
-																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'play', _j_panasiuk$elm_ionicons$Ionicon$play),
+																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'planet', _j_panasiuk$elm_ionicons$Ionicon$planet),
 																																																																																																																																																																																										_1: {
 																																																																																																																																																																																											ctor: '::',
-																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'playstation', _j_panasiuk$elm_ionicons$Ionicon$playstation),
+																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'play', _j_panasiuk$elm_ionicons$Ionicon$play),
 																																																																																																																																																																																											_1: {
 																																																																																																																																																																																												ctor: '::',
-																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plusCircled', _j_panasiuk$elm_ionicons$Ionicon$plusCircled),
+																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'playstation', _j_panasiuk$elm_ionicons$Ionicon$playstation),
 																																																																																																																																																																																												_1: {
 																																																																																																																																																																																													ctor: '::',
-																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plusRound', _j_panasiuk$elm_ionicons$Ionicon$plusRound),
+																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plusCircled', _j_panasiuk$elm_ionicons$Ionicon$plusCircled),
 																																																																																																																																																																																													_1: {
 																																																																																																																																																																																														ctor: '::',
-																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plus', _j_panasiuk$elm_ionicons$Ionicon$plus),
+																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plusRound', _j_panasiuk$elm_ionicons$Ionicon$plusRound),
 																																																																																																																																																																																														_1: {
 																																																																																																																																																																																															ctor: '::',
-																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'podium', _j_panasiuk$elm_ionicons$Ionicon$podium),
+																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'plus', _j_panasiuk$elm_ionicons$Ionicon$plus),
 																																																																																																																																																																																															_1: {
 																																																																																																																																																																																																ctor: '::',
-																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pound', _j_panasiuk$elm_ionicons$Ionicon$pound),
+																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'podium', _j_panasiuk$elm_ionicons$Ionicon$podium),
 																																																																																																																																																																																																_1: {
 																																																																																																																																																																																																	ctor: '::',
-																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'power', _j_panasiuk$elm_ionicons$Ionicon$power),
+																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pound', _j_panasiuk$elm_ionicons$Ionicon$pound),
 																																																																																																																																																																																																	_1: {
 																																																																																																																																																																																																		ctor: '::',
-																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pricetag', _j_panasiuk$elm_ionicons$Ionicon$pricetag),
+																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'power', _j_panasiuk$elm_ionicons$Ionicon$power),
 																																																																																																																																																																																																		_1: {
 																																																																																																																																																																																																			ctor: '::',
-																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pricetags', _j_panasiuk$elm_ionicons$Ionicon$pricetags),
+																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pricetag', _j_panasiuk$elm_ionicons$Ionicon$pricetag),
 																																																																																																																																																																																																			_1: {
 																																																																																																																																																																																																				ctor: '::',
-																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'printer', _j_panasiuk$elm_ionicons$Ionicon$printer),
+																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pricetags', _j_panasiuk$elm_ionicons$Ionicon$pricetags),
 																																																																																																																																																																																																				_1: {
 																																																																																																																																																																																																					ctor: '::',
-																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pullRequest', _j_panasiuk$elm_ionicons$Ionicon$pullRequest),
+																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'printer', _j_panasiuk$elm_ionicons$Ionicon$printer),
 																																																																																																																																																																																																					_1: {
 																																																																																																																																																																																																						ctor: '::',
-																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'qrScanner', _j_panasiuk$elm_ionicons$Ionicon$qrScanner),
+																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pullRequest', _j_panasiuk$elm_ionicons$Ionicon$pullRequest),
 																																																																																																																																																																																																						_1: {
 																																																																																																																																																																																																							ctor: '::',
-																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'quote', _j_panasiuk$elm_ionicons$Ionicon$quote),
+																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'qrScanner', _j_panasiuk$elm_ionicons$Ionicon$qrScanner),
 																																																																																																																																																																																																							_1: {
 																																																																																																																																																																																																								ctor: '::',
-																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'radioWaves', _j_panasiuk$elm_ionicons$Ionicon$radioWaves),
+																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'quote', _j_panasiuk$elm_ionicons$Ionicon$quote),
 																																																																																																																																																																																																								_1: {
 																																																																																																																																																																																																									ctor: '::',
-																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'record', _j_panasiuk$elm_ionicons$Ionicon$record),
+																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'radioWaves', _j_panasiuk$elm_ionicons$Ionicon$radioWaves),
 																																																																																																																																																																																																									_1: {
 																																																																																																																																																																																																										ctor: '::',
-																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'refresh', _j_panasiuk$elm_ionicons$Ionicon$refresh),
+																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'record', _j_panasiuk$elm_ionicons$Ionicon$record),
 																																																																																																																																																																																																										_1: {
 																																																																																																																																																																																																											ctor: '::',
-																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'replyAll', _j_panasiuk$elm_ionicons$Ionicon$replyAll),
+																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'refresh', _j_panasiuk$elm_ionicons$Ionicon$refresh),
 																																																																																																																																																																																																											_1: {
 																																																																																																																																																																																																												ctor: '::',
-																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'reply', _j_panasiuk$elm_ionicons$Ionicon$reply),
+																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'replyAll', _j_panasiuk$elm_ionicons$Ionicon$replyAll),
 																																																																																																																																																																																																												_1: {
 																																																																																																																																																																																																													ctor: '::',
-																																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'ribbonA', _j_panasiuk$elm_ionicons$Ionicon$ribbonA),
+																																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'reply', _j_panasiuk$elm_ionicons$Ionicon$reply),
 																																																																																																																																																																																																													_1: {
 																																																																																																																																																																																																														ctor: '::',
-																																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'ribbonB', _j_panasiuk$elm_ionicons$Ionicon$ribbonB),
+																																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'ribbonA', _j_panasiuk$elm_ionicons$Ionicon$ribbonA),
 																																																																																																																																																																																																														_1: {
 																																																																																																																																																																																																															ctor: '::',
-																																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'sadOutline', _j_panasiuk$elm_ionicons$Ionicon$sadOutline),
+																																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'ribbonB', _j_panasiuk$elm_ionicons$Ionicon$ribbonB),
 																																																																																																																																																																																																															_1: {
 																																																																																																																																																																																																																ctor: '::',
-																																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'sad', _j_panasiuk$elm_ionicons$Ionicon$sad),
+																																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'sadOutline', _j_panasiuk$elm_ionicons$Ionicon$sadOutline),
 																																																																																																																																																																																																																_1: {
 																																																																																																																																																																																																																	ctor: '::',
-																																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'scissors', _j_panasiuk$elm_ionicons$Ionicon$scissors),
+																																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'sad', _j_panasiuk$elm_ionicons$Ionicon$sad),
 																																																																																																																																																																																																																	_1: {
 																																																																																																																																																																																																																		ctor: '::',
-																																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'search', _j_panasiuk$elm_ionicons$Ionicon$search),
+																																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'scissors', _j_panasiuk$elm_ionicons$Ionicon$scissors),
 																																																																																																																																																																																																																		_1: {
 																																																																																																																																																																																																																			ctor: '::',
-																																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'settings', _j_panasiuk$elm_ionicons$Ionicon$settings),
+																																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'search', _j_panasiuk$elm_ionicons$Ionicon$search),
 																																																																																																																																																																																																																			_1: {
 																																																																																																																																																																																																																				ctor: '::',
-																																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'share', _j_panasiuk$elm_ionicons$Ionicon$share),
+																																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'settings', _j_panasiuk$elm_ionicons$Ionicon$settings),
 																																																																																																																																																																																																																				_1: {
 																																																																																																																																																																																																																					ctor: '::',
-																																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'shuffle', _j_panasiuk$elm_ionicons$Ionicon$shuffle),
+																																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'share', _j_panasiuk$elm_ionicons$Ionicon$share),
 																																																																																																																																																																																																																					_1: {
 																																																																																																																																																																																																																						ctor: '::',
-																																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skipBackward', _j_panasiuk$elm_ionicons$Ionicon$skipBackward),
+																																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'shuffle', _j_panasiuk$elm_ionicons$Ionicon$shuffle),
 																																																																																																																																																																																																																						_1: {
 																																																																																																																																																																																																																							ctor: '::',
-																																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skipForward', _j_panasiuk$elm_ionicons$Ionicon$skipForward),
+																																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skipBackward', _j_panasiuk$elm_ionicons$Ionicon$skipBackward),
 																																																																																																																																																																																																																							_1: {
 																																																																																																																																																																																																																								ctor: '::',
-																																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'soupCanOutline', _j_panasiuk$elm_ionicons$Ionicon$soupCanOutline),
+																																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skipForward', _j_panasiuk$elm_ionicons$Ionicon$skipForward),
 																																																																																																																																																																																																																								_1: {
 																																																																																																																																																																																																																									ctor: '::',
-																																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'soupCan', _j_panasiuk$elm_ionicons$Ionicon$soupCan),
+																																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'soupCanOutline', _j_panasiuk$elm_ionicons$Ionicon$soupCanOutline),
 																																																																																																																																																																																																																									_1: {
 																																																																																																																																																																																																																										ctor: '::',
-																																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'speakerphone', _j_panasiuk$elm_ionicons$Ionicon$speakerphone),
+																																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'soupCan', _j_panasiuk$elm_ionicons$Ionicon$soupCan),
 																																																																																																																																																																																																																										_1: {
 																																																																																																																																																																																																																											ctor: '::',
-																																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'speedometer', _j_panasiuk$elm_ionicons$Ionicon$speedometer),
+																																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'speakerphone', _j_panasiuk$elm_ionicons$Ionicon$speakerphone),
 																																																																																																																																																																																																																											_1: {
 																																																																																																																																																																																																																												ctor: '::',
-																																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'spoon', _j_panasiuk$elm_ionicons$Ionicon$spoon),
+																																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'speedometer', _j_panasiuk$elm_ionicons$Ionicon$speedometer),
 																																																																																																																																																																																																																												_1: {
 																																																																																																																																																																																																																													ctor: '::',
-																																																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'star', _j_panasiuk$elm_ionicons$Ionicon$star),
+																																																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'spoon', _j_panasiuk$elm_ionicons$Ionicon$spoon),
 																																																																																																																																																																																																																													_1: {
 																																																																																																																																																																																																																														ctor: '::',
-																																																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'starBars', _j_panasiuk$elm_ionicons$Ionicon$starBars),
+																																																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'star', _j_panasiuk$elm_ionicons$Ionicon$star),
 																																																																																																																																																																																																																														_1: {
 																																																																																																																																																																																																																															ctor: '::',
-																																																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'steam', _j_panasiuk$elm_ionicons$Ionicon$steam),
+																																																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'starBars', _j_panasiuk$elm_ionicons$Ionicon$starBars),
 																																																																																																																																																																																																																															_1: {
 																																																																																																																																																																																																																																ctor: '::',
-																																																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'stop', _j_panasiuk$elm_ionicons$Ionicon$stop),
+																																																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'steam', _j_panasiuk$elm_ionicons$Ionicon$steam),
 																																																																																																																																																																																																																																_1: {
 																																																																																																																																																																																																																																	ctor: '::',
-																																																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'thermometer', _j_panasiuk$elm_ionicons$Ionicon$thermometer),
+																																																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'stop', _j_panasiuk$elm_ionicons$Ionicon$stop),
 																																																																																																																																																																																																																																	_1: {
 																																																																																																																																																																																																																																		ctor: '::',
-																																																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'thumbsdown', _j_panasiuk$elm_ionicons$Ionicon$thumbsdown),
+																																																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'thermometer', _j_panasiuk$elm_ionicons$Ionicon$thermometer),
 																																																																																																																																																																																																																																		_1: {
 																																																																																																																																																																																																																																			ctor: '::',
-																																																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'thumbsup', _j_panasiuk$elm_ionicons$Ionicon$thumbsup),
+																																																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'thumbsdown', _j_panasiuk$elm_ionicons$Ionicon$thumbsdown),
 																																																																																																																																																																																																																																			_1: {
 																																																																																																																																																																																																																																				ctor: '::',
-																																																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'toggleFilled', _j_panasiuk$elm_ionicons$Ionicon$toggleFilled),
+																																																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'thumbsup', _j_panasiuk$elm_ionicons$Ionicon$thumbsup),
 																																																																																																																																																																																																																																				_1: {
 																																																																																																																																																																																																																																					ctor: '::',
-																																																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'toggle', _j_panasiuk$elm_ionicons$Ionicon$toggle),
+																																																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'toggleFilled', _j_panasiuk$elm_ionicons$Ionicon$toggleFilled),
 																																																																																																																																																																																																																																					_1: {
 																																																																																																																																																																																																																																						ctor: '::',
-																																																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'transgender', _j_panasiuk$elm_ionicons$Ionicon$transgender),
+																																																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'toggle', _j_panasiuk$elm_ionicons$Ionicon$toggle),
 																																																																																																																																																																																																																																						_1: {
 																																																																																																																																																																																																																																							ctor: '::',
-																																																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'trashA', _j_panasiuk$elm_ionicons$Ionicon$trashA),
+																																																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'transgender', _j_panasiuk$elm_ionicons$Ionicon$transgender),
 																																																																																																																																																																																																																																							_1: {
 																																																																																																																																																																																																																																								ctor: '::',
-																																																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'trashB', _j_panasiuk$elm_ionicons$Ionicon$trashB),
+																																																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'trashA', _j_panasiuk$elm_ionicons$Ionicon$trashA),
 																																																																																																																																																																																																																																								_1: {
 																																																																																																																																																																																																																																									ctor: '::',
-																																																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'trophy', _j_panasiuk$elm_ionicons$Ionicon$trophy),
+																																																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'trashB', _j_panasiuk$elm_ionicons$Ionicon$trashB),
 																																																																																																																																																																																																																																									_1: {
 																																																																																																																																																																																																																																										ctor: '::',
-																																																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tshirtOutline', _j_panasiuk$elm_ionicons$Ionicon$tshirtOutline),
+																																																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'trophy', _j_panasiuk$elm_ionicons$Ionicon$trophy),
 																																																																																																																																																																																																																																										_1: {
 																																																																																																																																																																																																																																											ctor: '::',
-																																																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tshirt', _j_panasiuk$elm_ionicons$Ionicon$tshirt),
+																																																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tshirtOutline', _j_panasiuk$elm_ionicons$Ionicon$tshirtOutline),
 																																																																																																																																																																																																																																											_1: {
 																																																																																																																																																																																																																																												ctor: '::',
-																																																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'umbrella', _j_panasiuk$elm_ionicons$Ionicon$umbrella),
+																																																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tshirt', _j_panasiuk$elm_ionicons$Ionicon$tshirt),
 																																																																																																																																																																																																																																												_1: {
 																																																																																																																																																																																																																																													ctor: '::',
-																																																																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'university', _j_panasiuk$elm_ionicons$Ionicon$university),
+																																																																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'umbrella', _j_panasiuk$elm_ionicons$Ionicon$umbrella),
 																																																																																																																																																																																																																																													_1: {
 																																																																																																																																																																																																																																														ctor: '::',
-																																																																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'unlocked', _j_panasiuk$elm_ionicons$Ionicon$unlocked),
+																																																																																																																																																																																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'university', _j_panasiuk$elm_ionicons$Ionicon$university),
 																																																																																																																																																																																																																																														_1: {
 																																																																																																																																																																																																																																															ctor: '::',
-																																																																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'upload', _j_panasiuk$elm_ionicons$Ionicon$upload),
+																																																																																																																																																																																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'unlocked', _j_panasiuk$elm_ionicons$Ionicon$unlocked),
 																																																																																																																																																																																																																																															_1: {
 																																																																																																																																																																																																																																																ctor: '::',
-																																																																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'usb', _j_panasiuk$elm_ionicons$Ionicon$usb),
+																																																																																																																																																																																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'upload', _j_panasiuk$elm_ionicons$Ionicon$upload),
 																																																																																																																																																																																																																																																_1: {
 																																																																																																																																																																																																																																																	ctor: '::',
-																																																																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'videocamera', _j_panasiuk$elm_ionicons$Ionicon$videocamera),
+																																																																																																																																																																																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'usb', _j_panasiuk$elm_ionicons$Ionicon$usb),
 																																																																																																																																																																																																																																																	_1: {
 																																																																																																																																																																																																																																																		ctor: '::',
-																																																																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeHigh', _j_panasiuk$elm_ionicons$Ionicon$volumeHigh),
+																																																																																																																																																																																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'videocamera', _j_panasiuk$elm_ionicons$Ionicon$videocamera),
 																																																																																																																																																																																																																																																		_1: {
 																																																																																																																																																																																																																																																			ctor: '::',
-																																																																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeLow', _j_panasiuk$elm_ionicons$Ionicon$volumeLow),
+																																																																																																																																																																																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeHigh', _j_panasiuk$elm_ionicons$Ionicon$volumeHigh),
 																																																																																																																																																																																																																																																			_1: {
 																																																																																																																																																																																																																																																				ctor: '::',
-																																																																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeMedium', _j_panasiuk$elm_ionicons$Ionicon$volumeMedium),
+																																																																																																																																																																																																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeLow', _j_panasiuk$elm_ionicons$Ionicon$volumeLow),
 																																																																																																																																																																																																																																																				_1: {
 																																																																																																																																																																																																																																																					ctor: '::',
-																																																																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeMute', _j_panasiuk$elm_ionicons$Ionicon$volumeMute),
+																																																																																																																																																																																																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeMedium', _j_panasiuk$elm_ionicons$Ionicon$volumeMedium),
 																																																																																																																																																																																																																																																					_1: {
 																																																																																																																																																																																																																																																						ctor: '::',
-																																																																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wand', _j_panasiuk$elm_ionicons$Ionicon$wand),
+																																																																																																																																																																																																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'volumeMute', _j_panasiuk$elm_ionicons$Ionicon$volumeMute),
 																																																																																																																																																																																																																																																						_1: {
 																																																																																																																																																																																																																																																							ctor: '::',
-																																																																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'waterdrop', _j_panasiuk$elm_ionicons$Ionicon$waterdrop),
+																																																																																																																																																																																																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wand', _j_panasiuk$elm_ionicons$Ionicon$wand),
 																																																																																																																																																																																																																																																							_1: {
 																																																																																																																																																																																																																																																								ctor: '::',
-																																																																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wifi', _j_panasiuk$elm_ionicons$Ionicon$wifi),
+																																																																																																																																																																																																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'waterdrop', _j_panasiuk$elm_ionicons$Ionicon$waterdrop),
 																																																																																																																																																																																																																																																								_1: {
 																																																																																																																																																																																																																																																									ctor: '::',
-																																																																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wineglass', _j_panasiuk$elm_ionicons$Ionicon$wineglass),
+																																																																																																																																																																																																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wifi', _j_panasiuk$elm_ionicons$Ionicon$wifi),
 																																																																																																																																																																																																																																																									_1: {
 																																																																																																																																																																																																																																																										ctor: '::',
-																																																																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'woman', _j_panasiuk$elm_ionicons$Ionicon$woman),
+																																																																																																																																																																																																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wineglass', _j_panasiuk$elm_ionicons$Ionicon$wineglass),
 																																																																																																																																																																																																																																																										_1: {
 																																																																																																																																																																																																																																																											ctor: '::',
-																																																																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wrench', _j_panasiuk$elm_ionicons$Ionicon$wrench),
+																																																																																																																																																																																																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'woman', _j_panasiuk$elm_ionicons$Ionicon$woman),
 																																																																																																																																																																																																																																																											_1: {
 																																																																																																																																																																																																																																																												ctor: '::',
-																																																																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'xbox', _j_panasiuk$elm_ionicons$Ionicon$xbox),
-																																																																																																																																																																																																																																																												_1: {ctor: '[]'}
+																																																																																																																																																																																																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wrench', _j_panasiuk$elm_ionicons$Ionicon$wrench),
+																																																																																																																																																																																																																																																												_1: {
+																																																																																																																																																																																																																																																													ctor: '::',
+																																																																																																																																																																																																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'xbox', _j_panasiuk$elm_ionicons$Ionicon$xbox),
+																																																																																																																																																																																																																																																													_1: {ctor: '[]'}
+																																																																																																																																																																																																																																																												}
 																																																																																																																																																																																																																																																											}
 																																																																																																																																																																																																																																																										}
 																																																																																																																																																																																																																																																									}
@@ -31199,134 +31420,138 @@ var _j_panasiuk$elm_ionicons$Main$socialIcons = {
 																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'html5', _j_panasiuk$elm_ionicons$Ionicon_Social$html5),
 																																							_1: {
 																																								ctor: '::',
-																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'instagram', _j_panasiuk$elm_ionicons$Ionicon_Social$instagram),
+																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'instagramOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$instagramOutline),
 																																								_1: {
 																																									ctor: '::',
-																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'javascriptOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$javascriptOutline),
+																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'instagram', _j_panasiuk$elm_ionicons$Ionicon_Social$instagram),
 																																									_1: {
 																																										ctor: '::',
-																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'javascript', _j_panasiuk$elm_ionicons$Ionicon_Social$javascript),
+																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'javascriptOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$javascriptOutline),
 																																										_1: {
 																																											ctor: '::',
-																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'linkedinOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$linkedinOutline),
+																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'javascript', _j_panasiuk$elm_ionicons$Ionicon_Social$javascript),
 																																											_1: {
 																																												ctor: '::',
-																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'linkedin', _j_panasiuk$elm_ionicons$Ionicon_Social$linkedin),
+																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'linkedinOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$linkedinOutline),
 																																												_1: {
 																																													ctor: '::',
-																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'markdown', _j_panasiuk$elm_ionicons$Ionicon_Social$markdown),
+																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'linkedin', _j_panasiuk$elm_ionicons$Ionicon_Social$linkedin),
 																																													_1: {
 																																														ctor: '::',
-																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'nodejs', _j_panasiuk$elm_ionicons$Ionicon_Social$nodejs),
+																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'markdown', _j_panasiuk$elm_ionicons$Ionicon_Social$markdown),
 																																														_1: {
 																																															ctor: '::',
-																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'octocat', _j_panasiuk$elm_ionicons$Ionicon_Social$octocat),
+																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'nodejs', _j_panasiuk$elm_ionicons$Ionicon_Social$nodejs),
 																																															_1: {
 																																																ctor: '::',
-																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pinterestOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$pinterestOutline),
+																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'octocat', _j_panasiuk$elm_ionicons$Ionicon_Social$octocat),
 																																																_1: {
 																																																	ctor: '::',
-																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pinterest', _j_panasiuk$elm_ionicons$Ionicon_Social$pinterest),
+																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pinterestOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$pinterestOutline),
 																																																	_1: {
 																																																		ctor: '::',
-																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'python', _j_panasiuk$elm_ionicons$Ionicon_Social$python),
+																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'pinterest', _j_panasiuk$elm_ionicons$Ionicon_Social$pinterest),
 																																																		_1: {
 																																																			ctor: '::',
-																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'redditOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$redditOutline),
+																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'python', _j_panasiuk$elm_ionicons$Ionicon_Social$python),
 																																																			_1: {
 																																																				ctor: '::',
-																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'reddit', _j_panasiuk$elm_ionicons$Ionicon_Social$reddit),
+																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'redditOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$redditOutline),
 																																																				_1: {
 																																																					ctor: '::',
-																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'rssOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$rssOutline),
+																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'reddit', _j_panasiuk$elm_ionicons$Ionicon_Social$reddit),
 																																																					_1: {
 																																																						ctor: '::',
-																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'rss', _j_panasiuk$elm_ionicons$Ionicon_Social$rss),
+																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'rssOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$rssOutline),
 																																																						_1: {
 																																																							ctor: '::',
-																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'sass', _j_panasiuk$elm_ionicons$Ionicon_Social$sass),
+																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'rss', _j_panasiuk$elm_ionicons$Ionicon_Social$rss),
 																																																							_1: {
 																																																								ctor: '::',
-																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skypeOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$skypeOutline),
+																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'sass', _j_panasiuk$elm_ionicons$Ionicon_Social$sass),
 																																																								_1: {
 																																																									ctor: '::',
-																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skype', _j_panasiuk$elm_ionicons$Ionicon_Social$skype),
+																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skypeOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$skypeOutline),
 																																																									_1: {
 																																																										ctor: '::',
-																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'snapchatOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$snapchatOutline),
+																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'skype', _j_panasiuk$elm_ionicons$Ionicon_Social$skype),
 																																																										_1: {
 																																																											ctor: '::',
-																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'snapchat', _j_panasiuk$elm_ionicons$Ionicon_Social$snapchat),
+																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'snapchatOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$snapchatOutline),
 																																																											_1: {
 																																																												ctor: '::',
-																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tumblrOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$tumblrOutline),
+																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'snapchat', _j_panasiuk$elm_ionicons$Ionicon_Social$snapchat),
 																																																												_1: {
 																																																													ctor: '::',
-																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tumblr', _j_panasiuk$elm_ionicons$Ionicon_Social$tumblr),
+																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tumblrOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$tumblrOutline),
 																																																													_1: {
 																																																														ctor: '::',
-																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tux', _j_panasiuk$elm_ionicons$Ionicon_Social$tux),
+																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tumblr', _j_panasiuk$elm_ionicons$Ionicon_Social$tumblr),
 																																																														_1: {
 																																																															ctor: '::',
-																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitchOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$twitchOutline),
+																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'tux', _j_panasiuk$elm_ionicons$Ionicon_Social$tux),
 																																																															_1: {
 																																																																ctor: '::',
-																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitch', _j_panasiuk$elm_ionicons$Ionicon_Social$twitch),
+																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitchOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$twitchOutline),
 																																																																_1: {
 																																																																	ctor: '::',
-																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitterOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$twitterOutline),
+																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitch', _j_panasiuk$elm_ionicons$Ionicon_Social$twitch),
 																																																																	_1: {
 																																																																		ctor: '::',
-																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitter', _j_panasiuk$elm_ionicons$Ionicon_Social$twitter),
+																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitterOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$twitterOutline),
 																																																																		_1: {
 																																																																			ctor: '::',
-																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'usdOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$usdOutline),
+																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'twitter', _j_panasiuk$elm_ionicons$Ionicon_Social$twitter),
 																																																																			_1: {
 																																																																				ctor: '::',
-																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'usd', _j_panasiuk$elm_ionicons$Ionicon_Social$usd),
+																																																																				_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'usdOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$usdOutline),
 																																																																				_1: {
 																																																																					ctor: '::',
-																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'vimeoOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$vimeoOutline),
+																																																																					_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'usd', _j_panasiuk$elm_ionicons$Ionicon_Social$usd),
 																																																																					_1: {
 																																																																						ctor: '::',
-																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'vimeo', _j_panasiuk$elm_ionicons$Ionicon_Social$vimeo),
+																																																																						_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'vimeoOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$vimeoOutline),
 																																																																						_1: {
 																																																																							ctor: '::',
-																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'whatsappOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$whatsappOutline),
+																																																																							_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'vimeo', _j_panasiuk$elm_ionicons$Ionicon_Social$vimeo),
 																																																																							_1: {
 																																																																								ctor: '::',
-																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'whatsapp', _j_panasiuk$elm_ionicons$Ionicon_Social$whatsapp),
+																																																																								_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'whatsappOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$whatsappOutline),
 																																																																								_1: {
 																																																																									ctor: '::',
-																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'windowsOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$windowsOutline),
+																																																																									_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'whatsapp', _j_panasiuk$elm_ionicons$Ionicon_Social$whatsapp),
 																																																																									_1: {
 																																																																										ctor: '::',
-																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'windows', _j_panasiuk$elm_ionicons$Ionicon_Social$windows),
+																																																																										_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'windowsOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$windowsOutline),
 																																																																										_1: {
 																																																																											ctor: '::',
-																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wordpressOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$wordpressOutline),
+																																																																											_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'windows', _j_panasiuk$elm_ionicons$Ionicon_Social$windows),
 																																																																											_1: {
 																																																																												ctor: '::',
-																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wordpress', _j_panasiuk$elm_ionicons$Ionicon_Social$wordpress),
+																																																																												_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wordpressOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$wordpressOutline),
 																																																																												_1: {
 																																																																													ctor: '::',
-																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yahooOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$yahooOutline),
+																																																																													_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'wordpress', _j_panasiuk$elm_ionicons$Ionicon_Social$wordpress),
 																																																																													_1: {
 																																																																														ctor: '::',
-																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yahoo', _j_panasiuk$elm_ionicons$Ionicon_Social$yahoo),
+																																																																														_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yahooOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$yahooOutline),
 																																																																														_1: {
 																																																																															ctor: '::',
-																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yenOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$yenOutline),
+																																																																															_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yahoo', _j_panasiuk$elm_ionicons$Ionicon_Social$yahoo),
 																																																																															_1: {
 																																																																																ctor: '::',
-																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yen', _j_panasiuk$elm_ionicons$Ionicon_Social$yen),
+																																																																																_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yenOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$yenOutline),
 																																																																																_1: {
 																																																																																	ctor: '::',
-																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'youtubeOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$youtubeOutline),
+																																																																																	_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'yen', _j_panasiuk$elm_ionicons$Ionicon_Social$yen),
 																																																																																	_1: {
 																																																																																		ctor: '::',
-																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'youtube', _j_panasiuk$elm_ionicons$Ionicon_Social$youtube),
-																																																																																		_1: {ctor: '[]'}
+																																																																																		_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'youtubeOutline', _j_panasiuk$elm_ionicons$Ionicon_Social$youtubeOutline),
+																																																																																		_1: {
+																																																																																			ctor: '::',
+																																																																																			_0: A2(_j_panasiuk$elm_ionicons$Main_ops['=>'], 'youtube', _j_panasiuk$elm_ionicons$Ionicon_Social$youtube),
+																																																																																			_1: {ctor: '[]'}
+																																																																																		}
 																																																																																	}
 																																																																																}
 																																																																															}
@@ -31409,10 +31634,13 @@ var _j_panasiuk$elm_ionicons$Main$socialIcons = {
 		}
 	}
 };
-var _j_panasiuk$elm_ionicons$Main$Model = F5(
-	function (a, b, c, d, e) {
-		return {search: a, includeIonicon: b, includeAndroid: c, includeIos: d, includeSocial: e};
+var _j_panasiuk$elm_ionicons$Main$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {search: a, includeIonicon: b, includeAndroid: c, includeIos: d, includeSocial: e, size: f};
 	});
+var _j_panasiuk$elm_ionicons$Main$ChangeSize = function (a) {
+	return {ctor: 'ChangeSize', _0: a};
+};
 var _j_panasiuk$elm_ionicons$Main$IncludeSocial = function (a) {
 	return {ctor: 'IncludeSocial', _0: a};
 };
@@ -31428,7 +31656,9 @@ var _j_panasiuk$elm_ionicons$Main$IncludeIonicon = function (a) {
 var _j_panasiuk$elm_ionicons$Main$SearchIcons = function (a) {
 	return {ctor: 'SearchIcons', _0: a};
 };
-var _j_panasiuk$elm_ionicons$Main$SearchBox = {ctor: 'SearchBox'};
+var _j_panasiuk$elm_ionicons$Main$Control = {ctor: 'Control'};
+var _j_panasiuk$elm_ionicons$Main$SearchInput = {ctor: 'SearchInput'};
+var _j_panasiuk$elm_ionicons$Main$SearchBar = {ctor: 'SearchBar'};
 var _j_panasiuk$elm_ionicons$Main$Header = {ctor: 'Header'};
 var _j_panasiuk$elm_ionicons$Main$Body = {ctor: 'Body'};
 var _j_panasiuk$elm_ionicons$Main$stylesheet = _mdgriffith$style_elements$Style$styleSheet(
@@ -31448,11 +31678,11 @@ var _j_panasiuk$elm_ionicons$Main$stylesheet = _mdgriffith$style_elements$Style$
 				_1: {
 					ctor: '::',
 					_0: _mdgriffith$style_elements$Style_Color$background(
-						A3(_elm_lang$core$Color$rgb, 34, 34, 34)),
+						A3(_elm_lang$core$Color$rgb, 220, 220, 220)),
 					_1: {
 						ctor: '::',
 						_0: _mdgriffith$style_elements$Style_Color$text(
-							A4(_elm_lang$core$Color$hsla, 1, 1, 1, 0.8)),
+							A3(_elm_lang$core$Color$hsl, 0, 0, 0.3)),
 						_1: {ctor: '[]'}
 					}
 				}
@@ -31465,32 +31695,113 @@ var _j_panasiuk$elm_ionicons$Main$stylesheet = _mdgriffith$style_elements$Style$
 				{
 					ctor: '::',
 					_0: _mdgriffith$style_elements$Style_Font$size(24),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$style_elements$Style_Border$bottom(1),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$style_elements$Style_Color$border(
+								A3(_elm_lang$core$Color$rgb, 190, 190, 190)),
+							_1: {ctor: '[]'}
+						}
+					}
 				}),
 			_1: {
 				ctor: '::',
 				_0: A2(
 					_mdgriffith$style_elements$Style$style,
-					_j_panasiuk$elm_ionicons$Main$SearchBox,
+					_j_panasiuk$elm_ionicons$Main$SearchBar,
 					{
 						ctor: '::',
-						_0: _mdgriffith$style_elements$Style_Color$background(
-							A3(_elm_lang$core$Color$rgb, 80, 80, 80)),
+						_0: _mdgriffith$style_elements$Style_Border$bottom(1),
 						_1: {
 							ctor: '::',
-							_0: _mdgriffith$style_elements$Style_Color$text(_elm_lang$core$Color$white),
-							_1: {
-								ctor: '::',
-								_0: _mdgriffith$style_elements$Style_Font$size(16),
-								_1: {ctor: '[]'}
-							}
+							_0: _mdgriffith$style_elements$Style_Color$border(
+								A3(_elm_lang$core$Color$rgb, 190, 190, 190)),
+							_1: {ctor: '[]'}
 						}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_mdgriffith$style_elements$Style$style,
+						_j_panasiuk$elm_ionicons$Main$SearchInput,
+						{
+							ctor: '::',
+							_0: _mdgriffith$style_elements$Style_Color$background(
+								A3(_elm_lang$core$Color$rgb, 250, 250, 250)),
+							_1: {
+								ctor: '::',
+								_0: _mdgriffith$style_elements$Style_Color$text(_elm_lang$core$Color$black),
+								_1: {
+									ctor: '::',
+									_0: _mdgriffith$style_elements$Style_Font$size(20),
+									_1: {
+										ctor: '::',
+										_0: _mdgriffith$style_elements$Style$focus(
+											{
+												ctor: '::',
+												_0: A2(
+													_mdgriffith$style_elements$Style_Shadow$glow,
+													A4(_elm_lang$core$Color$rgba, 0, 0, 0, 0),
+													0),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_mdgriffith$style_elements$Style$style,
+							_j_panasiuk$elm_ionicons$Main$Control,
+							{
+								ctor: '::',
+								_0: _mdgriffith$style_elements$Style_Font$size(20),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		}
 	});
 var _j_panasiuk$elm_ionicons$Main$None = {ctor: 'None'};
+var _j_panasiuk$elm_ionicons$Main$viewIcon = F3(
+	function (size, color, _p3) {
+		var _p4 = _p3;
+		return A3(
+			_mdgriffith$style_elements$Element$el,
+			_j_panasiuk$elm_ionicons$Main$None,
+			{ctor: '[]'},
+			_mdgriffith$style_elements$Element$html(
+				A2(
+					_elm_lang$html$Html$span,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$title(_p4._0),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(_p4._1, size, color),
+						_1: {ctor: '[]'}
+					})));
+	});
+var _j_panasiuk$elm_ionicons$Main$viewIonicon = function (size) {
+	return A2(_j_panasiuk$elm_ionicons$Main$viewIcon, size, _j_panasiuk$elm_ionicons$Main$iconColor);
+};
+var _j_panasiuk$elm_ionicons$Main$viewAndroidIcon = function (size) {
+	return A2(_j_panasiuk$elm_ionicons$Main$viewIcon, size, _j_panasiuk$elm_ionicons$Main$androidColor);
+};
+var _j_panasiuk$elm_ionicons$Main$viewIOSIcon = function (size) {
+	return A2(_j_panasiuk$elm_ionicons$Main$viewIcon, size, _j_panasiuk$elm_ionicons$Main$iosColor);
+};
+var _j_panasiuk$elm_ionicons$Main$viewSocialIcon = function (size) {
+	return A2(_j_panasiuk$elm_ionicons$Main$viewIcon, size, _j_panasiuk$elm_ionicons$Main$socialColor);
+};
 var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 	return A2(
 		_mdgriffith$style_elements$Element$viewport,
@@ -31525,7 +31836,7 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 								_mdgriffith$style_elements$Element_Attributes$px(40)),
 							_1: {
 								ctor: '::',
-								_0: _mdgriffith$style_elements$Element_Attributes$center,
+								_0: _mdgriffith$style_elements$Element_Attributes$spread,
 								_1: {ctor: '[]'}
 							}
 						}
@@ -31533,23 +31844,35 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 					{
 						ctor: '::',
 						_0: _mdgriffith$style_elements$Element$text('elm-ionicons'),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_mdgriffith$style_elements$Element$link,
+								'https://github.com/j-panasiuk/elm-ionicons',
+								_mdgriffith$style_elements$Element$html(
+									A2(_j_panasiuk$elm_ionicons$Ionicon_Social$github, 24, _j_panasiuk$elm_ionicons$Main$iconColor))),
+							_1: {ctor: '[]'}
+						}
 					}),
 				_1: {
 					ctor: '::',
 					_0: A3(
 						_mdgriffith$style_elements$Element$row,
-						_j_panasiuk$elm_ionicons$Main$None,
+						_j_panasiuk$elm_ionicons$Main$SearchBar,
 						{
 							ctor: '::',
 							_0: _mdgriffith$style_elements$Element_Attributes$width(_mdgriffith$style_elements$Element_Attributes$fill),
 							_1: {
 								ctor: '::',
-								_0: _mdgriffith$style_elements$Element_Attributes$verticalCenter,
+								_0: _mdgriffith$style_elements$Element_Attributes$paddingBottom(18),
 								_1: {
 									ctor: '::',
-									_0: _mdgriffith$style_elements$Element_Attributes$spread,
-									_1: {ctor: '[]'}
+									_0: _mdgriffith$style_elements$Element_Attributes$verticalCenter,
+									_1: {
+										ctor: '::',
+										_0: _mdgriffith$style_elements$Element_Attributes$spread,
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						},
@@ -31557,7 +31880,7 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 							ctor: '::',
 							_0: A3(
 								_mdgriffith$style_elements$Element_Input$text,
-								_j_panasiuk$elm_ionicons$Main$SearchBox,
+								_j_panasiuk$elm_ionicons$Main$SearchInput,
 								{
 									ctor: '::',
 									_0: _mdgriffith$style_elements$Element_Attributes$height(
@@ -31571,8 +31894,12 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 												_mdgriffith$style_elements$Element_Attributes$px(240)),
 											_1: {
 												ctor: '::',
-												_0: _mdgriffith$style_elements$Element_Attributes$verticalCenter,
-												_1: {ctor: '[]'}
+												_0: A2(_mdgriffith$style_elements$Element_Attributes$paddingXY, 6, 0),
+												_1: {
+													ctor: '::',
+													_0: _mdgriffith$style_elements$Element_Attributes$verticalCenter,
+													_1: {ctor: '[]'}
+												}
 											}
 										}
 									}
@@ -31582,7 +31909,7 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 									value: model.search,
 									label: _mdgriffith$style_elements$Element_Input$labelLeft(
 										_mdgriffith$style_elements$Element$html(
-											A2(_j_panasiuk$elm_ionicons$Ionicon_Android$search, 40, _elm_lang$core$Color$white))),
+											A2(_j_panasiuk$elm_ionicons$Ionicon_Android$search, 40, _j_panasiuk$elm_ionicons$Main$iconColor))),
 									options: {ctor: '[]'}
 								}),
 							_1: {
@@ -31599,7 +31926,7 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 										ctor: '::',
 										_0: A3(
 											_mdgriffith$style_elements$Element_Input$styledCheckbox,
-											_j_panasiuk$elm_ionicons$Main$None,
+											_j_panasiuk$elm_ionicons$Main$Control,
 											{ctor: '[]'},
 											{
 												onChange: _j_panasiuk$elm_ionicons$Main$IncludeIonicon,
@@ -31607,16 +31934,14 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 												checked: model.includeIonicon,
 												options: {ctor: '[]'},
 												icon: function (flag) {
-													return flag ? _j_panasiuk$elm_ionicons$Main$viewIonicon(
-														{ctor: '_Tuple2', _0: 'Ionicon', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox}) : _j_panasiuk$elm_ionicons$Main$viewIonicon(
-														{ctor: '_Tuple2', _0: 'Ionicon', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank});
+													return flag ? A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$iconColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox) : A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$iconColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank);
 												}
 											}),
 										_1: {
 											ctor: '::',
 											_0: A3(
 												_mdgriffith$style_elements$Element_Input$styledCheckbox,
-												_j_panasiuk$elm_ionicons$Main$None,
+												_j_panasiuk$elm_ionicons$Main$Control,
 												{ctor: '[]'},
 												{
 													onChange: _j_panasiuk$elm_ionicons$Main$IncludeAndroid,
@@ -31624,16 +31949,14 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 													checked: model.includeAndroid,
 													options: {ctor: '[]'},
 													icon: function (flag) {
-														return flag ? _j_panasiuk$elm_ionicons$Main$viewAndroidIcon(
-															{ctor: '_Tuple2', _0: 'Android', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox}) : _j_panasiuk$elm_ionicons$Main$viewAndroidIcon(
-															{ctor: '_Tuple2', _0: 'Android', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank});
+														return flag ? A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$androidColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox) : A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$androidColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank);
 													}
 												}),
 											_1: {
 												ctor: '::',
 												_0: A3(
 													_mdgriffith$style_elements$Element_Input$styledCheckbox,
-													_j_panasiuk$elm_ionicons$Main$None,
+													_j_panasiuk$elm_ionicons$Main$Control,
 													{ctor: '[]'},
 													{
 														onChange: _j_panasiuk$elm_ionicons$Main$IncludeIos,
@@ -31641,16 +31964,14 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 														checked: model.includeIos,
 														options: {ctor: '[]'},
 														icon: function (flag) {
-															return flag ? _j_panasiuk$elm_ionicons$Main$viewIOSIcon(
-																{ctor: '_Tuple2', _0: 'iOS', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox}) : _j_panasiuk$elm_ionicons$Main$viewIOSIcon(
-																{ctor: '_Tuple2', _0: 'iOS', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank});
+															return flag ? A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$iosColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox) : A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$iosColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank);
 														}
 													}),
 												_1: {
 													ctor: '::',
 													_0: A3(
 														_mdgriffith$style_elements$Element_Input$styledCheckbox,
-														_j_panasiuk$elm_ionicons$Main$None,
+														_j_panasiuk$elm_ionicons$Main$Control,
 														{ctor: '[]'},
 														{
 															onChange: _j_panasiuk$elm_ionicons$Main$IncludeSocial,
@@ -31658,9 +31979,7 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 															checked: model.includeSocial,
 															options: {ctor: '[]'},
 															icon: function (flag) {
-																return flag ? _j_panasiuk$elm_ionicons$Main$viewSocialIcon(
-																	{ctor: '_Tuple2', _0: 'Social', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox}) : _j_panasiuk$elm_ionicons$Main$viewSocialIcon(
-																	{ctor: '_Tuple2', _0: 'Social', _1: _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank});
+																return flag ? A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$socialColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkbox) : A2(_j_panasiuk$elm_ionicons$Main$viewControlIcon, _j_panasiuk$elm_ionicons$Main$socialColor, _j_panasiuk$elm_ionicons$Ionicon_Android$checkboxBlank);
 															}
 														}),
 													_1: {ctor: '[]'}
@@ -31668,7 +31987,50 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 											}
 										}
 									}),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: A3(
+										_mdgriffith$style_elements$Element$row,
+										_j_panasiuk$elm_ionicons$Main$None,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: A3(
+												_mdgriffith$style_elements$Element_Input$text,
+												_j_panasiuk$elm_ionicons$Main$SearchInput,
+												{
+													ctor: '::',
+													_0: _mdgriffith$style_elements$Element_Attributes$height(
+														_mdgriffith$style_elements$Element_Attributes$px(36)),
+													_1: {
+														ctor: '::',
+														_0: A2(_mdgriffith$style_elements$Element_Attributes$paddingXY, 6, 0),
+														_1: {
+															ctor: '::',
+															_0: _mdgriffith$style_elements$Element_Attributes$verticalCenter,
+															_1: {ctor: '[]'}
+														}
+													}
+												},
+												{
+													onChange: _j_panasiuk$elm_ionicons$Main$ChangeSize,
+													value: _elm_lang$core$Basics$toString(model.size),
+													label: _mdgriffith$style_elements$Element_Input$labelLeft(
+														A3(
+															_mdgriffith$style_elements$Element$el,
+															_j_panasiuk$elm_ionicons$Main$None,
+															{
+																ctor: '::',
+																_0: _mdgriffith$style_elements$Element_Attributes$verticalCenter,
+																_1: {ctor: '[]'}
+															},
+															_mdgriffith$style_elements$Element$text('Size'))),
+													options: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
 							}
 						}),
 					_1: {
@@ -31679,10 +32041,14 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 							A3(
 								_mdgriffith$style_elements$Element$wrappedRow,
 								_j_panasiuk$elm_ionicons$Main$None,
-								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _mdgriffith$style_elements$Element_Attributes$spacing(8),
+									_1: {ctor: '[]'}
+								},
 								A2(
 									_elm_lang$core$List$map,
-									_j_panasiuk$elm_ionicons$Main$viewIonicon,
+									_j_panasiuk$elm_ionicons$Main$viewIonicon(model.size),
 									A2(
 										_elm_lang$core$List$filter,
 										_j_panasiuk$elm_ionicons$Main$hasTag(model.search),
@@ -31695,10 +32061,14 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 								A3(
 									_mdgriffith$style_elements$Element$wrappedRow,
 									_j_panasiuk$elm_ionicons$Main$None,
-									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _mdgriffith$style_elements$Element_Attributes$spacing(8),
+										_1: {ctor: '[]'}
+									},
 									A2(
 										_elm_lang$core$List$map,
-										_j_panasiuk$elm_ionicons$Main$viewAndroidIcon,
+										_j_panasiuk$elm_ionicons$Main$viewAndroidIcon(model.size),
 										A2(
 											_elm_lang$core$List$filter,
 											_j_panasiuk$elm_ionicons$Main$hasTag(model.search),
@@ -31711,10 +32081,14 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 									A3(
 										_mdgriffith$style_elements$Element$wrappedRow,
 										_j_panasiuk$elm_ionicons$Main$None,
-										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _mdgriffith$style_elements$Element_Attributes$spacing(8),
+											_1: {ctor: '[]'}
+										},
 										A2(
 											_elm_lang$core$List$map,
-											_j_panasiuk$elm_ionicons$Main$viewIOSIcon,
+											_j_panasiuk$elm_ionicons$Main$viewIOSIcon(model.size),
 											A2(
 												_elm_lang$core$List$filter,
 												_j_panasiuk$elm_ionicons$Main$hasTag(model.search),
@@ -31727,10 +32101,14 @@ var _j_panasiuk$elm_ionicons$Main$view = function (model) {
 										A3(
 											_mdgriffith$style_elements$Element$wrappedRow,
 											_j_panasiuk$elm_ionicons$Main$None,
-											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _mdgriffith$style_elements$Element_Attributes$spacing(8),
+												_1: {ctor: '[]'}
+											},
 											A2(
 												_elm_lang$core$List$map,
-												_j_panasiuk$elm_ionicons$Main$viewSocialIcon,
+												_j_panasiuk$elm_ionicons$Main$viewSocialIcon(model.size),
 												A2(
 													_elm_lang$core$List$filter,
 													_j_panasiuk$elm_ionicons$Main$hasTag(model.search),

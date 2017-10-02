@@ -11,8 +11,10 @@ import Ionicon.Android as Android
 import Ionicon.Ios as Ios
 import Ionicon.Social as Social
 import Style exposing (StyleSheet, style)
+import Style.Border as Border
 import Style.Color as Color
 import Style.Font as Font
+import Style.Shadow as Shadow
 
 
 (=>) : a -> b -> ( a, b )
@@ -26,6 +28,7 @@ type alias Model =
     , includeAndroid : Bool
     , includeIos : Bool
     , includeSocial : Bool
+    , size : Int
     }
 
 
@@ -53,6 +56,7 @@ initialModel =
     , includeAndroid = True
     , includeIos = True
     , includeSocial = True
+    , size = 32
     }
 
 
@@ -62,6 +66,7 @@ type Msg
     | IncludeAndroid Bool
     | IncludeIos Bool
     | IncludeSocial Bool
+    | ChangeSize String
 
 
 update : Msg -> Model -> Model
@@ -82,6 +87,15 @@ update msg model =
         IncludeSocial flag ->
             { model | includeSocial = flag }
 
+        ChangeSize value ->
+            let
+                size =
+                    String.toInt value
+                        |> Result.withDefault model.size
+                        |> clamp 1 1000
+            in
+            { model | size = size }
+
 
 hasTag : String -> ( Tag, Icon msg ) -> Bool
 hasTag search ( tag, _ ) =
@@ -97,20 +111,22 @@ view model =
             , minHeight fill
             ]
             [ Element.row Header
-                [ width fill, height (px 40), center ]
-                [ Element.text "elm-ionicons" ]
-            , Element.row None
-                [ width fill, verticalCenter, spread ]
-                [ Input.text SearchBox
-                    [ height (px 36), width fill, minWidth (px 240), verticalCenter ]
+                [ width fill, height (px 40), spread ]
+                [ Element.text "elm-ionicons"
+                , Element.link "https://github.com/j-panasiuk/elm-ionicons" (Element.html <| Social.github 24 iconColor)
+                ]
+            , Element.row SearchBar
+                [ width fill, paddingBottom 18, verticalCenter, spread ]
+                [ Input.text SearchInput
+                    [ height (px 36), width fill, minWidth (px 240), paddingXY 6 0, verticalCenter ]
                     { onChange = SearchIcons
                     , value = model.search
-                    , label = Input.labelLeft (Element.html <| Android.search 40 Color.white)
+                    , label = Input.labelLeft (Element.html <| Android.search 40 iconColor)
                     , options = []
                     }
                 , Element.row None
                     [ spacing 10 ]
-                    [ Input.styledCheckbox None
+                    [ Input.styledCheckbox Control
                         []
                         { onChange = IncludeIonicon
                         , label = Element.text "Ionicon"
@@ -119,11 +135,11 @@ view model =
                         , icon =
                             \flag ->
                                 if flag then
-                                    viewIonicon ( "Ionicon", Android.checkbox )
+                                    viewControlIcon iconColor Android.checkbox
                                 else
-                                    viewIonicon ( "Ionicon", Android.checkboxBlank )
+                                    viewControlIcon iconColor Android.checkboxBlank
                         }
-                    , Input.styledCheckbox None
+                    , Input.styledCheckbox Control
                         []
                         { onChange = IncludeAndroid
                         , label = Element.text "Android"
@@ -132,11 +148,11 @@ view model =
                         , icon =
                             \flag ->
                                 if flag then
-                                    viewAndroidIcon ( "Android", Android.checkbox )
+                                    viewControlIcon androidColor Android.checkbox
                                 else
-                                    viewAndroidIcon ( "Android", Android.checkboxBlank )
+                                    viewControlIcon androidColor Android.checkboxBlank
                         }
-                    , Input.styledCheckbox None
+                    , Input.styledCheckbox Control
                         []
                         { onChange = IncludeIos
                         , label = Element.text "iOS"
@@ -145,11 +161,11 @@ view model =
                         , icon =
                             \flag ->
                                 if flag then
-                                    viewIOSIcon ( "iOS", Android.checkbox )
+                                    viewControlIcon iosColor Android.checkbox
                                 else
-                                    viewIOSIcon ( "iOS", Android.checkboxBlank )
+                                    viewControlIcon iosColor Android.checkboxBlank
                         }
-                    , Input.styledCheckbox None
+                    , Input.styledCheckbox Control
                         []
                         { onChange = IncludeSocial
                         , label = Element.text "Social"
@@ -158,54 +174,100 @@ view model =
                         , icon =
                             \flag ->
                                 if flag then
-                                    viewSocialIcon ( "Social", Android.checkbox )
+                                    viewControlIcon socialColor Android.checkbox
                                 else
-                                    viewSocialIcon ( "Social", Android.checkboxBlank )
+                                    viewControlIcon socialColor Android.checkboxBlank
+                        }
+                    ]
+                , Element.row None
+                    []
+                    [ Input.text SearchInput
+                        [ height (px 36), paddingXY 6 0, verticalCenter ]
+                        { onChange = ChangeSize
+                        , value = toString model.size
+                        , label = Input.labelLeft (Element.el None [ verticalCenter ] (Element.text "Size"))
+                        , options = []
                         }
                     ]
                 ]
             , Element.when model.includeIonicon <|
-                Element.wrappedRow None [] (List.map viewIonicon <| List.filter (hasTag model.search) ionicons)
+                Element.wrappedRow None
+                    [ spacing 8 ]
+                    (List.map (viewIonicon model.size) <| List.filter (hasTag model.search) ionicons)
             , Element.when model.includeAndroid <|
-                Element.wrappedRow None [] (List.map viewAndroidIcon <| List.filter (hasTag model.search) androidIcons)
+                Element.wrappedRow None
+                    [ spacing 8 ]
+                    (List.map (viewAndroidIcon model.size) <| List.filter (hasTag model.search) androidIcons)
             , Element.when model.includeIos <|
-                Element.wrappedRow None [] (List.map viewIOSIcon <| List.filter (hasTag model.search) iosIcons)
+                Element.wrappedRow None
+                    [ spacing 8 ]
+                    (List.map (viewIOSIcon model.size) <| List.filter (hasTag model.search) iosIcons)
             , Element.when model.includeSocial <|
-                Element.wrappedRow None [] (List.map viewSocialIcon <| List.filter (hasTag model.search) socialIcons)
+                Element.wrappedRow None
+                    [ spacing 8 ]
+                    (List.map (viewSocialIcon model.size) <| List.filter (hasTag model.search) socialIcons)
             ]
+
+
+viewControlIcon : Color -> Icon msg -> Element Styles variation msg
+viewControlIcon color icon =
+    Element.html <| icon 24 color
 
 
 viewIcon : Int -> Color -> ( Tag, Icon msg ) -> Element Styles variation msg
 viewIcon size color ( tag, icon ) =
-    Element.html <|
-        Html.span [ A.title tag ] [ icon size color ]
+    Element.el None [] <|
+        Element.html <|
+            Html.span [ A.title tag ] [ icon size color ]
 
 
-viewIonicon : ( Tag, Icon msg ) -> Element Styles variation msg
-viewIonicon =
-    viewIcon 36 (Color.hsla 1 1 1 0.8)
+viewIonicon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
+viewIonicon size =
+    viewIcon size iconColor
 
 
-viewAndroidIcon : ( Tag, Icon msg ) -> Element Styles variation msg
-viewAndroidIcon =
-    viewIcon 36 (Color.hsl 33.3 0.7 0.8)
+viewAndroidIcon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
+viewAndroidIcon size =
+    viewIcon size androidColor
 
 
-viewIOSIcon : ( Tag, Icon msg ) -> Element Styles variation msg
-viewIOSIcon =
-    viewIcon 36 (Color.hsl 66.7 0.7 0.8)
+viewIOSIcon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
+viewIOSIcon size =
+    viewIcon size iosColor
 
 
-viewSocialIcon : ( Tag, Icon msg ) -> Element Styles variation msg
-viewSocialIcon =
-    viewIcon 36 (Color.hsl 0 0.7 0.8)
+viewSocialIcon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
+viewSocialIcon size =
+    viewIcon size socialColor
+
+
+iconColor : Color
+iconColor =
+    Color.hsla (degrees 0) 0 0 0.6
+
+
+androidColor : Color
+androidColor =
+    Color.hsl (degrees 162) 0.35 0.45
+
+
+iosColor : Color
+iosColor =
+    Color.hsl (degrees 265) 0.35 0.45
+
+
+socialColor : Color
+socialColor =
+    Color.hsl (degrees -30) 0.35 0.45
 
 
 type Styles
     = None
     | Body
     | Header
-    | SearchBox
+    | SearchBar
+    | SearchInput
+    | Control
 
 
 stylesheet : StyleSheet Styles variation
@@ -213,16 +275,27 @@ stylesheet =
     Style.styleSheet
         [ style Body
             [ Font.typeface [ Font.sansSerif ]
-            , Color.background (Color.rgb 34 34 34)
-            , Color.text (Color.hsla 1 1 1 0.8)
+            , Color.background (Color.rgb 220 220 220)
+            , Color.text (Color.hsl 0 0 0.3)
             ]
         , style Header
             [ Font.size 24
+            , Border.bottom 1
+            , Color.border (Color.rgb 190 190 190)
             ]
-        , style SearchBox
-            [ Color.background (Color.rgb 80 80 80)
-            , Color.text Color.white
-            , Font.size 16
+        , style SearchBar
+            [ Border.bottom 1
+            , Color.border (Color.rgb 190 190 190)
+            ]
+        , style SearchInput
+            [ Color.background (Color.rgb 250 250 250)
+            , Color.text Color.black
+            , Font.size 20
+            , Style.focus
+                [ Shadow.glow (Color.rgba 0 0 0 0) 0 ]
+            ]
+        , style Control
+            [ Font.size 20
             ]
         ]
 
