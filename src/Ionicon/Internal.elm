@@ -1,9 +1,21 @@
-module Ionicon.Internal exposing (c3, e4, g, p, p1, pg, pg1, pgs, pl1, ps, pst, pt, r, r4, r4t, fill)
+module Ionicon.Internal exposing (RGBA, c3, e4, fill, g, p, p1, pg, pg1, pgs, pl1, ps, pst, pt, r, r4, r4t)
 
-import Color exposing (Color)
 import Html exposing (Html)
 import Svg exposing (Svg)
 import Svg.Attributes as A
+
+
+
+-- COLORS
+
+
+type alias RGBA =
+    { red : Float
+    , green : Float
+    , blue : Float
+    , alpha : Float
+    }
+
 
 
 -- CONSTRUCT ICONS
@@ -11,7 +23,7 @@ import Svg.Attributes as A
 
 {-| Build icon from svg path shape
 -}
-p : String -> Int -> Color -> Html msg
+p : String -> Int -> RGBA -> Html msg
 p d size color =
     svg size
         [ Svg.path
@@ -24,7 +36,7 @@ p d size color =
 
 {-| Build icon from a bunch of path shapes
 -}
-ps : List String -> Int -> Color -> Html msg
+ps : List String -> Int -> RGBA -> Html msg
 ps ds size color =
     svg size
         [ Svg.g [] <|
@@ -42,7 +54,7 @@ ps ds size color =
 
 {-| Build icon from svg polygon points
 -}
-pg : String -> Int -> Color -> Html msg
+pg : String -> Int -> RGBA -> Html msg
 pg points size color =
     svg size
         [ Svg.polygon
@@ -55,7 +67,7 @@ pg points size color =
 
 {-| Build icon from a bunch of polygon point groups
 -}
-pgs : List String -> Int -> Color -> Html msg
+pgs : List String -> Int -> RGBA -> Html msg
 pgs groupsOfPoints size color =
     svg size
         [ Svg.g [] <|
@@ -73,7 +85,7 @@ pgs groupsOfPoints size color =
 
 {-| Build icon from svg rectangle params
 -}
-r : String -> String -> String -> String -> Int -> Color -> Html msg
+r : String -> String -> String -> String -> Int -> RGBA -> Html msg
 r x y width height size color =
     svg size
         [ Svg.rect
@@ -89,7 +101,7 @@ r x y width height size color =
 
 {-| Build icon from a bunch of separate parts
 -}
-g : List (Color -> Html msg) -> Int -> Color -> Html msg
+g : List (RGBA -> Html msg) -> Int -> RGBA -> Html msg
 g elements size color =
     svg size
         [ Svg.g [] (List.map (\el -> el color) elements)
@@ -102,7 +114,7 @@ g elements size color =
 
 {-| Build icon from transformed path
 -}
-pt : String -> String -> Int -> Color -> Html msg
+pt : String -> String -> Int -> RGBA -> Html msg
 pt d transform size color =
     svg size
         [ Svg.path
@@ -116,7 +128,7 @@ pt d transform size color =
 
 {-| Build icon from a bunch of transformed paths
 -}
-pst : List String -> String -> Int -> Color -> Html msg
+pst : List String -> String -> Int -> RGBA -> Html msg
 pst ds transform size color =
     svg size
         [ Svg.g [] <|
@@ -139,7 +151,7 @@ pst ds transform size color =
 
 {-| Icon part - path
 -}
-p1 : String -> Color -> Html msg
+p1 : String -> RGBA -> Html msg
 p1 d color =
     Svg.path
         [ A.d d
@@ -150,7 +162,7 @@ p1 d color =
 
 {-| Icon part - polygon
 -}
-pg1 : String -> Color -> Html msg
+pg1 : String -> RGBA -> Html msg
 pg1 points color =
     Svg.polygon
         [ A.points points
@@ -161,7 +173,7 @@ pg1 points color =
 
 {-| Icon part - polyline
 -}
-pl1 : String -> Color -> Html msg
+pl1 : String -> RGBA -> Html msg
 pl1 points color =
     Svg.polyline
         [ A.points points
@@ -172,12 +184,12 @@ pl1 points color =
 
 {-| Icon part - circle
 -}
-c3 : String -> String -> String -> Color -> Html msg
-c3 cx cy r color =
+c3 : String -> String -> String -> RGBA -> Html msg
+c3 cx cy radius color =
     Svg.circle
         [ A.cx cx
         , A.cy cy
-        , A.r r
+        , A.r radius
         , A.fill (fill color)
         ]
         []
@@ -185,7 +197,7 @@ c3 cx cy r color =
 
 {-| Icon part - ellipse
 -}
-e4 : String -> String -> String -> String -> Color -> Html msg
+e4 : String -> String -> String -> String -> RGBA -> Html msg
 e4 cx cy rx ry color =
     Svg.ellipse
         [ A.cx cx
@@ -199,7 +211,7 @@ e4 cx cy rx ry color =
 
 {-| Icon part - rect
 -}
-r4 : String -> String -> String -> String -> Color -> Html msg
+r4 : String -> String -> String -> String -> RGBA -> Html msg
 r4 x y width height color =
     Svg.rect
         [ A.x x
@@ -213,7 +225,7 @@ r4 x y width height color =
 
 {-| Icon part - rect with transform
 -}
-r4t : String -> String -> String -> String -> String -> Color -> Html msg
+r4t : String -> String -> String -> String -> String -> RGBA -> Html msg
 r4t x y width height transform color =
     Svg.rect
         [ A.x x
@@ -236,25 +248,49 @@ svg size =
         [ A.version "1.1"
         , A.x "0px"
         , A.y "0px"
-        , A.width (toString size)
-        , A.height (toString size)
+        , A.width (String.fromInt size)
+        , A.height (String.fromInt size)
         , A.viewBox "0 0 512 512"
         , A.enableBackground "new 0 0 512 512"
         ]
 
 
-fill : Color -> String
-fill =
-    toRgbaString << Color.toRgb
-
-
-toRgbaString : { red : Int, green : Int, blue : Int, alpha : Float } -> String
-toRgbaString { red, green, blue, alpha } =
+fill : RGBA -> String
+fill { red, green, blue, alpha } =
     let
-        ( rgba, values ) =
-            if alpha < 1 then
-                ( "rgba", [ toString red, toString green, toString blue, String.left 5 (toString alpha) ] )
+        ( colorSpace, values ) =
+            if 0 <= alpha && alpha < 1 then
+                ( "rgba"
+                , [ red |> toColorString
+                  , green |> toColorString
+                  , blue |> toColorString
+                  , alpha |> toAlphaString
+                  ]
+                )
+
             else
-                ( "rgb", [ toString red, toString green, toString blue ] )
+                ( "rgb"
+                , [ red |> toColorString
+                  , green |> toColorString
+                  , blue |> toColorString
+                  ]
+                )
     in
-    rgba ++ "(" ++ String.join "," values ++ ")"
+    colorSpace ++ "(" ++ String.join "," values ++ ")"
+
+
+toColorString : Float -> String
+toColorString value =
+    value
+        |> (*) 255
+        |> clamp 0 255
+        |> String.fromFloat
+        |> String.left 5
+
+
+toAlphaString : Float -> String
+toAlphaString value =
+    value
+        |> clamp 0 1
+        |> String.fromFloat
+        |> String.left 5

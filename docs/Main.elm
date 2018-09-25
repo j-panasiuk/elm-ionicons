@@ -1,34 +1,222 @@
 module Main exposing (main)
 
-import Color exposing (Color)
-import Element exposing (Element)
-import Element.Attributes exposing (..)
+import Browser
+import Element exposing (..)
+import Element.Background as Background
+import Element.Border as Border
+import Element.Font as Font
 import Element.Input as Input
+import Element.Keyed as Keyed
 import Html exposing (Html)
-import Html.Attributes as A
 import Ionicon
 import Ionicon.Android as Android
 import Ionicon.Ios as Ios
 import Ionicon.Social as Social
-import Style exposing (StyleSheet, style)
-import Style.Border as Border
-import Style.Color as Color
-import Style.Font as Font
-import Style.Shadow as Shadow
+import Tuple exposing (pair)
 
 
-(=>) : a -> b -> ( a, b )
-(=>) =
-    (,)
+main : Program () Model Msg
+main =
+    Browser.sandbox
+        { init = initialModel
+        , update = update
+        , view = view
+        }
+
+
+
+-- MODEL
 
 
 type alias Model =
-    { search : String
-    , includeIonicon : Bool
-    , includeAndroid : Bool
-    , includeIos : Bool
-    , includeSocial : Bool
-    , size : Int
+    { searchPhrase : String
+    }
+
+
+initialModel : Model
+initialModel =
+    { searchPhrase = ""
+    }
+
+
+
+-- UPDATE
+
+
+type Msg
+    = Search String
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        Search phrase ->
+            { model | searchPhrase = phrase }
+
+
+
+-- VIEW
+
+
+view : Model -> Html Msg
+view model =
+    Element.layout [ Background.color (rgb 0.98 0.98 0.98) ] <|
+        column [ width fill ] <|
+            [ viewHeader
+            , viewControls model
+            , row [ width fill ]
+                [ viewIconGroup "Ionicon" ionicons model
+                , viewIconGroup "Ionicon.Android" androidIcons model
+                , viewIconGroup "Ionicon.Ios" iosIcons model
+                , viewIconGroup "Ionicon.Social" socialIcons model
+                ]
+            ]
+
+
+viewHeader : Element msg
+viewHeader =
+    row
+        [ width fill
+        , paddingXY 15 5
+        , Font.bold
+        , Font.color (rgb01 greyDark)
+        , Background.color (rgb 0.95 0.95 0.95)
+        ]
+        [ el [ alignLeft ] (text "elm-ionicons")
+        , row [ alignRight, spacing 5 ]
+            [ viewHeaderIcon
+                { url = "https://ionicons.com/"
+                , label = "Ionicons website"
+                , icon = Ionicon.ionic
+                }
+            , viewHeaderIcon
+                { url = "https://package.elm-lang.org/packages/j-panasiuk/elm-ionicons/latest"
+                , label = "elm-ionicons on Elm Package site"
+                , icon = Ionicon.codeDownload
+                }
+            , viewHeaderIcon
+                { url = "https://github.com/j-panasiuk/elm-ionicons"
+                , label = "elm-ionicons on GitHub"
+                , icon = Social.github
+                }
+            ]
+        ]
+
+
+viewHeaderIcon : { url : String, label : String, icon : Icon msg } -> Element msg
+viewHeaderIcon { url, label, icon } =
+    link []
+        { url = url
+        , label = el [ centerX, centerY ] <| html <| icon 32 greyDark
+        }
+
+
+viewControls : Model -> Element Msg
+viewControls model =
+    row
+        [ width fill
+        , padding 15
+        , Background.color (rgb 0.95 0.95 0.95)
+        , Border.solid
+        , Border.width 1
+        , Border.color (rgb 0.85 0.85 0.85)
+        ]
+        [ Input.search
+            [ width fill
+            , Border.solid
+            , Border.width 1
+            , Border.color (rgb 0.85 0.85 0.85)
+            , Border.rounded 0
+            , Input.focusedOnLoad
+            ]
+            { onChange = Search
+            , text = model.searchPhrase
+            , placeholder = Just (Input.placeholder [] (text "Search"))
+            , label = Input.labelAbove [] none
+            }
+        ]
+
+
+viewIconGroup : String -> List ( Tag, Icon msg ) -> Model -> Element msg
+viewIconGroup groupTitle taggedIcons { searchPhrase } =
+    Keyed.column
+        [ width fill
+        , alignLeft
+        , alignTop
+        , padding 15
+        , spacing 4
+        ]
+        (( "title" ++ groupTitle, viewIconGroupTitle groupTitle )
+            :: (taggedIcons
+                    |> List.filter (\( tag, _ ) -> String.contains searchPhrase tag)
+                    |> List.map
+                        (\( tag, icon ) ->
+                            ( "icon" ++ groupTitle ++ tag
+                            , viewTitledIcon tag icon
+                            )
+                        )
+               )
+        )
+
+
+viewIconGroupTitle : String -> Element msg
+viewIconGroupTitle title =
+    el
+        [ paddingXY 0 8
+        , Font.bold
+        , Font.color (rgb01 greyMedium)
+        ]
+        (text title)
+
+
+viewTitledIcon : String -> Icon msg -> Element msg
+viewTitledIcon tag icon =
+    row
+        [ spacing 8
+        , Font.size 18
+        , Font.color (rgb01 greyMedium)
+        ]
+        [ viewIcon icon
+        , text tag
+        ]
+
+
+viewIcon : Icon msg -> Element msg
+viewIcon icon =
+    el [ centerX, centerY ] <| html <| icon 40 greyDark
+
+
+
+-- STYLES
+
+
+rgb01 : RGBA -> Color
+rgb01 { red, green, blue } =
+    rgb
+        (clamp 0 1 red)
+        (clamp 0 1 green)
+        (clamp 0 1 blue)
+
+
+greyDark : RGBA
+greyDark =
+    RGBA 0.32 0.32 0.32 1
+
+
+greyMedium : RGBA
+greyMedium =
+    RGBA 0.56 0.56 0.56 1
+
+
+
+-- ICONS
+
+
+type alias RGBA =
+    { red : Float
+    , green : Float
+    , blue : Float
+    , alpha : Float
     }
 
 
@@ -37,1017 +225,757 @@ type alias Tag =
 
 
 type alias Icon msg =
-    Int -> Color -> Html msg
-
-
-main : Program Never Model Msg
-main =
-    Html.beginnerProgram
-        { model = initialModel
-        , update = update
-        , view = view
-        }
-
-
-initialModel : Model
-initialModel =
-    { search = ""
-    , includeIonicon = True
-    , includeAndroid = True
-    , includeIos = True
-    , includeSocial = True
-    , size = 32
-    }
-
-
-type Msg
-    = SearchIcons String
-    | IncludeIonicon Bool
-    | IncludeAndroid Bool
-    | IncludeIos Bool
-    | IncludeSocial Bool
-    | ChangeSize String
-
-
-update : Msg -> Model -> Model
-update msg model =
-    case msg of
-        SearchIcons search ->
-            { model | search = search }
-
-        IncludeIonicon flag ->
-            { model | includeIonicon = flag }
-
-        IncludeAndroid flag ->
-            { model | includeAndroid = flag }
-
-        IncludeIos flag ->
-            { model | includeIos = flag }
-
-        IncludeSocial flag ->
-            { model | includeSocial = flag }
-
-        ChangeSize value ->
-            let
-                size =
-                    String.toInt value
-                        |> Result.withDefault model.size
-                        |> clamp 1 1000
-            in
-            { model | size = size }
-
-
-hasTag : String -> ( Tag, Icon msg ) -> Bool
-hasTag search ( tag, _ ) =
-    String.contains (String.toLower search) (String.toLower tag)
-
-
-view : Model -> Html Msg
-view model =
-    Element.viewport stylesheet <|
-        Element.column Body
-            [ paddingXY 30 20
-            , spacing 20
-            , minHeight fill
-            ]
-            [ Element.row Header
-                [ width fill, height (px 40), spread ]
-                [ Element.text "elm-ionicons"
-                , Element.link "https://github.com/j-panasiuk/elm-ionicons" (Element.html <| Social.github 24 iconColor)
-                ]
-            , Element.row SearchBar
-                [ width fill, paddingBottom 18, verticalCenter, spread ]
-                [ Input.text SearchInput
-                    [ height (px 36), width fill, minWidth (px 240), paddingXY 6 0, verticalCenter ]
-                    { onChange = SearchIcons
-                    , value = model.search
-                    , label = Input.labelLeft (Element.html <| Android.search 40 iconColor)
-                    , options = []
-                    }
-                , Element.row None
-                    [ spacing 10 ]
-                    [ Input.styledCheckbox Control
-                        []
-                        { onChange = IncludeIonicon
-                        , label = Element.text "Ionicon"
-                        , checked = model.includeIonicon
-                        , options = []
-                        , icon =
-                            \flag ->
-                                if flag then
-                                    viewControlIcon iconColor Android.checkbox
-                                else
-                                    viewControlIcon iconColor Android.checkboxBlank
-                        }
-                    , Input.styledCheckbox Control
-                        []
-                        { onChange = IncludeAndroid
-                        , label = Element.text "Android"
-                        , checked = model.includeAndroid
-                        , options = []
-                        , icon =
-                            \flag ->
-                                if flag then
-                                    viewControlIcon androidColor Android.checkbox
-                                else
-                                    viewControlIcon androidColor Android.checkboxBlank
-                        }
-                    , Input.styledCheckbox Control
-                        []
-                        { onChange = IncludeIos
-                        , label = Element.text "iOS"
-                        , checked = model.includeIos
-                        , options = []
-                        , icon =
-                            \flag ->
-                                if flag then
-                                    viewControlIcon iosColor Android.checkbox
-                                else
-                                    viewControlIcon iosColor Android.checkboxBlank
-                        }
-                    , Input.styledCheckbox Control
-                        []
-                        { onChange = IncludeSocial
-                        , label = Element.text "Social"
-                        , checked = model.includeSocial
-                        , options = []
-                        , icon =
-                            \flag ->
-                                if flag then
-                                    viewControlIcon socialColor Android.checkbox
-                                else
-                                    viewControlIcon socialColor Android.checkboxBlank
-                        }
-                    ]
-                , Element.row None
-                    []
-                    [ Input.text SearchInput
-                        [ height (px 36), paddingXY 6 0, verticalCenter ]
-                        { onChange = ChangeSize
-                        , value = toString model.size
-                        , label = Input.labelLeft (Element.el None [ verticalCenter ] (Element.text "Size"))
-                        , options = []
-                        }
-                    ]
-                ]
-            , Element.when model.includeIonicon <|
-                Element.wrappedRow None
-                    [ spacing 8 ]
-                    (List.map (viewIonicon model.size) <| List.filter (hasTag model.search) ionicons)
-            , Element.when model.includeAndroid <|
-                Element.wrappedRow None
-                    [ spacing 8 ]
-                    (List.map (viewAndroidIcon model.size) <| List.filter (hasTag model.search) androidIcons)
-            , Element.when model.includeIos <|
-                Element.wrappedRow None
-                    [ spacing 8 ]
-                    (List.map (viewIOSIcon model.size) <| List.filter (hasTag model.search) iosIcons)
-            , Element.when model.includeSocial <|
-                Element.wrappedRow None
-                    [ spacing 8 ]
-                    (List.map (viewSocialIcon model.size) <| List.filter (hasTag model.search) socialIcons)
-            ]
-
-
-viewControlIcon : Color -> Icon msg -> Element Styles variation msg
-viewControlIcon color icon =
-    Element.html <| icon 24 color
-
-
-viewIcon : Int -> Color -> ( Tag, Icon msg ) -> Element Styles variation msg
-viewIcon size color ( tag, icon ) =
-    Element.el None [] <|
-        Element.html <|
-            Html.span [ A.title tag ] [ icon size color ]
-
-
-viewIonicon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
-viewIonicon size =
-    viewIcon size iconColor
-
-
-viewAndroidIcon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
-viewAndroidIcon size =
-    viewIcon size androidColor
-
-
-viewIOSIcon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
-viewIOSIcon size =
-    viewIcon size iosColor
-
-
-viewSocialIcon : Int -> ( Tag, Icon msg ) -> Element Styles variation msg
-viewSocialIcon size =
-    viewIcon size socialColor
-
-
-iconColor : Color
-iconColor =
-    Color.hsla (degrees 0) 0 0 0.6
-
-
-androidColor : Color
-androidColor =
-    Color.hsl (degrees 162) 0.35 0.45
-
-
-iosColor : Color
-iosColor =
-    Color.hsl (degrees 265) 0.35 0.45
-
-
-socialColor : Color
-socialColor =
-    Color.hsl (degrees -30) 0.35 0.45
-
-
-type Styles
-    = None
-    | Body
-    | Header
-    | SearchBar
-    | SearchInput
-    | Control
-
-
-stylesheet : StyleSheet Styles variation
-stylesheet =
-    Style.styleSheet
-        [ style Body
-            [ Font.typeface [ Font.sansSerif ]
-            , Color.background (Color.rgb 220 220 220)
-            , Color.text (Color.hsl 0 0 0.3)
-            ]
-        , style Header
-            [ Font.size 24
-            , Border.bottom 1
-            , Color.border (Color.rgb 190 190 190)
-            ]
-        , style SearchBar
-            [ Border.bottom 1
-            , Color.border (Color.rgb 190 190 190)
-            ]
-        , style SearchInput
-            [ Color.background (Color.rgb 250 250 250)
-            , Color.text Color.black
-            , Font.size 20
-            , Style.focus
-                [ Shadow.glow (Color.rgba 0 0 0 0) 0 ]
-            ]
-        , style Control
-            [ Font.size 20
-            ]
-        ]
+    Int -> RGBA -> Html msg
 
 
 ionicons : List ( Tag, Icon msg )
 ionicons =
-    [ "alertCircled" => Ionicon.alertCircled
-    , "alert" => Ionicon.alert
-    , "aperture" => Ionicon.aperture
-    , "archive" => Ionicon.archive
-    , "arrowDownA" => Ionicon.arrowDownA
-    , "arrowDownB" => Ionicon.arrowDownB
-    , "arrowDownC" => Ionicon.arrowDownC
-    , "arrowExpand" => Ionicon.arrowExpand
-    , "arrowGraphDownLeft" => Ionicon.arrowGraphDownLeft
-    , "arrowGraphDownRight" => Ionicon.arrowGraphDownRight
-    , "arrowGraphUpLeft" => Ionicon.arrowGraphUpLeft
-    , "arrowGraphUpRight" => Ionicon.arrowGraphUpRight
-    , "arrowLeftA" => Ionicon.arrowLeftA
-    , "arrowLeftB" => Ionicon.arrowLeftB
-    , "arrowLeftC" => Ionicon.arrowLeftC
-    , "arrowMove" => Ionicon.arrowMove
-    , "arrowResize" => Ionicon.arrowResize
-    , "arrowReturnLeft" => Ionicon.arrowReturnLeft
-    , "arrowReturnRight" => Ionicon.arrowReturnRight
-    , "arrowRightA" => Ionicon.arrowRightA
-    , "arrowRightB" => Ionicon.arrowRightB
-    , "arrowRightC" => Ionicon.arrowRightC
-    , "arrowShrink" => Ionicon.arrowShrink
-    , "arrowSwap" => Ionicon.arrowSwap
-    , "arrowUpA" => Ionicon.arrowUpA
-    , "arrowUpB" => Ionicon.arrowUpB
-    , "arrowUpC" => Ionicon.arrowUpC
-    , "asterisk" => Ionicon.asterisk
-    , "at" => Ionicon.at
-    , "backspaceOutline" => Ionicon.backspaceOutline
-    , "backspace" => Ionicon.backspace
-    , "bag" => Ionicon.bag
-    , "batteryCharging" => Ionicon.batteryCharging
-    , "batteryEmpty" => Ionicon.batteryEmpty
-    , "batteryFull" => Ionicon.batteryFull
-    , "batteryHalf" => Ionicon.batteryHalf
-    , "batteryLow" => Ionicon.batteryLow
-    , "beaker" => Ionicon.beaker
-    , "beer" => Ionicon.beer
-    , "bluetooth" => Ionicon.bluetooth
-    , "bonfire" => Ionicon.bonfire
-    , "bookmark" => Ionicon.bookmark
-    , "bowtie" => Ionicon.bowtie
-    , "briefcase" => Ionicon.briefcase
-    , "bug" => Ionicon.bug
-    , "calculator" => Ionicon.calculator
-    , "calendar" => Ionicon.calendar
-    , "camera" => Ionicon.camera
-    , "card" => Ionicon.card
-    , "cash" => Ionicon.cash
-    , "chatboxWorking" => Ionicon.chatboxWorking
-    , "chatbox" => Ionicon.chatbox
-    , "chatboxes" => Ionicon.chatboxes
-    , "chatbubbleWorking" => Ionicon.chatbubbleWorking
-    , "chatbubble" => Ionicon.chatbubble
-    , "chatbubbles" => Ionicon.chatbubbles
-    , "checkmarkCircled" => Ionicon.checkmarkCircled
-    , "checkmarkRound" => Ionicon.checkmarkRound
-    , "checkmark" => Ionicon.checkmark
-    , "chevronDown" => Ionicon.chevronDown
-    , "chevronLeft" => Ionicon.chevronLeft
-    , "chevronRight" => Ionicon.chevronRight
-    , "chevronUp" => Ionicon.chevronUp
-    , "clipboard" => Ionicon.clipboard
-    , "clock" => Ionicon.clock
-    , "closeCircled" => Ionicon.closeCircled
-    , "closeRound" => Ionicon.closeRound
-    , "close" => Ionicon.close
-    , "closedCaptioning" => Ionicon.closedCaptioning
-    , "cloud" => Ionicon.cloud
-    , "codeDownload" => Ionicon.codeDownload
-    , "codeWorking" => Ionicon.codeWorking
-    , "code" => Ionicon.code
-    , "coffee" => Ionicon.coffee
-    , "compass" => Ionicon.compass
-    , "compose" => Ionicon.compose
-    , "connectionBars" => Ionicon.connectionBars
-    , "contrast" => Ionicon.contrast
-    , "crop" => Ionicon.crop
-    , "cube" => Ionicon.cube
-    , "disc" => Ionicon.disc
-    , "documentText" => Ionicon.documentText
-    , "document" => Ionicon.document
-    , "drag" => Ionicon.drag
-    , "earth" => Ionicon.earth
-    , "easel" => Ionicon.easel
-    , "edit" => Ionicon.edit
-    , "egg" => Ionicon.egg
-    , "eject" => Ionicon.eject
-    , "emailUnread" => Ionicon.emailUnread
-    , "email" => Ionicon.email
-    , "erlenmeyerFlaskBubbles" => Ionicon.erlenmeyerFlaskBubbles
-    , "erlenmeyerFlask" => Ionicon.erlenmeyerFlask
-    , "eyeDisabled" => Ionicon.eyeDisabled
-    , "eye" => Ionicon.eye
-    , "female" => Ionicon.female
-    , "filing" => Ionicon.filing
-    , "filmMarker" => Ionicon.filmMarker
-    , "fireball" => Ionicon.fireball
-    , "flag" => Ionicon.flag
-    , "flame" => Ionicon.flame
-    , "flashOff" => Ionicon.flashOff
-    , "flash" => Ionicon.flash
-    , "folder" => Ionicon.folder
-    , "forkRepo" => Ionicon.forkRepo
-    , "fork" => Ionicon.fork
-    , "forward" => Ionicon.forward
-    , "funnel" => Ionicon.funnel
-    , "gearA" => Ionicon.gearA
-    , "gearB" => Ionicon.gearB
-    , "grid" => Ionicon.grid
-    , "hammer" => Ionicon.hammer
-    , "happyOutline" => Ionicon.happyOutline
-    , "happy" => Ionicon.happy
-    , "headphone" => Ionicon.headphone
-    , "heartBroken" => Ionicon.heartBroken
-    , "heart" => Ionicon.heart
-    , "helpBuoy" => Ionicon.helpBuoy
-    , "helpCircled" => Ionicon.helpCircled
-    , "help" => Ionicon.help
-    , "home" => Ionicon.home
-    , "icecream" => Ionicon.icecream
-    , "image" => Ionicon.image
-    , "images" => Ionicon.images
-    , "informationCircled" => Ionicon.informationCircled
-    , "information" => Ionicon.information
-    , "ionic" => Ionicon.ionic
-    , "ipad" => Ionicon.ipad
-    , "iphone" => Ionicon.iphone
-    , "ipod" => Ionicon.ipod
-    , "jet" => Ionicon.jet
-    , "key" => Ionicon.key
-    , "knife" => Ionicon.knife
-    , "laptop" => Ionicon.laptop
-    , "leaf" => Ionicon.leaf
-    , "levels" => Ionicon.levels
-    , "lightbulb" => Ionicon.lightbulb
-    , "link" => Ionicon.link
-    , "loadA" => Ionicon.loadA
-    , "loadB" => Ionicon.loadB
-    , "loadC" => Ionicon.loadC
-    , "loadD" => Ionicon.loadD
-    , "location" => Ionicon.location
-    , "lockCombination" => Ionicon.lockCombination
-    , "locked" => Ionicon.locked
-    , "logIn" => Ionicon.logIn
-    , "logOut" => Ionicon.logOut
-    , "loop" => Ionicon.loop
-    , "magnet" => Ionicon.magnet
-    , "male" => Ionicon.male
-    , "man" => Ionicon.man
-    , "map" => Ionicon.map
-    , "medkit" => Ionicon.medkit
-    , "merge" => Ionicon.merge
-    , "micA" => Ionicon.micA
-    , "micB" => Ionicon.micB
-    , "micC" => Ionicon.micC
-    , "minusCircled" => Ionicon.minusCircled
-    , "minusRound" => Ionicon.minusRound
-    , "minus" => Ionicon.minus
-    , "modelS" => Ionicon.modelS
-    , "monitor" => Ionicon.monitor
-    , "more" => Ionicon.more
-    , "mouse" => Ionicon.mouse
-    , "musicNote" => Ionicon.musicNote
-    , "naviconRound" => Ionicon.naviconRound
-    , "navicon" => Ionicon.navicon
-    , "navigate" => Ionicon.navigate
-    , "network" => Ionicon.network
-    , "noSmoking" => Ionicon.noSmoking
-    , "nuclear" => Ionicon.nuclear
-    , "outlet" => Ionicon.outlet
-    , "paintbrush" => Ionicon.paintbrush
-    , "paintbucket" => Ionicon.paintbucket
-    , "paperAirplane" => Ionicon.paperAirplane
-    , "paperclip" => Ionicon.paperclip
-    , "pause" => Ionicon.pause
-    , "personAdd" => Ionicon.personAdd
-    , "personStalker" => Ionicon.personStalker
-    , "person" => Ionicon.person
-    , "pieGraph" => Ionicon.pieGraph
-    , "pin" => Ionicon.pin
-    , "pinpoint" => Ionicon.pinpoint
-    , "pizza" => Ionicon.pizza
-    , "plane" => Ionicon.plane
-    , "planet" => Ionicon.planet
-    , "play" => Ionicon.play
-    , "playstation" => Ionicon.playstation
-    , "plusCircled" => Ionicon.plusCircled
-    , "plusRound" => Ionicon.plusRound
-    , "plus" => Ionicon.plus
-    , "podium" => Ionicon.podium
-    , "pound" => Ionicon.pound
-    , "power" => Ionicon.power
-    , "pricetag" => Ionicon.pricetag
-    , "pricetags" => Ionicon.pricetags
-    , "printer" => Ionicon.printer
-    , "pullRequest" => Ionicon.pullRequest
-    , "qrScanner" => Ionicon.qrScanner
-    , "quote" => Ionicon.quote
-    , "radioWaves" => Ionicon.radioWaves
-    , "record" => Ionicon.record
-    , "refresh" => Ionicon.refresh
-    , "replyAll" => Ionicon.replyAll
-    , "reply" => Ionicon.reply
-    , "ribbonA" => Ionicon.ribbonA
-    , "ribbonB" => Ionicon.ribbonB
-    , "sadOutline" => Ionicon.sadOutline
-    , "sad" => Ionicon.sad
-    , "scissors" => Ionicon.scissors
-    , "search" => Ionicon.search
-    , "settings" => Ionicon.settings
-    , "share" => Ionicon.share
-    , "shuffle" => Ionicon.shuffle
-    , "skipBackward" => Ionicon.skipBackward
-    , "skipForward" => Ionicon.skipForward
-    , "soupCanOutline" => Ionicon.soupCanOutline
-    , "soupCan" => Ionicon.soupCan
-    , "speakerphone" => Ionicon.speakerphone
-    , "speedometer" => Ionicon.speedometer
-    , "spoon" => Ionicon.spoon
-    , "star" => Ionicon.star
-    , "starBars" => Ionicon.starBars
-    , "steam" => Ionicon.steam
-    , "stop" => Ionicon.stop
-    , "thermometer" => Ionicon.thermometer
-    , "thumbsdown" => Ionicon.thumbsdown
-    , "thumbsup" => Ionicon.thumbsup
-    , "toggleFilled" => Ionicon.toggleFilled
-    , "toggle" => Ionicon.toggle
-    , "transgender" => Ionicon.transgender
-    , "trashA" => Ionicon.trashA
-    , "trashB" => Ionicon.trashB
-    , "trophy" => Ionicon.trophy
-    , "tshirtOutline" => Ionicon.tshirtOutline
-    , "tshirt" => Ionicon.tshirt
-    , "umbrella" => Ionicon.umbrella
-    , "university" => Ionicon.university
-    , "unlocked" => Ionicon.unlocked
-    , "upload" => Ionicon.upload
-    , "usb" => Ionicon.usb
-    , "videocamera" => Ionicon.videocamera
-    , "volumeHigh" => Ionicon.volumeHigh
-    , "volumeLow" => Ionicon.volumeLow
-    , "volumeMedium" => Ionicon.volumeMedium
-    , "volumeMute" => Ionicon.volumeMute
-    , "wand" => Ionicon.wand
-    , "waterdrop" => Ionicon.waterdrop
-    , "wifi" => Ionicon.wifi
-    , "wineglass" => Ionicon.wineglass
-    , "woman" => Ionicon.woman
-    , "wrench" => Ionicon.wrench
-    , "xbox" => Ionicon.xbox
+    [ pair "alertCircled" Ionicon.alertCircled
+    , pair "alert" Ionicon.alert
+    , pair "aperture" Ionicon.aperture
+    , pair "archive" Ionicon.archive
+    , pair "arrowDownA" Ionicon.arrowDownA
+    , pair "arrowDownB" Ionicon.arrowDownB
+    , pair "arrowDownC" Ionicon.arrowDownC
+    , pair "arrowExpand" Ionicon.arrowExpand
+    , pair "arrowGraphDownLeft" Ionicon.arrowGraphDownLeft
+    , pair "arrowGraphDownRight" Ionicon.arrowGraphDownRight
+    , pair "arrowGraphUpLeft" Ionicon.arrowGraphUpLeft
+    , pair "arrowGraphUpRight" Ionicon.arrowGraphUpRight
+    , pair "arrowLeftA" Ionicon.arrowLeftA
+    , pair "arrowLeftB" Ionicon.arrowLeftB
+    , pair "arrowLeftC" Ionicon.arrowLeftC
+    , pair "arrowMove" Ionicon.arrowMove
+    , pair "arrowResize" Ionicon.arrowResize
+    , pair "arrowReturnLeft" Ionicon.arrowReturnLeft
+    , pair "arrowReturnRight" Ionicon.arrowReturnRight
+    , pair "arrowRightA" Ionicon.arrowRightA
+    , pair "arrowRightB" Ionicon.arrowRightB
+    , pair "arrowRightC" Ionicon.arrowRightC
+    , pair "arrowShrink" Ionicon.arrowShrink
+    , pair "arrowSwap" Ionicon.arrowSwap
+    , pair "arrowUpA" Ionicon.arrowUpA
+    , pair "arrowUpB" Ionicon.arrowUpB
+    , pair "arrowUpC" Ionicon.arrowUpC
+    , pair "asterisk" Ionicon.asterisk
+    , pair "at" Ionicon.at
+    , pair "backspaceOutline" Ionicon.backspaceOutline
+    , pair "backspace" Ionicon.backspace
+    , pair "bag" Ionicon.bag
+    , pair "batteryCharging" Ionicon.batteryCharging
+    , pair "batteryEmpty" Ionicon.batteryEmpty
+    , pair "batteryFull" Ionicon.batteryFull
+    , pair "batteryHalf" Ionicon.batteryHalf
+    , pair "batteryLow" Ionicon.batteryLow
+    , pair "beaker" Ionicon.beaker
+    , pair "beer" Ionicon.beer
+    , pair "bluetooth" Ionicon.bluetooth
+    , pair "bonfire" Ionicon.bonfire
+    , pair "bookmark" Ionicon.bookmark
+    , pair "bowtie" Ionicon.bowtie
+    , pair "briefcase" Ionicon.briefcase
+    , pair "bug" Ionicon.bug
+    , pair "calculator" Ionicon.calculator
+    , pair "calendar" Ionicon.calendar
+    , pair "camera" Ionicon.camera
+    , pair "card" Ionicon.card
+    , pair "cash" Ionicon.cash
+    , pair "chatboxWorking" Ionicon.chatboxWorking
+    , pair "chatbox" Ionicon.chatbox
+    , pair "chatboxes" Ionicon.chatboxes
+    , pair "chatbubbleWorking" Ionicon.chatbubbleWorking
+    , pair "chatbubble" Ionicon.chatbubble
+    , pair "chatbubbles" Ionicon.chatbubbles
+    , pair "checkmarkCircled" Ionicon.checkmarkCircled
+    , pair "checkmarkRound" Ionicon.checkmarkRound
+    , pair "checkmark" Ionicon.checkmark
+    , pair "chevronDown" Ionicon.chevronDown
+    , pair "chevronLeft" Ionicon.chevronLeft
+    , pair "chevronRight" Ionicon.chevronRight
+    , pair "chevronUp" Ionicon.chevronUp
+    , pair "clipboard" Ionicon.clipboard
+    , pair "clock" Ionicon.clock
+    , pair "closeCircled" Ionicon.closeCircled
+    , pair "closeRound" Ionicon.closeRound
+    , pair "close" Ionicon.close
+    , pair "closedCaptioning" Ionicon.closedCaptioning
+    , pair "cloud" Ionicon.cloud
+    , pair "codeDownload" Ionicon.codeDownload
+    , pair "codeWorking" Ionicon.codeWorking
+    , pair "code" Ionicon.code
+    , pair "coffee" Ionicon.coffee
+    , pair "compass" Ionicon.compass
+    , pair "compose" Ionicon.compose
+    , pair "connectionBars" Ionicon.connectionBars
+    , pair "contrast" Ionicon.contrast
+    , pair "crop" Ionicon.crop
+    , pair "cube" Ionicon.cube
+    , pair "disc" Ionicon.disc
+    , pair "documentText" Ionicon.documentText
+    , pair "document" Ionicon.document
+    , pair "drag" Ionicon.drag
+    , pair "earth" Ionicon.earth
+    , pair "easel" Ionicon.easel
+    , pair "edit" Ionicon.edit
+    , pair "egg" Ionicon.egg
+    , pair "eject" Ionicon.eject
+    , pair "emailUnread" Ionicon.emailUnread
+    , pair "email" Ionicon.email
+    , pair "erlenmeyerFlaskBubbles" Ionicon.erlenmeyerFlaskBubbles
+    , pair "erlenmeyerFlask" Ionicon.erlenmeyerFlask
+    , pair "eyeDisabled" Ionicon.eyeDisabled
+    , pair "eye" Ionicon.eye
+    , pair "female" Ionicon.female
+    , pair "filing" Ionicon.filing
+    , pair "filmMarker" Ionicon.filmMarker
+    , pair "fireball" Ionicon.fireball
+    , pair "flag" Ionicon.flag
+    , pair "flame" Ionicon.flame
+    , pair "flashOff" Ionicon.flashOff
+    , pair "flash" Ionicon.flash
+    , pair "folder" Ionicon.folder
+    , pair "forkRepo" Ionicon.forkRepo
+    , pair "fork" Ionicon.fork
+    , pair "forward" Ionicon.forward
+    , pair "funnel" Ionicon.funnel
+    , pair "gearA" Ionicon.gearA
+    , pair "gearB" Ionicon.gearB
+    , pair "grid" Ionicon.grid
+    , pair "hammer" Ionicon.hammer
+    , pair "happyOutline" Ionicon.happyOutline
+    , pair "happy" Ionicon.happy
+    , pair "headphone" Ionicon.headphone
+    , pair "heartBroken" Ionicon.heartBroken
+    , pair "heart" Ionicon.heart
+    , pair "helpBuoy" Ionicon.helpBuoy
+    , pair "helpCircled" Ionicon.helpCircled
+    , pair "help" Ionicon.help
+    , pair "home" Ionicon.home
+    , pair "icecream" Ionicon.icecream
+    , pair "image" Ionicon.image
+    , pair "images" Ionicon.images
+    , pair "informationCircled" Ionicon.informationCircled
+    , pair "information" Ionicon.information
+    , pair "ionic" Ionicon.ionic
+    , pair "ipad" Ionicon.ipad
+    , pair "iphone" Ionicon.iphone
+    , pair "ipod" Ionicon.ipod
+    , pair "jet" Ionicon.jet
+    , pair "key" Ionicon.key
+    , pair "knife" Ionicon.knife
+    , pair "laptop" Ionicon.laptop
+    , pair "leaf" Ionicon.leaf
+    , pair "levels" Ionicon.levels
+    , pair "lightbulb" Ionicon.lightbulb
+    , pair "link" Ionicon.link
+    , pair "loadA" Ionicon.loadA
+    , pair "loadB" Ionicon.loadB
+    , pair "loadC" Ionicon.loadC
+    , pair "loadD" Ionicon.loadD
+    , pair "location" Ionicon.location
+    , pair "lockCombination" Ionicon.lockCombination
+    , pair "locked" Ionicon.locked
+    , pair "logIn" Ionicon.logIn
+    , pair "logOut" Ionicon.logOut
+    , pair "loop" Ionicon.loop
+    , pair "magnet" Ionicon.magnet
+    , pair "male" Ionicon.male
+    , pair "man" Ionicon.man
+    , pair "map" Ionicon.map
+    , pair "medkit" Ionicon.medkit
+    , pair "merge" Ionicon.merge
+    , pair "micA" Ionicon.micA
+    , pair "micB" Ionicon.micB
+    , pair "micC" Ionicon.micC
+    , pair "minusCircled" Ionicon.minusCircled
+    , pair "minusRound" Ionicon.minusRound
+    , pair "minus" Ionicon.minus
+    , pair "modelS" Ionicon.modelS
+    , pair "monitor" Ionicon.monitor
+    , pair "more" Ionicon.more
+    , pair "mouse" Ionicon.mouse
+    , pair "musicNote" Ionicon.musicNote
+    , pair "naviconRound" Ionicon.naviconRound
+    , pair "navicon" Ionicon.navicon
+    , pair "navigate" Ionicon.navigate
+    , pair "network" Ionicon.network
+    , pair "noSmoking" Ionicon.noSmoking
+    , pair "nuclear" Ionicon.nuclear
+    , pair "outlet" Ionicon.outlet
+    , pair "paintbrush" Ionicon.paintbrush
+    , pair "paintbucket" Ionicon.paintbucket
+    , pair "paperAirplane" Ionicon.paperAirplane
+    , pair "paperclip" Ionicon.paperclip
+    , pair "pause" Ionicon.pause
+    , pair "personAdd" Ionicon.personAdd
+    , pair "personStalker" Ionicon.personStalker
+    , pair "person" Ionicon.person
+    , pair "pieGraph" Ionicon.pieGraph
+    , pair "pin" Ionicon.pin
+    , pair "pinpoint" Ionicon.pinpoint
+    , pair "pizza" Ionicon.pizza
+    , pair "plane" Ionicon.plane
+    , pair "planet" Ionicon.planet
+    , pair "play" Ionicon.play
+    , pair "playstation" Ionicon.playstation
+    , pair "plusCircled" Ionicon.plusCircled
+    , pair "plusRound" Ionicon.plusRound
+    , pair "plus" Ionicon.plus
+    , pair "podium" Ionicon.podium
+    , pair "pound" Ionicon.pound
+    , pair "power" Ionicon.power
+    , pair "pricetag" Ionicon.pricetag
+    , pair "pricetags" Ionicon.pricetags
+    , pair "printer" Ionicon.printer
+    , pair "pullRequest" Ionicon.pullRequest
+    , pair "qrScanner" Ionicon.qrScanner
+    , pair "quote" Ionicon.quote
+    , pair "radioWaves" Ionicon.radioWaves
+    , pair "record" Ionicon.record
+    , pair "refresh" Ionicon.refresh
+    , pair "replyAll" Ionicon.replyAll
+    , pair "reply" Ionicon.reply
+    , pair "ribbonA" Ionicon.ribbonA
+    , pair "ribbonB" Ionicon.ribbonB
+    , pair "sadOutline" Ionicon.sadOutline
+    , pair "sad" Ionicon.sad
+    , pair "scissors" Ionicon.scissors
+    , pair "search" Ionicon.search
+    , pair "settings" Ionicon.settings
+    , pair "share" Ionicon.share
+    , pair "shuffle" Ionicon.shuffle
+    , pair "skipBackward" Ionicon.skipBackward
+    , pair "skipForward" Ionicon.skipForward
+    , pair "soupCanOutline" Ionicon.soupCanOutline
+    , pair "soupCan" Ionicon.soupCan
+    , pair "speakerphone" Ionicon.speakerphone
+    , pair "speedometer" Ionicon.speedometer
+    , pair "spoon" Ionicon.spoon
+    , pair "star" Ionicon.star
+    , pair "starBars" Ionicon.starBars
+    , pair "steam" Ionicon.steam
+    , pair "stop" Ionicon.stop
+    , pair "thermometer" Ionicon.thermometer
+    , pair "thumbsdown" Ionicon.thumbsdown
+    , pair "thumbsup" Ionicon.thumbsup
+    , pair "toggleFilled" Ionicon.toggleFilled
+    , pair "toggle" Ionicon.toggle
+    , pair "transgender" Ionicon.transgender
+    , pair "trashA" Ionicon.trashA
+    , pair "trashB" Ionicon.trashB
+    , pair "trophy" Ionicon.trophy
+    , pair "tshirtOutline" Ionicon.tshirtOutline
+    , pair "tshirt" Ionicon.tshirt
+    , pair "umbrella" Ionicon.umbrella
+    , pair "university" Ionicon.university
+    , pair "unlocked" Ionicon.unlocked
+    , pair "upload" Ionicon.upload
+    , pair "usb" Ionicon.usb
+    , pair "videocamera" Ionicon.videocamera
+    , pair "volumeHigh" Ionicon.volumeHigh
+    , pair "volumeLow" Ionicon.volumeLow
+    , pair "volumeMedium" Ionicon.volumeMedium
+    , pair "volumeMute" Ionicon.volumeMute
+    , pair "wand" Ionicon.wand
+    , pair "waterdrop" Ionicon.waterdrop
+    , pair "wifi" Ionicon.wifi
+    , pair "wineglass" Ionicon.wineglass
+    , pair "woman" Ionicon.woman
+    , pair "wrench" Ionicon.wrench
+    , pair "xbox" Ionicon.xbox
     ]
 
 
 androidIcons : List ( Tag, Icon msg )
 androidIcons =
-    [ "addCircle" => Android.addCircle
-    , "add" => Android.add
-    , "alarmClock" => Android.alarmClock
-    , "alert" => Android.alert
-    , "apps" => Android.apps
-    , "archive" => Android.archive
-    , "arrowBack" => Android.arrowBack
-    , "arrowDown" => Android.arrowDown
-    , "arrowDropdownCircle" => Android.arrowDropdownCircle
-    , "arrowDropdown" => Android.arrowDropdown
-    , "arrowDropleftCircle" => Android.arrowDropleftCircle
-    , "arrowDropleft" => Android.arrowDropleft
-    , "arrowDroprightCircle" => Android.arrowDroprightCircle
-    , "arrowDropright" => Android.arrowDropright
-    , "arrowDropupCircle" => Android.arrowDropupCircle
-    , "arrowDropup" => Android.arrowDropup
-    , "arrowForward" => Android.arrowForward
-    , "arrowUp" => Android.arrowUp
-    , "attach" => Android.attach
-    , "bar" => Android.bar
-    , "bicycle" => Android.bicycle
-    , "boat" => Android.boat
-    , "bookmark" => Android.bookmark
-    , "bulb" => Android.bulb
-    , "bus" => Android.bus
-    , "calendar" => Android.calendar
-    , "call" => Android.call
-    , "camera" => Android.camera
-    , "cancel" => Android.cancel
-    , "car" => Android.car
-    , "cart" => Android.cart
-    , "chat" => Android.chat
-    , "checkboxBlank" => Android.checkboxBlank
-    , "checkboxOutlineBlank" => Android.checkboxOutlineBlank
-    , "checkboxOutline" => Android.checkboxOutline
-    , "checkbox" => Android.checkbox
-    , "checkmarkCircle" => Android.checkmarkCircle
-    , "clipboard" => Android.clipboard
-    , "close" => Android.close
-    , "cloudCircle" => Android.cloudCircle
-    , "cloudDone" => Android.cloudDone
-    , "cloudOutline" => Android.cloudOutline
-    , "cloud" => Android.cloud
-    , "colorPalette" => Android.colorPalette
-    , "compass" => Android.compass
-    , "contact" => Android.contact
-    , "contacts" => Android.contacts
-    , "contract" => Android.contract
-    , "create" => Android.create
-    , "delete" => Android.delete
-    , "desktop" => Android.desktop
-    , "document" => Android.document
-    , "doneAll" => Android.doneAll
-    , "done" => Android.done
-    , "download" => Android.download
-    , "drafts" => Android.drafts
-    , "exit" => Android.exit
-    , "expand" => Android.expand
-    , "favoriteOutline" => Android.favoriteOutline
-    , "favorite" => Android.favorite
-    , "film" => Android.film
-    , "folderOpen" => Android.folderOpen
-    , "folder" => Android.folder
-    , "funnel" => Android.funnel
-    , "globe" => Android.globe
-    , "hand" => Android.hand
-    , "hangout" => Android.hangout
-    , "happy" => Android.happy
-    , "home" => Android.home
-    , "image" => Android.image
-    , "laptop" => Android.laptop
-    , "list" => Android.list
-    , "locate" => Android.locate
-    , "lock" => Android.lock
-    , "mail" => Android.mail
-    , "map" => Android.map
-    , "menu" => Android.menu
-    , "microphoneOff" => Android.microphoneOff
-    , "microphone" => Android.microphone
-    , "moreHorizontal" => Android.moreHorizontal
-    , "moreVertical" => Android.moreVertical
-    , "navigate" => Android.navigate
-    , "notificationsNone" => Android.notificationsNone
-    , "notificationsOff" => Android.notificationsOff
-    , "notifications" => Android.notifications
-    , "open" => Android.open
-    , "options" => Android.options
-    , "people" => Android.people
-    , "personAdd" => Android.personAdd
-    , "person" => Android.person
-    , "phoneLandscape" => Android.phoneLandscape
-    , "phonePortrait" => Android.phonePortrait
-    , "pin" => Android.pin
-    , "plane" => Android.plane
-    , "playstore" => Android.playstore
-    , "print" => Android.print
-    , "radioButtonOff" => Android.radioButtonOff
-    , "radioButtonOn" => Android.radioButtonOn
-    , "refresh" => Android.refresh
-    , "removeCircle" => Android.removeCircle
-    , "remove" => Android.remove
-    , "restaurant" => Android.restaurant
-    , "sad" => Android.sad
-    , "search" => Android.search
-    , "send" => Android.send
-    , "settings" => Android.settings
-    , "shareAlt" => Android.shareAlt
-    , "share" => Android.share
-    , "starHalf" => Android.starHalf
-    , "starOutline" => Android.starOutline
-    , "star" => Android.star
-    , "stopwatch" => Android.stopwatch
-    , "subway" => Android.subway
-    , "sunny" => Android.sunny
-    , "sync" => Android.sync
-    , "textsms" => Android.textsms
-    , "time" => Android.time
-    , "train" => Android.train
-    , "unlock" => Android.unlock
-    , "upload" => Android.upload
-    , "volumeDown" => Android.volumeDown
-    , "volumeMute" => Android.volumeMute
-    , "volumeOff" => Android.volumeOff
-    , "volumeUp" => Android.volumeUp
-    , "walk" => Android.walk
-    , "warning" => Android.warning
-    , "watch" => Android.watch
-    , "wifi" => Android.wifi
+    [ pair "addCircle" Android.addCircle
+    , pair "add" Android.add
+    , pair "alarmClock" Android.alarmClock
+    , pair "alert" Android.alert
+    , pair "apps" Android.apps
+    , pair "archive" Android.archive
+    , pair "arrowBack" Android.arrowBack
+    , pair "arrowDown" Android.arrowDown
+    , pair "arrowDropdownCircle" Android.arrowDropdownCircle
+    , pair "arrowDropdown" Android.arrowDropdown
+    , pair "arrowDropleftCircle" Android.arrowDropleftCircle
+    , pair "arrowDropleft" Android.arrowDropleft
+    , pair "arrowDroprightCircle" Android.arrowDroprightCircle
+    , pair "arrowDropright" Android.arrowDropright
+    , pair "arrowDropupCircle" Android.arrowDropupCircle
+    , pair "arrowDropup" Android.arrowDropup
+    , pair "arrowForward" Android.arrowForward
+    , pair "arrowUp" Android.arrowUp
+    , pair "attach" Android.attach
+    , pair "bar" Android.bar
+    , pair "bicycle" Android.bicycle
+    , pair "boat" Android.boat
+    , pair "bookmark" Android.bookmark
+    , pair "bulb" Android.bulb
+    , pair "bus" Android.bus
+    , pair "calendar" Android.calendar
+    , pair "call" Android.call
+    , pair "camera" Android.camera
+    , pair "cancel" Android.cancel
+    , pair "car" Android.car
+    , pair "cart" Android.cart
+    , pair "chat" Android.chat
+    , pair "checkboxBlank" Android.checkboxBlank
+    , pair "checkboxOutlineBlank" Android.checkboxOutlineBlank
+    , pair "checkboxOutline" Android.checkboxOutline
+    , pair "checkbox" Android.checkbox
+    , pair "checkmarkCircle" Android.checkmarkCircle
+    , pair "clipboard" Android.clipboard
+    , pair "close" Android.close
+    , pair "cloudCircle" Android.cloudCircle
+    , pair "cloudDone" Android.cloudDone
+    , pair "cloudOutline" Android.cloudOutline
+    , pair "cloud" Android.cloud
+    , pair "colorPalette" Android.colorPalette
+    , pair "compass" Android.compass
+    , pair "contact" Android.contact
+    , pair "contacts" Android.contacts
+    , pair "contract" Android.contract
+    , pair "create" Android.create
+    , pair "delete" Android.delete
+    , pair "desktop" Android.desktop
+    , pair "document" Android.document
+    , pair "doneAll" Android.doneAll
+    , pair "done" Android.done
+    , pair "download" Android.download
+    , pair "drafts" Android.drafts
+    , pair "exit" Android.exit
+    , pair "expand" Android.expand
+    , pair "favoriteOutline" Android.favoriteOutline
+    , pair "favorite" Android.favorite
+    , pair "film" Android.film
+    , pair "folderOpen" Android.folderOpen
+    , pair "folder" Android.folder
+    , pair "funnel" Android.funnel
+    , pair "globe" Android.globe
+    , pair "hand" Android.hand
+    , pair "hangout" Android.hangout
+    , pair "happy" Android.happy
+    , pair "home" Android.home
+    , pair "image" Android.image
+    , pair "laptop" Android.laptop
+    , pair "list" Android.list
+    , pair "locate" Android.locate
+    , pair "lock" Android.lock
+    , pair "mail" Android.mail
+    , pair "map" Android.map
+    , pair "menu" Android.menu
+    , pair "microphoneOff" Android.microphoneOff
+    , pair "microphone" Android.microphone
+    , pair "moreHorizontal" Android.moreHorizontal
+    , pair "moreVertical" Android.moreVertical
+    , pair "navigate" Android.navigate
+    , pair "notificationsNone" Android.notificationsNone
+    , pair "notificationsOff" Android.notificationsOff
+    , pair "notifications" Android.notifications
+    , pair "open" Android.open
+    , pair "options" Android.options
+    , pair "people" Android.people
+    , pair "personAdd" Android.personAdd
+    , pair "person" Android.person
+    , pair "phoneLandscape" Android.phoneLandscape
+    , pair "phonePortrait" Android.phonePortrait
+    , pair "pin" Android.pin
+    , pair "plane" Android.plane
+    , pair "playstore" Android.playstore
+    , pair "print" Android.print
+    , pair "radioButtonOff" Android.radioButtonOff
+    , pair "radioButtonOn" Android.radioButtonOn
+    , pair "refresh" Android.refresh
+    , pair "removeCircle" Android.removeCircle
+    , pair "remove" Android.remove
+    , pair "restaurant" Android.restaurant
+    , pair "sad" Android.sad
+    , pair "search" Android.search
+    , pair "send" Android.send
+    , pair "settings" Android.settings
+    , pair "shareAlt" Android.shareAlt
+    , pair "share" Android.share
+    , pair "starHalf" Android.starHalf
+    , pair "starOutline" Android.starOutline
+    , pair "star" Android.star
+    , pair "stopwatch" Android.stopwatch
+    , pair "subway" Android.subway
+    , pair "sunny" Android.sunny
+    , pair "sync" Android.sync
+    , pair "textsms" Android.textsms
+    , pair "time" Android.time
+    , pair "train" Android.train
+    , pair "unlock" Android.unlock
+    , pair "upload" Android.upload
+    , pair "volumeDown" Android.volumeDown
+    , pair "volumeMute" Android.volumeMute
+    , pair "volumeOff" Android.volumeOff
+    , pair "volumeUp" Android.volumeUp
+    , pair "walk" Android.walk
+    , pair "warning" Android.warning
+    , pair "watch" Android.watch
+    , pair "wifi" Android.wifi
     ]
 
 
 iosIcons : List ( Tag, Icon msg )
 iosIcons =
-    [ "alarmOutline" => Ios.alarmOutline
-    , "alarm" => Ios.alarm
-    , "albumsOutline" => Ios.albumsOutline
-    , "albums" => Ios.albums
-    , "americanfootballOutline" => Ios.americanfootballOutline
-    , "americanfootball" => Ios.americanfootball
-    , "analyticsOutline" => Ios.analyticsOutline
-    , "analytics" => Ios.analytics
-    , "arrowBack" => Ios.arrowBack
-    , "arrowDown" => Ios.arrowDown
-    , "arrowForward" => Ios.arrowForward
-    , "arrowLeft" => Ios.arrowLeft
-    , "arrowRight" => Ios.arrowRight
-    , "arrowThinDown" => Ios.arrowThinDown
-    , "arrowThinLeft" => Ios.arrowThinLeft
-    , "arrowThinRight" => Ios.arrowThinRight
-    , "arrowThinUp" => Ios.arrowThinUp
-    , "arrowUp" => Ios.arrowUp
-    , "atOutline" => Ios.atOutline
-    , "at" => Ios.at
-    , "barcodeOutline" => Ios.barcodeOutline
-    , "barcode" => Ios.barcode
-    , "baseballOutline" => Ios.baseballOutline
-    , "baseball" => Ios.baseball
-    , "basketballOutline" => Ios.basketballOutline
-    , "basketball" => Ios.basketball
-    , "bellOutline" => Ios.bellOutline
-    , "bell" => Ios.bell
-    , "bodyOutline" => Ios.bodyOutline
-    , "body" => Ios.body
-    , "boltOutline" => Ios.boltOutline
-    , "bolt" => Ios.bolt
-    , "bookOutline" => Ios.bookOutline
-    , "book" => Ios.book
-    , "bookmarksOutline" => Ios.bookmarksOutline
-    , "bookmarks" => Ios.bookmarks
-    , "boxOutline" => Ios.boxOutline
-    , "box" => Ios.box
-    , "briefcaseOutline" => Ios.briefcaseOutline
-    , "briefcase" => Ios.briefcase
-    , "browsersOutline" => Ios.browsersOutline
-    , "browsers" => Ios.browsers
-    , "calculatorOutline" => Ios.calculatorOutline
-    , "calculator" => Ios.calculator
-    , "calendarOutline" => Ios.calendarOutline
-    , "calendar" => Ios.calendar
-    , "cameraOutline" => Ios.cameraOutline
-    , "camera" => Ios.camera
-    , "cartOutline" => Ios.cartOutline
-    , "cart" => Ios.cart
-    , "chatboxesOutline" => Ios.chatboxesOutline
-    , "chatboxes" => Ios.chatboxes
-    , "chatbubbleOutline" => Ios.chatbubbleOutline
-    , "chatbubble" => Ios.chatbubble
-    , "checkmarkEmpty" => Ios.checkmarkEmpty
-    , "checkmarkOutline" => Ios.checkmarkOutline
-    , "checkmark" => Ios.checkmark
-    , "circleFilled" => Ios.circleFilled
-    , "circleOutline" => Ios.circleOutline
-    , "clockOutline" => Ios.clockOutline
-    , "clock" => Ios.clock
-    , "closeEmpty" => Ios.closeEmpty
-    , "closeOutline" => Ios.closeOutline
-    , "close" => Ios.close
-    , "cloudDownloadOutline" => Ios.cloudDownloadOutline
-    , "cloudDownload" => Ios.cloudDownload
-    , "cloudOutline" => Ios.cloudOutline
-    , "cloudUploadOutline" => Ios.cloudUploadOutline
-    , "cloudUpload" => Ios.cloudUpload
-    , "cloud" => Ios.cloud
-    , "cloudyNightOutline" => Ios.cloudyNightOutline
-    , "cloudyNight" => Ios.cloudyNight
-    , "cloudyOutline" => Ios.cloudyOutline
-    , "cloudy" => Ios.cloudy
-    , "cogOutline" => Ios.cogOutline
-    , "cog" => Ios.cog
-    , "colorFilterOutline" => Ios.colorFilterOutline
-    , "colorFilter" => Ios.colorFilter
-    , "colorWandOutline" => Ios.colorWandOutline
-    , "colorWand" => Ios.colorWand
-    , "composeOutline" => Ios.composeOutline
-    , "compose" => Ios.compose
-    , "contactOutline" => Ios.contactOutline
-    , "contact" => Ios.contact
-    , "copyOutline" => Ios.copyOutline
-    , "copy" => Ios.copy
-    , "cropStrong" => Ios.cropStrong
-    , "crop" => Ios.crop
-    , "downloadOutline" => Ios.downloadOutline
-    , "download" => Ios.download
-    , "drag" => Ios.drag
-    , "emailOutline" => Ios.emailOutline
-    , "email" => Ios.email
-    , "eyeOutline" => Ios.eyeOutline
-    , "eye" => Ios.eye
-    , "fastforwardOutline" => Ios.fastforwardOutline
-    , "fastforward" => Ios.fastforward
-    , "filingOutline" => Ios.filingOutline
-    , "filing" => Ios.filing
-    , "filmOutline" => Ios.filmOutline
-    , "film" => Ios.film
-    , "flagOutline" => Ios.flagOutline
-    , "flag" => Ios.flag
-    , "flameOutline" => Ios.flameOutline
-    , "flame" => Ios.flame
-    , "flaskOutline" => Ios.flaskOutline
-    , "flask" => Ios.flask
-    , "flowerOutline" => Ios.flowerOutline
-    , "flower" => Ios.flower
-    , "folderOutline" => Ios.folderOutline
-    , "folder" => Ios.folder
-    , "footballOutline" => Ios.footballOutline
-    , "football" => Ios.football
-    , "gameControllerAOutline" => Ios.gameControllerAOutline
-    , "gameControllerA" => Ios.gameControllerA
-    , "gameControllerBOutline" => Ios.gameControllerBOutline
-    , "gameControllerB" => Ios.gameControllerB
-    , "gearOutline" => Ios.gearOutline
-    , "gear" => Ios.gear
-    , "glassesOutline" => Ios.glassesOutline
-    , "glasses" => Ios.glasses
-    , "gridViewOutline" => Ios.gridViewOutline
-    , "gridView" => Ios.gridView
-    , "heartOutline" => Ios.heartOutline
-    , "heart" => Ios.heart
-    , "helpEmpty" => Ios.helpEmpty
-    , "helpOutline" => Ios.helpOutline
-    , "help" => Ios.help
-    , "homeOutline" => Ios.homeOutline
-    , "home" => Ios.home
-    , "infiniteOutline" => Ios.infiniteOutline
-    , "infinite" => Ios.infinite
-    , "informationEmpty" => Ios.informationEmpty
-    , "informationOutline" => Ios.informationOutline
-    , "information" => Ios.information
-    , "ionicOutline" => Ios.ionicOutline
-    , "keypadOutline" => Ios.keypadOutline
-    , "keypad" => Ios.keypad
-    , "lightbulbOutline" => Ios.lightbulbOutline
-    , "lightbulb" => Ios.lightbulb
-    , "listOutline" => Ios.listOutline
-    , "list" => Ios.list
-    , "locationOutline" => Ios.locationOutline
-    , "location" => Ios.location
-    , "lockedOutline" => Ios.lockedOutline
-    , "locked" => Ios.locked
-    , "loopStrong" => Ios.loopStrong
-    , "loop" => Ios.loop
-    , "medicalOutline" => Ios.medicalOutline
-    , "medical" => Ios.medical
-    , "medkitOutline" => Ios.medkitOutline
-    , "medkit" => Ios.medkit
-    , "micOff" => Ios.micOff
-    , "micOutline" => Ios.micOutline
-    , "mic" => Ios.mic
-    , "minusEmpty" => Ios.minusEmpty
-    , "minusOutline" => Ios.minusOutline
-    , "minus" => Ios.minus
-    , "monitorOutline" => Ios.monitorOutline
-    , "monitor" => Ios.monitor
-    , "moonOutline" => Ios.moonOutline
-    , "moon" => Ios.moon
-    , "moreOutline" => Ios.moreOutline
-    , "more" => Ios.more
-    , "musicalNote" => Ios.musicalNote
-    , "musicalNotes" => Ios.musicalNotes
-    , "navigateOutline" => Ios.navigateOutline
-    , "navigate" => Ios.navigate
-    , "nutritionOutline" => Ios.nutritionOutline
-    , "nutrition" => Ios.nutrition
-    , "paperOutline" => Ios.paperOutline
-    , "paper" => Ios.paper
-    , "paperplaneOutline" => Ios.paperplaneOutline
-    , "paperplane" => Ios.paperplane
-    , "partlySunnyOutline" => Ios.partlySunnyOutline
-    , "partlySunny" => Ios.partlySunny
-    , "pauseOutline" => Ios.pauseOutline
-    , "pause" => Ios.pause
-    , "pawOutline" => Ios.pawOutline
-    , "paw" => Ios.paw
-    , "peopleOutline" => Ios.peopleOutline
-    , "people" => Ios.people
-    , "personOutline" => Ios.personOutline
-    , "person" => Ios.person
-    , "personaddOutline" => Ios.personaddOutline
-    , "personadd" => Ios.personadd
-    , "photosOutline" => Ios.photosOutline
-    , "photos" => Ios.photos
-    , "pieOutline" => Ios.pieOutline
-    , "pie" => Ios.pie
-    , "pintOutline" => Ios.pintOutline
-    , "pint" => Ios.pint
-    , "playOutline" => Ios.playOutline
-    , "play" => Ios.play
-    , "plusEmpty" => Ios.plusEmpty
-    , "plusOutline" => Ios.plusOutline
-    , "plus" => Ios.plus
-    , "pricetagOutline" => Ios.pricetagOutline
-    , "pricetag" => Ios.pricetag
-    , "pricetagsOutline" => Ios.pricetagsOutline
-    , "pricetags" => Ios.pricetags
-    , "printerOutline" => Ios.printerOutline
-    , "printer" => Ios.printer
-    , "pulseStrong" => Ios.pulseStrong
-    , "pulse" => Ios.pulse
-    , "rainyOutline" => Ios.rainyOutline
-    , "rainy" => Ios.rainy
-    , "recordingOutline" => Ios.recordingOutline
-    , "recording" => Ios.recording
-    , "redoOutline" => Ios.redoOutline
-    , "redo" => Ios.redo
-    , "refreshEmpty" => Ios.refreshEmpty
-    , "refreshOutline" => Ios.refreshOutline
-    , "refresh" => Ios.refresh
-    , "reload" => Ios.reload
-    , "reverseCameraOutline" => Ios.reverseCameraOutline
-    , "reverseCamera" => Ios.reverseCamera
-    , "rewindOutline" => Ios.rewindOutline
-    , "rewind" => Ios.rewind
-    , "roseOutline" => Ios.roseOutline
-    , "rose" => Ios.rose
-    , "searchStrong" => Ios.searchStrong
-    , "search" => Ios.search
-    , "settingsStrong" => Ios.settingsStrong
-    , "settings" => Ios.settings
-    , "shuffleStrong" => Ios.shuffleStrong
-    , "shuffle" => Ios.shuffle
-    , "skipbackwardOutline" => Ios.skipbackwardOutline
-    , "skipbackward" => Ios.skipbackward
-    , "skipforwardOutline" => Ios.skipforwardOutline
-    , "skipforward" => Ios.skipforward
-    , "snowy" => Ios.snowy
-    , "speedometerOutline" => Ios.speedometerOutline
-    , "speedometer" => Ios.speedometer
-    , "starHalf" => Ios.starHalf
-    , "starOutline" => Ios.starOutline
-    , "star" => Ios.star
-    , "stopwatchOutline" => Ios.stopwatchOutline
-    , "stopwatch" => Ios.stopwatch
-    , "sunnyOutline" => Ios.sunnyOutline
-    , "sunny" => Ios.sunny
-    , "telephoneOutline" => Ios.telephoneOutline
-    , "telephone" => Ios.telephone
-    , "tennisballOutline" => Ios.tennisballOutline
-    , "tennisball" => Ios.tennisball
-    , "thunderstormOutline" => Ios.thunderstormOutline
-    , "thunderstorm" => Ios.thunderstorm
-    , "timeOutline" => Ios.timeOutline
-    , "time" => Ios.time
-    , "timerOutline" => Ios.timerOutline
-    , "timer" => Ios.timer
-    , "toggleOutline" => Ios.toggleOutline
-    , "toggle" => Ios.toggle
-    , "trashOutline" => Ios.trashOutline
-    , "trash" => Ios.trash
-    , "undoOutline" => Ios.undoOutline
-    , "undo" => Ios.undo
-    , "unlockedOutline" => Ios.unlockedOutline
-    , "unlocked" => Ios.unlocked
-    , "uploadOutline" => Ios.uploadOutline
-    , "upload" => Ios.upload
-    , "videocamOutline" => Ios.videocamOutline
-    , "videocam" => Ios.videocam
-    , "volumeHigh" => Ios.volumeHigh
-    , "volumeLow" => Ios.volumeLow
-    , "wineglassOutline" => Ios.wineglassOutline
-    , "wineglass" => Ios.wineglass
-    , "worldOutline" => Ios.worldOutline
-    , "world" => Ios.world
+    [ pair "alarmOutline" Ios.alarmOutline
+    , pair "alarm" Ios.alarm
+    , pair "albumsOutline" Ios.albumsOutline
+    , pair "albums" Ios.albums
+    , pair "americanfootballOutline" Ios.americanfootballOutline
+    , pair "americanfootball" Ios.americanfootball
+    , pair "analyticsOutline" Ios.analyticsOutline
+    , pair "analytics" Ios.analytics
+    , pair "arrowBack" Ios.arrowBack
+    , pair "arrowDown" Ios.arrowDown
+    , pair "arrowForward" Ios.arrowForward
+    , pair "arrowLeft" Ios.arrowLeft
+    , pair "arrowRight" Ios.arrowRight
+    , pair "arrowThinDown" Ios.arrowThinDown
+    , pair "arrowThinLeft" Ios.arrowThinLeft
+    , pair "arrowThinRight" Ios.arrowThinRight
+    , pair "arrowThinUp" Ios.arrowThinUp
+    , pair "arrowUp" Ios.arrowUp
+    , pair "atOutline" Ios.atOutline
+    , pair "at" Ios.at
+    , pair "barcodeOutline" Ios.barcodeOutline
+    , pair "barcode" Ios.barcode
+    , pair "baseballOutline" Ios.baseballOutline
+    , pair "baseball" Ios.baseball
+    , pair "basketballOutline" Ios.basketballOutline
+    , pair "basketball" Ios.basketball
+    , pair "bellOutline" Ios.bellOutline
+    , pair "bell" Ios.bell
+    , pair "bodyOutline" Ios.bodyOutline
+    , pair "body" Ios.body
+    , pair "boltOutline" Ios.boltOutline
+    , pair "bolt" Ios.bolt
+    , pair "bookOutline" Ios.bookOutline
+    , pair "book" Ios.book
+    , pair "bookmarksOutline" Ios.bookmarksOutline
+    , pair "bookmarks" Ios.bookmarks
+    , pair "boxOutline" Ios.boxOutline
+    , pair "box" Ios.box
+    , pair "briefcaseOutline" Ios.briefcaseOutline
+    , pair "briefcase" Ios.briefcase
+    , pair "browsersOutline" Ios.browsersOutline
+    , pair "browsers" Ios.browsers
+    , pair "calculatorOutline" Ios.calculatorOutline
+    , pair "calculator" Ios.calculator
+    , pair "calendarOutline" Ios.calendarOutline
+    , pair "calendar" Ios.calendar
+    , pair "cameraOutline" Ios.cameraOutline
+    , pair "camera" Ios.camera
+    , pair "cartOutline" Ios.cartOutline
+    , pair "cart" Ios.cart
+    , pair "chatboxesOutline" Ios.chatboxesOutline
+    , pair "chatboxes" Ios.chatboxes
+    , pair "chatbubbleOutline" Ios.chatbubbleOutline
+    , pair "chatbubble" Ios.chatbubble
+    , pair "checkmarkEmpty" Ios.checkmarkEmpty
+    , pair "checkmarkOutline" Ios.checkmarkOutline
+    , pair "checkmark" Ios.checkmark
+    , pair "circleFilled" Ios.circleFilled
+    , pair "circleOutline" Ios.circleOutline
+    , pair "clockOutline" Ios.clockOutline
+    , pair "clock" Ios.clock
+    , pair "closeEmpty" Ios.closeEmpty
+    , pair "closeOutline" Ios.closeOutline
+    , pair "close" Ios.close
+    , pair "cloudDownloadOutline" Ios.cloudDownloadOutline
+    , pair "cloudDownload" Ios.cloudDownload
+    , pair "cloudOutline" Ios.cloudOutline
+    , pair "cloudUploadOutline" Ios.cloudUploadOutline
+    , pair "cloudUpload" Ios.cloudUpload
+    , pair "cloud" Ios.cloud
+    , pair "cloudyNightOutline" Ios.cloudyNightOutline
+    , pair "cloudyNight" Ios.cloudyNight
+    , pair "cloudyOutline" Ios.cloudyOutline
+    , pair "cloudy" Ios.cloudy
+    , pair "cogOutline" Ios.cogOutline
+    , pair "cog" Ios.cog
+    , pair "colorFilterOutline" Ios.colorFilterOutline
+    , pair "colorFilter" Ios.colorFilter
+    , pair "colorWandOutline" Ios.colorWandOutline
+    , pair "colorWand" Ios.colorWand
+    , pair "composeOutline" Ios.composeOutline
+    , pair "compose" Ios.compose
+    , pair "contactOutline" Ios.contactOutline
+    , pair "contact" Ios.contact
+    , pair "copyOutline" Ios.copyOutline
+    , pair "copy" Ios.copy
+    , pair "cropStrong" Ios.cropStrong
+    , pair "crop" Ios.crop
+    , pair "downloadOutline" Ios.downloadOutline
+    , pair "download" Ios.download
+    , pair "drag" Ios.drag
+    , pair "emailOutline" Ios.emailOutline
+    , pair "email" Ios.email
+    , pair "eyeOutline" Ios.eyeOutline
+    , pair "eye" Ios.eye
+    , pair "fastforwardOutline" Ios.fastforwardOutline
+    , pair "fastforward" Ios.fastforward
+    , pair "filingOutline" Ios.filingOutline
+    , pair "filing" Ios.filing
+    , pair "filmOutline" Ios.filmOutline
+    , pair "film" Ios.film
+    , pair "flagOutline" Ios.flagOutline
+    , pair "flag" Ios.flag
+    , pair "flameOutline" Ios.flameOutline
+    , pair "flame" Ios.flame
+    , pair "flaskOutline" Ios.flaskOutline
+    , pair "flask" Ios.flask
+    , pair "flowerOutline" Ios.flowerOutline
+    , pair "flower" Ios.flower
+    , pair "folderOutline" Ios.folderOutline
+    , pair "folder" Ios.folder
+    , pair "footballOutline" Ios.footballOutline
+    , pair "football" Ios.football
+    , pair "gameControllerAOutline" Ios.gameControllerAOutline
+    , pair "gameControllerA" Ios.gameControllerA
+    , pair "gameControllerBOutline" Ios.gameControllerBOutline
+    , pair "gameControllerB" Ios.gameControllerB
+    , pair "gearOutline" Ios.gearOutline
+    , pair "gear" Ios.gear
+    , pair "glassesOutline" Ios.glassesOutline
+    , pair "glasses" Ios.glasses
+    , pair "gridViewOutline" Ios.gridViewOutline
+    , pair "gridView" Ios.gridView
+    , pair "heartOutline" Ios.heartOutline
+    , pair "heart" Ios.heart
+    , pair "helpEmpty" Ios.helpEmpty
+    , pair "helpOutline" Ios.helpOutline
+    , pair "help" Ios.help
+    , pair "homeOutline" Ios.homeOutline
+    , pair "home" Ios.home
+    , pair "infiniteOutline" Ios.infiniteOutline
+    , pair "infinite" Ios.infinite
+    , pair "informationEmpty" Ios.informationEmpty
+    , pair "informationOutline" Ios.informationOutline
+    , pair "information" Ios.information
+    , pair "ionicOutline" Ios.ionicOutline
+    , pair "keypadOutline" Ios.keypadOutline
+    , pair "keypad" Ios.keypad
+    , pair "lightbulbOutline" Ios.lightbulbOutline
+    , pair "lightbulb" Ios.lightbulb
+    , pair "listOutline" Ios.listOutline
+    , pair "list" Ios.list
+    , pair "locationOutline" Ios.locationOutline
+    , pair "location" Ios.location
+    , pair "lockedOutline" Ios.lockedOutline
+    , pair "locked" Ios.locked
+    , pair "loopStrong" Ios.loopStrong
+    , pair "loop" Ios.loop
+    , pair "medicalOutline" Ios.medicalOutline
+    , pair "medical" Ios.medical
+    , pair "medkitOutline" Ios.medkitOutline
+    , pair "medkit" Ios.medkit
+    , pair "micOff" Ios.micOff
+    , pair "micOutline" Ios.micOutline
+    , pair "mic" Ios.mic
+    , pair "minusEmpty" Ios.minusEmpty
+    , pair "minusOutline" Ios.minusOutline
+    , pair "minus" Ios.minus
+    , pair "monitorOutline" Ios.monitorOutline
+    , pair "monitor" Ios.monitor
+    , pair "moonOutline" Ios.moonOutline
+    , pair "moon" Ios.moon
+    , pair "moreOutline" Ios.moreOutline
+    , pair "more" Ios.more
+    , pair "musicalNote" Ios.musicalNote
+    , pair "musicalNotes" Ios.musicalNotes
+    , pair "navigateOutline" Ios.navigateOutline
+    , pair "navigate" Ios.navigate
+    , pair "nutritionOutline" Ios.nutritionOutline
+    , pair "nutrition" Ios.nutrition
+    , pair "paperOutline" Ios.paperOutline
+    , pair "paper" Ios.paper
+    , pair "paperplaneOutline" Ios.paperplaneOutline
+    , pair "paperplane" Ios.paperplane
+    , pair "partlySunnyOutline" Ios.partlySunnyOutline
+    , pair "partlySunny" Ios.partlySunny
+    , pair "pauseOutline" Ios.pauseOutline
+    , pair "pause" Ios.pause
+    , pair "pawOutline" Ios.pawOutline
+    , pair "paw" Ios.paw
+    , pair "peopleOutline" Ios.peopleOutline
+    , pair "people" Ios.people
+    , pair "personOutline" Ios.personOutline
+    , pair "person" Ios.person
+    , pair "personaddOutline" Ios.personaddOutline
+    , pair "personadd" Ios.personadd
+    , pair "photosOutline" Ios.photosOutline
+    , pair "photos" Ios.photos
+    , pair "pieOutline" Ios.pieOutline
+    , pair "pie" Ios.pie
+    , pair "pintOutline" Ios.pintOutline
+    , pair "pint" Ios.pint
+    , pair "playOutline" Ios.playOutline
+    , pair "play" Ios.play
+    , pair "plusEmpty" Ios.plusEmpty
+    , pair "plusOutline" Ios.plusOutline
+    , pair "plus" Ios.plus
+    , pair "pricetagOutline" Ios.pricetagOutline
+    , pair "pricetag" Ios.pricetag
+    , pair "pricetagsOutline" Ios.pricetagsOutline
+    , pair "pricetags" Ios.pricetags
+    , pair "printerOutline" Ios.printerOutline
+    , pair "printer" Ios.printer
+    , pair "pulseStrong" Ios.pulseStrong
+    , pair "pulse" Ios.pulse
+    , pair "rainyOutline" Ios.rainyOutline
+    , pair "rainy" Ios.rainy
+    , pair "recordingOutline" Ios.recordingOutline
+    , pair "recording" Ios.recording
+    , pair "redoOutline" Ios.redoOutline
+    , pair "redo" Ios.redo
+    , pair "refreshEmpty" Ios.refreshEmpty
+    , pair "refreshOutline" Ios.refreshOutline
+    , pair "refresh" Ios.refresh
+    , pair "reload" Ios.reload
+    , pair "reverseCameraOutline" Ios.reverseCameraOutline
+    , pair "reverseCamera" Ios.reverseCamera
+    , pair "rewindOutline" Ios.rewindOutline
+    , pair "rewind" Ios.rewind
+    , pair "roseOutline" Ios.roseOutline
+    , pair "rose" Ios.rose
+    , pair "searchStrong" Ios.searchStrong
+    , pair "search" Ios.search
+    , pair "settingsStrong" Ios.settingsStrong
+    , pair "settings" Ios.settings
+    , pair "shuffleStrong" Ios.shuffleStrong
+    , pair "shuffle" Ios.shuffle
+    , pair "skipbackwardOutline" Ios.skipbackwardOutline
+    , pair "skipbackward" Ios.skipbackward
+    , pair "skipforwardOutline" Ios.skipforwardOutline
+    , pair "skipforward" Ios.skipforward
+    , pair "snowy" Ios.snowy
+    , pair "speedometerOutline" Ios.speedometerOutline
+    , pair "speedometer" Ios.speedometer
+    , pair "starHalf" Ios.starHalf
+    , pair "starOutline" Ios.starOutline
+    , pair "star" Ios.star
+    , pair "stopwatchOutline" Ios.stopwatchOutline
+    , pair "stopwatch" Ios.stopwatch
+    , pair "sunnyOutline" Ios.sunnyOutline
+    , pair "sunny" Ios.sunny
+    , pair "telephoneOutline" Ios.telephoneOutline
+    , pair "telephone" Ios.telephone
+    , pair "tennisballOutline" Ios.tennisballOutline
+    , pair "tennisball" Ios.tennisball
+    , pair "thunderstormOutline" Ios.thunderstormOutline
+    , pair "thunderstorm" Ios.thunderstorm
+    , pair "timeOutline" Ios.timeOutline
+    , pair "time" Ios.time
+    , pair "timerOutline" Ios.timerOutline
+    , pair "timer" Ios.timer
+    , pair "toggleOutline" Ios.toggleOutline
+    , pair "toggle" Ios.toggle
+    , pair "trashOutline" Ios.trashOutline
+    , pair "trash" Ios.trash
+    , pair "undoOutline" Ios.undoOutline
+    , pair "undo" Ios.undo
+    , pair "unlockedOutline" Ios.unlockedOutline
+    , pair "unlocked" Ios.unlocked
+    , pair "uploadOutline" Ios.uploadOutline
+    , pair "upload" Ios.upload
+    , pair "videocamOutline" Ios.videocamOutline
+    , pair "videocam" Ios.videocam
+    , pair "volumeHigh" Ios.volumeHigh
+    , pair "volumeLow" Ios.volumeLow
+    , pair "wineglassOutline" Ios.wineglassOutline
+    , pair "wineglass" Ios.wineglass
+    , pair "worldOutline" Ios.worldOutline
+    , pair "world" Ios.world
     ]
 
 
 socialIcons : List ( Tag, Icon msg )
 socialIcons =
-    [ "androidOutline" => Social.androidOutline
-    , "android" => Social.android
-    , "angularOutline" => Social.angularOutline
-    , "angular" => Social.angular
-    , "appleOutline" => Social.appleOutline
-    , "apple" => Social.apple
-    , "bitcoinOutline" => Social.bitcoinOutline
-    , "bitcoin" => Social.bitcoin
-    , "bufferOutline" => Social.bufferOutline
-    , "buffer" => Social.buffer
-    , "chromeOutline" => Social.chromeOutline
-    , "chrome" => Social.chrome
-    , "codepenOutline" => Social.codepenOutline
-    , "codepen" => Social.codepen
-    , "css3Outline" => Social.css3Outline
-    , "css3" => Social.css3
-    , "designernewsOutline" => Social.designernewsOutline
-    , "designernews" => Social.designernews
-    , "dribbbleOutline" => Social.dribbbleOutline
-    , "dribbble" => Social.dribbble
-    , "dropboxOutline" => Social.dropboxOutline
-    , "dropbox" => Social.dropbox
-    , "euroOutline" => Social.euroOutline
-    , "euro" => Social.euro
-    , "facebookOutline" => Social.facebookOutline
-    , "facebook" => Social.facebook
-    , "foursquareOutline" => Social.foursquareOutline
-    , "foursquare" => Social.foursquare
-    , "freebsdDevil" => Social.freebsdDevil
-    , "githubOutline" => Social.githubOutline
-    , "github" => Social.github
-    , "googleOutline" => Social.googleOutline
-    , "google" => Social.google
-    , "googleplusOutline" => Social.googleplusOutline
-    , "googleplus" => Social.googleplus
-    , "hackernewsOutline" => Social.hackernewsOutline
-    , "hackernews" => Social.hackernews
-    , "html5Outline" => Social.html5Outline
-    , "html5" => Social.html5
-    , "instagramOutline" => Social.instagramOutline
-    , "instagram" => Social.instagram
-    , "javascriptOutline" => Social.javascriptOutline
-    , "javascript" => Social.javascript
-    , "linkedinOutline" => Social.linkedinOutline
-    , "linkedin" => Social.linkedin
-    , "markdown" => Social.markdown
-    , "nodejs" => Social.nodejs
-    , "octocat" => Social.octocat
-    , "pinterestOutline" => Social.pinterestOutline
-    , "pinterest" => Social.pinterest
-    , "python" => Social.python
-    , "redditOutline" => Social.redditOutline
-    , "reddit" => Social.reddit
-    , "rssOutline" => Social.rssOutline
-    , "rss" => Social.rss
-    , "sass" => Social.sass
-    , "skypeOutline" => Social.skypeOutline
-    , "skype" => Social.skype
-    , "snapchatOutline" => Social.snapchatOutline
-    , "snapchat" => Social.snapchat
-    , "tumblrOutline" => Social.tumblrOutline
-    , "tumblr" => Social.tumblr
-    , "tux" => Social.tux
-    , "twitchOutline" => Social.twitchOutline
-    , "twitch" => Social.twitch
-    , "twitterOutline" => Social.twitterOutline
-    , "twitter" => Social.twitter
-    , "usdOutline" => Social.usdOutline
-    , "usd" => Social.usd
-    , "vimeoOutline" => Social.vimeoOutline
-    , "vimeo" => Social.vimeo
-    , "whatsappOutline" => Social.whatsappOutline
-    , "whatsapp" => Social.whatsapp
-    , "windowsOutline" => Social.windowsOutline
-    , "windows" => Social.windows
-    , "wordpressOutline" => Social.wordpressOutline
-    , "wordpress" => Social.wordpress
-    , "yahooOutline" => Social.yahooOutline
-    , "yahoo" => Social.yahoo
-    , "yenOutline" => Social.yenOutline
-    , "yen" => Social.yen
-    , "youtubeOutline" => Social.youtubeOutline
-    , "youtube" => Social.youtube
+    [ pair "androidOutline" Social.androidOutline
+    , pair "android" Social.android
+    , pair "angularOutline" Social.angularOutline
+    , pair "angular" Social.angular
+    , pair "appleOutline" Social.appleOutline
+    , pair "apple" Social.apple
+    , pair "bitcoinOutline" Social.bitcoinOutline
+    , pair "bitcoin" Social.bitcoin
+    , pair "bufferOutline" Social.bufferOutline
+    , pair "buffer" Social.buffer
+    , pair "chromeOutline" Social.chromeOutline
+    , pair "chrome" Social.chrome
+    , pair "codepenOutline" Social.codepenOutline
+    , pair "codepen" Social.codepen
+    , pair "css3Outline" Social.css3Outline
+    , pair "css3" Social.css3
+    , pair "designernewsOutline" Social.designernewsOutline
+    , pair "designernews" Social.designernews
+    , pair "dribbbleOutline" Social.dribbbleOutline
+    , pair "dribbble" Social.dribbble
+    , pair "dropboxOutline" Social.dropboxOutline
+    , pair "dropbox" Social.dropbox
+    , pair "euroOutline" Social.euroOutline
+    , pair "euro" Social.euro
+    , pair "facebookOutline" Social.facebookOutline
+    , pair "facebook" Social.facebook
+    , pair "foursquareOutline" Social.foursquareOutline
+    , pair "foursquare" Social.foursquare
+    , pair "freebsdDevil" Social.freebsdDevil
+    , pair "githubOutline" Social.githubOutline
+    , pair "github" Social.github
+    , pair "googleOutline" Social.googleOutline
+    , pair "google" Social.google
+    , pair "googleplusOutline" Social.googleplusOutline
+    , pair "googleplus" Social.googleplus
+    , pair "hackernewsOutline" Social.hackernewsOutline
+    , pair "hackernews" Social.hackernews
+    , pair "html5Outline" Social.html5Outline
+    , pair "html5" Social.html5
+    , pair "instagramOutline" Social.instagramOutline
+    , pair "instagram" Social.instagram
+    , pair "javascriptOutline" Social.javascriptOutline
+    , pair "javascript" Social.javascript
+    , pair "linkedinOutline" Social.linkedinOutline
+    , pair "linkedin" Social.linkedin
+    , pair "markdown" Social.markdown
+    , pair "nodejs" Social.nodejs
+    , pair "octocat" Social.octocat
+    , pair "pinterestOutline" Social.pinterestOutline
+    , pair "pinterest" Social.pinterest
+    , pair "python" Social.python
+    , pair "redditOutline" Social.redditOutline
+    , pair "reddit" Social.reddit
+    , pair "rssOutline" Social.rssOutline
+    , pair "rss" Social.rss
+    , pair "sass" Social.sass
+    , pair "skypeOutline" Social.skypeOutline
+    , pair "skype" Social.skype
+    , pair "snapchatOutline" Social.snapchatOutline
+    , pair "snapchat" Social.snapchat
+    , pair "tumblrOutline" Social.tumblrOutline
+    , pair "tumblr" Social.tumblr
+    , pair "tux" Social.tux
+    , pair "twitchOutline" Social.twitchOutline
+    , pair "twitch" Social.twitch
+    , pair "twitterOutline" Social.twitterOutline
+    , pair "twitter" Social.twitter
+    , pair "usdOutline" Social.usdOutline
+    , pair "usd" Social.usd
+    , pair "vimeoOutline" Social.vimeoOutline
+    , pair "vimeo" Social.vimeo
+    , pair "whatsappOutline" Social.whatsappOutline
+    , pair "whatsapp" Social.whatsapp
+    , pair "windowsOutline" Social.windowsOutline
+    , pair "windows" Social.windows
+    , pair "wordpressOutline" Social.wordpressOutline
+    , pair "wordpress" Social.wordpress
+    , pair "yahooOutline" Social.yahooOutline
+    , pair "yahoo" Social.yahoo
+    , pair "yenOutline" Social.yenOutline
+    , pair "yen" Social.yen
+    , pair "youtubeOutline" Social.youtubeOutline
+    , pair "youtube" Social.youtube
     ]
